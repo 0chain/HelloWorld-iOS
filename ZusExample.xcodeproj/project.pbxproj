@@ -15,6 +15,12 @@
 		4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DA295C7DDE00724F32 /* VultViewModel.swift */; };
 		4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DE295C7E5600724F32 /* NetworkConfig.swift */; };
 		4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578E1295C7F5A00724F32 /* zcncore.xcframework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */; };
+		4B7578E8295C82D900724F32 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E7295C82D900724F32 /* Utils.swift */; };
+		4B7578EB295C88EC00724F32 /* ZcncoreWalletCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EA295C88EC00724F32 /* ZcncoreWalletCallback.swift */; };
+		4B7578ED295C896500724F32 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EC295C896500724F32 /* Wallet.swift */; };
+		4B7578EF295CA88700724F32 /* libbls384_256.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578EE295CA88700724F32 /* libbls384_256.a */; };
+		4B7578F2295CAD9100724F32 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Int.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +34,12 @@
 		4B7578DA295C7DDE00724F32 /* VultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VultViewModel.swift; sourceTree = "<group>"; };
 		4B7578DE295C7E5600724F32 /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 		4B7578E1295C7F5A00724F32 /* zcncore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = zcncore.xcframework; sourceTree = "<group>"; };
+		4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcnCoreManager.swift; sourceTree = "<group>"; };
+		4B7578E7295C82D900724F32 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		4B7578EA295C88EC00724F32 /* ZcncoreWalletCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreWalletCallback.swift; sourceTree = "<group>"; };
+		4B7578EC295C896500724F32 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		4B7578EE295CA88700724F32 /* libbls384_256.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbls384_256.a; sourceTree = "<group>"; };
+		4B7578F1295CAD9100724F32 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +48,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */,
+				4B7578EF295CA88700724F32 /* libbls384_256.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
+				4B7578EC295C896500724F32 /* Wallet.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -108,6 +122,8 @@
 			children = (
 				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
 				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
+				4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */,
+				4B7578EA295C88EC00724F32 /* ZcncoreWalletCallback.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -115,8 +131,10 @@
 		4B7578D6295C7D5900724F32 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4B7578F0295CAD8700724F32 /* Extension */,
 				4B7578E0295C7F5A00724F32 /* GoSDK */,
 				4B7578D7295C7D5F00724F32 /* Resources */,
+				4B7578E7295C82D900724F32 /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -133,9 +151,18 @@
 		4B7578E0295C7F5A00724F32 /* GoSDK */ = {
 			isa = PBXGroup;
 			children = (
+				4B7578EE295CA88700724F32 /* libbls384_256.a */,
 				4B7578E1295C7F5A00724F32 /* zcncore.xcframework */,
 			);
 			path = GoSDK;
+			sourceTree = "<group>";
+		};
+		4B7578F0295CAD8700724F32 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578F1295CAD9100724F32 /* Int.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,10 +235,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7578EB295C88EC00724F32 /* ZcncoreWalletCallback.swift in Sources */,
 				4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */,
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
+				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* ContentView.swift in Sources */,
+				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
+				4B7578F2295CAD9100724F32 /* Int.swift in Sources */,
+				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,6 +391,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZusExample/Utils/Resources/Sdk",
+					"$(PROJECT_DIR)/ZusExample/Utils/GoSDK",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
@@ -401,6 +434,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZusExample/Utils/Resources/Sdk",
+					"$(PROJECT_DIR)/ZusExample/Utils/GoSDK",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
