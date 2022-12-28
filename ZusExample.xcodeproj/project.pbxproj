@@ -52,10 +52,11 @@
 		4B7578C1295C7D0B00724F32 /* ZusExample */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
-				4B7578C4295C7D0B00724F32 /* ContentView.swift */,
-				4B7578C6295C7D0D00724F32 /* Assets.xcassets */,
-				4B7578C8295C7D0D00724F32 /* ZusExample.entitlements */,
+				4B7578D6295C7D5900724F32 /* Utils */,
+				4B7578D5295C7D4C00724F32 /* ViewModel */,
+				4B7578D4295C7D4900724F32 /* Model */,
+				4B7578D3295C7D4600724F32 /* View */,
+				4B7578D2295C7D4300724F32 /* App */,
 				4B7578C9295C7D0D00724F32 /* Preview Content */,
 			);
 			path = ZusExample;
@@ -67,6 +68,53 @@
 				4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4B7578D2295C7D4300724F32 /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4B7578D3295C7D4600724F32 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4B7578D4295C7D4900724F32 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4B7578D5295C7D4C00724F32 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
+				4B7578C4295C7D0B00724F32 /* ContentView.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4B7578D6295C7D5900724F32 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578D7295C7D5F00724F32 /* Resources */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4B7578D7295C7D5F00724F32 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578C6295C7D0D00724F32 /* Assets.xcassets */,
+				4B7578C8295C7D0D00724F32 /* ZusExample.entitlements */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ZusExample/ZusExample.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ZusExample/Utils/Resources/ZusExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZusExample/Preview Content\"";
@@ -299,7 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ZusExample/ZusExample.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ZusExample/Utils/Resources/ZusExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZusExample/Preview Content\"";
