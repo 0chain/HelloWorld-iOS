@@ -13,8 +13,8 @@
 		4B7578CB295C7D0D00724F32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */; };
 		4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578D8295C7DA900724F32 /* BoltViewModel.swift */; };
 		4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DA295C7DDE00724F32 /* VultViewModel.swift */; };
-		4B7578DD295C7E1B00724F32 /* GosdkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DC295C7E1B00724F32 /* GosdkManager.swift */; };
 		4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DE295C7E5600724F32 /* NetworkConfig.swift */; };
+		4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578E1295C7F5A00724F32 /* zcncore.xcframework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +26,8 @@
 		4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4B7578D8295C7DA900724F32 /* BoltViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoltViewModel.swift; sourceTree = "<group>"; };
 		4B7578DA295C7DDE00724F32 /* VultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VultViewModel.swift; sourceTree = "<group>"; };
-		4B7578DC295C7E1B00724F32 /* GosdkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GosdkManager.swift; sourceTree = "<group>"; };
 		4B7578DE295C7E5600724F32 /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
+		4B7578E1295C7F5A00724F32 /* zcncore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = zcncore.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +108,6 @@
 			children = (
 				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
 				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
-				4B7578DC295C7E1B00724F32 /* GosdkManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -115,6 +115,7 @@
 		4B7578D6295C7D5900724F32 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4B7578E0295C7F5A00724F32 /* GoSDK */,
 				4B7578D7295C7D5F00724F32 /* Resources */,
 			);
 			path = Utils;
@@ -127,6 +128,14 @@
 				4B7578C8295C7D0D00724F32 /* ZusExample.entitlements */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4B7578E0295C7F5A00724F32 /* GoSDK */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578E1295C7F5A00724F32 /* zcncore.xcframework */,
+			);
+			path = GoSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,7 +213,6 @@
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* ContentView.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
-				4B7578DD295C7E1B00724F32 /* GosdkManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -313,6 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -343,9 +353,13 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZusExample/Utils/Resources/Sdk",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = network.zus.ZusExample;
@@ -381,9 +395,13 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZusExample/Utils/Resources/Sdk",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = network.zus.ZusExample;

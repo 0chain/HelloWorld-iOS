@@ -1,0 +1,12 @@
+framework module "Zcncore" {
+	header "ref.h"
+    header "Zcncore.objc.h"
+    header "Common.objc.h"
+    header "Sdk.objc.h"
+    header "Zbox.objc.h"
+    header "Zboxapi.objc.h"
+    header "Universe.objc.h"
+    header "Zcncore.h"
+
+    export *
+}
