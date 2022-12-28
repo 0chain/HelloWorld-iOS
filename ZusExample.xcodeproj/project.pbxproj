@@ -11,6 +11,10 @@
 		4B7578C5295C7D0B00724F32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C4295C7D0B00724F32 /* ContentView.swift */; };
 		4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578C6295C7D0D00724F32 /* Assets.xcassets */; };
 		4B7578CB295C7D0D00724F32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */; };
+		4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578D8295C7DA900724F32 /* BoltViewModel.swift */; };
+		4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DA295C7DDE00724F32 /* VultViewModel.swift */; };
+		4B7578DD295C7E1B00724F32 /* GosdkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DC295C7E1B00724F32 /* GosdkManager.swift */; };
+		4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DE295C7E5600724F32 /* NetworkConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		4B7578C6295C7D0D00724F32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B7578C8295C7D0D00724F32 /* ZusExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZusExample.entitlements; sourceTree = "<group>"; };
 		4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4B7578D8295C7DA900724F32 /* BoltViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoltViewModel.swift; sourceTree = "<group>"; };
+		4B7578DA295C7DDE00724F32 /* VultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VultViewModel.swift; sourceTree = "<group>"; };
+		4B7578DC295C7E1B00724F32 /* GosdkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GosdkManager.swift; sourceTree = "<group>"; };
+		4B7578DE295C7E5600724F32 /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +81,8 @@
 		4B7578D2295C7D4300724F32 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
+				4B7578C4295C7D0B00724F32 /* ContentView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -87,6 +97,7 @@
 		4B7578D4295C7D4900724F32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -94,8 +105,9 @@
 		4B7578D5295C7D4C00724F32 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
-				4B7578C4295C7D0B00724F32 /* ContentView.swift */,
+				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
+				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
+				4B7578DC295C7E1B00724F32 /* GosdkManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -187,8 +199,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */,
+				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
+				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* ContentView.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
+				4B7578DD295C7E1B00724F32 /* GosdkManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
