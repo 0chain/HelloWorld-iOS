@@ -51,9 +51,37 @@ class BoltViewModel:NSObject, ObservableObject {
             self.sendZCN(to: "6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3", amount: 5000000)
             self.presentSendView = true
         case .receive:
+            self.createAllocation()
             self.presentReceiveView = true
         case .faucet:
             self.receiveFaucet()
+        }
+    }
+    
+    func createAllocation() {
+        DispatchQueue.global().async {
+            var error: NSError?
+            
+            do {
+                
+                let txObj =  ZcncoreNewTransaction(self,"0",0,&error)
+                
+                if let error = error { throw error }
+
+                guard let wallet = Utils.wallet else { return }
+                
+                let request = ZcncoreCreateAllocationRequest()
+                request.dataShards = 2
+                request.parityShards = 2
+                request.size = 2147483648
+                request.expiration = 11111
+                request.owner = wallet.client_id
+                request.ownerPublicKey = wallet.client_key
+
+                try txObj?.createAllocation(request, lock: "10000000000", fee: "0")
+            } catch let error {
+                self.onTransactionFailed(error: error.localizedDescription)
+            }
         }
     }
     
@@ -143,7 +171,7 @@ extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
             self.onTransactionFailed(error: t?.getTransactionError() ?? "error: \(status)")
             return
         }
-        
+        try? txObj.verify()
         self.onTransactionComplete(t: txObj)
     }
     
