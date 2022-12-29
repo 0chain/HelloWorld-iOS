@@ -19,12 +19,12 @@ struct BoltHome: View {
                     .scaledToFit()
                     .frame(width: gr.size.width/6)
                     .aspectRatio(2, contentMode: .fit)
-
+                
                 AvailableBalanceBlock()
                 
-           //     WalletActionStack(width: gr.size.width)
+                WalletActionStack(width: gr.size.width)
                 
-            //    RecentTrancationsTable()
+                //    RecentTrancationsTable()
                 
             }
         }

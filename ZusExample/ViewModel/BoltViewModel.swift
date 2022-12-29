@@ -14,6 +14,9 @@ class BoltViewModel:NSObject, ObservableObject {
     @Published var balance: Double = 0.0
     @Published var balanceUSD: String = "$ 0.00"
 
+    @Published var presentReceiveView: Bool = false
+    @Published var presentSendView: Bool = false
+
     var cancellable = Set<AnyCancellable>()
     
     override init() {
@@ -37,7 +40,34 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func walletAction(_ action: WalletActionType) {
-        
+        switch action {
+        case .send:
+            self.presentSendView = true
+        case .receive:
+            self.presentReceiveView = true
+        case .faucet:
+            self.receiveFaucet()
+        }
+    }
+    
+    func receiveFaucet() {
+        DispatchQueue.global().async {
+            var error: NSError?
+            
+            do {
+                
+                let txObj =  ZcncoreNewTransaction(self,"0",0,&error)
+                
+                if let error = error { throw error }
+
+                try txObj?.executeSmartContract("6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3",
+                                               methodName: "pour",
+                                               input: "{}",
+                                               val: "10000000000")
+            } catch let error {
+                self.onTransactionFailed(error: error.localizedDescription)
+            }
+        }
     }
     
     func sendZCN(to clientID: String, amount:Int) {
@@ -88,9 +118,10 @@ extension BoltViewModel: ZcncoreGetBalanceCallbackProtocol {
               let balance = try? JSONDecoder().decode(Balance.self, from: data) else {
                   return
               }
-        
-        self.balance = balance.balanceToken.rounded(toPlaces: 3)
-        self.balanceUSD = balance.usd
+        DispatchQueue.main.async {
+            self.balance = balance.balanceToken.rounded(toPlaces: 3)
+            self.balanceUSD = balance.usd
+        }
     }
 }
 

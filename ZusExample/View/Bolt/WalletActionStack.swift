@@ -21,7 +21,7 @@ struct WalletActionStack: View {
         .frame(height:width/4)
         .background(Color.white)
         .cornerRadius(12)
-        .shadow(color: .gray, radius: 75, x: 0, y: 0)
+        .shadow(color: .init(white: 0.6), radius: 75, x: 0, y: 0)
         .padding(.bottom,10)
     }
 }
@@ -41,8 +41,8 @@ struct WalletActionButton: View {
         VStack(spacing:15) {
             Image(button.image)
                 .resizable()
+                .aspectRatio(1, contentMode: .fit)
                 .frame(width: width/13)
-                .rotationEffect(.degrees(button == .receive ? 180 : 0))
             Text(button.title)
                 .font(.system(size: 13, weight: .semibold))
         }
@@ -66,9 +66,9 @@ enum WalletActionType: CaseIterable {
     
     var image: String {
         switch self {
-        case .send: return "up_arrow_icon"
-        case .receive: return "up_arrow_icon"
-        case .faucet: return ""
+        case .send: return "send"
+        case .receive: return "receive"
+        case .faucet: return "faucet"
         }
     }
 }
