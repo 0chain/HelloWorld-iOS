@@ -18,10 +18,15 @@
 		4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */; };
 		4B7578E8295C82D900724F32 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E7295C82D900724F32 /* Utils.swift */; };
 		4B7578ED295C896500724F32 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EC295C896500724F32 /* Wallet.swift */; };
-		4B7578F2295CAD9100724F32 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Int.swift */; };
+		4B7578F2295CAD9100724F32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Number.swift */; };
 		4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F5295CB9B100724F32 /* AppSelectionView.swift */; };
 		4B7578F8295CBA5100724F32 /* AppSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */; };
 		4B7578FA295CC70200724F32 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578F9295CC70200724F32 /* libbls.xcframework */; };
+		4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578FD295D3E9000724F32 /* BoltHome.swift */; };
+		4B757903295D3F0300724F32 /* AvailableBalanceBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */; };
+		4B757905295D412A00724F32 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757904295D412A00724F32 /* Balance.swift */; };
+		4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757906295D46EF00724F32 /* SwiftUI.swift */; };
+		4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757908295D4AA100724F32 /* WalletActionStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,10 +43,15 @@
 		4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcnCoreManager.swift; sourceTree = "<group>"; };
 		4B7578E7295C82D900724F32 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		4B7578EC295C896500724F32 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
-		4B7578F1295CAD9100724F32 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		4B7578F1295CAD9100724F32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		4B7578F5295CB9B100724F32 /* AppSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionView.swift; sourceTree = "<group>"; };
 		4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionBox.swift; sourceTree = "<group>"; };
 		4B7578F9295CC70200724F32 /* libbls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libbls.xcframework; sourceTree = "<group>"; };
+		4B7578FD295D3E9000724F32 /* BoltHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoltHome.swift; sourceTree = "<group>"; };
+		4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableBalanceBlock.swift; sourceTree = "<group>"; };
+		4B757904295D412A00724F32 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		4B757906295D46EF00724F32 /* SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI.swift; sourceTree = "<group>"; };
+		4B757908295D4AA100724F32 /* WalletActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletActionStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +119,9 @@
 		4B7578D3295C7D4600724F32 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */,
+				4B757901295D3EF300724F32 /* Common */,
+				4B757900295D3EEF00724F32 /* Vult */,
+				4B7578FF295D3EEC00724F32 /* Bolt */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -119,6 +131,7 @@
 			children = (
 				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
 				4B7578EC295C896500724F32 /* Wallet.swift */,
+				4B757904295D412A00724F32 /* Balance.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,7 +178,8 @@
 		4B7578F0295CAD8700724F32 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578F1295CAD9100724F32 /* Int.swift */,
+				4B7578F1295CAD9100724F32 /* Number.swift */,
+				4B757906295D46EF00724F32 /* SwiftUI.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -173,6 +187,7 @@
 		4B7578F3295CB0FB00724F32 /* Bolt */ = {
 			isa = PBXGroup;
 			children = (
+				4B7578FD295D3E9000724F32 /* BoltHome.swift */,
 			);
 			path = Bolt;
 			sourceTree = "<group>";
@@ -182,6 +197,30 @@
 			children = (
 			);
 			path = Vult;
+			sourceTree = "<group>";
+		};
+		4B7578FF295D3EEC00724F32 /* Bolt */ = {
+			isa = PBXGroup;
+			children = (
+				4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */,
+				4B757908295D4AA100724F32 /* WalletActionStack.swift */,
+			);
+			path = Bolt;
+			sourceTree = "<group>";
+		};
+		4B757900295D3EEF00724F32 /* Vult */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vult;
+			sourceTree = "<group>";
+		};
+		4B757901295D3EF300724F32 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,17 +293,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B757903295D3F0300724F32 /* AvailableBalanceBlock.swift in Sources */,
 				4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */,
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
+				4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */,
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
+				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
-				4B7578F2295CAD9100724F32 /* Int.swift in Sources */,
+				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
 				4B7578F8295CBA5100724F32 /* AppSelectionBox.swift in Sources */,
 				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
+				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */,
+				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

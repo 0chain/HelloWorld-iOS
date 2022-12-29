@@ -10,12 +10,10 @@ import SwiftUI
 struct AppSelectionBox: View {
     private var icon: String
     private var width: CGFloat
-    private var action: () -> (Void)
     
-    internal init(icon: String, width: CGFloat, action: @escaping () -> (Void)) {
+    internal init(icon: String, width: CGFloat) {
         self.icon = icon
         self.width = width
-        self.action = action
     }
     
     var body: some View {
@@ -25,19 +23,16 @@ struct AppSelectionBox: View {
             .frame(width: width)
             .padding(width/10)
             .background(RoundedRectangle(cornerRadius: 16).fill(.background).shadow(radius: 5))
-            .onTapGesture(perform: action)
     }
 }
 
 struct AppSelectionBox_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AppSelectionBox(icon: "bolt", width: 350,action: {})
-                .padding(100)
-            
-            AppSelectionBox(icon: "vult", width: 350,action: {})
-                .padding(100)
+            AppSelectionBox(icon: "bolt", width: 350)
+            AppSelectionBox(icon: "vult", width: 350)
         }
+        .padding(100)
         .previewLayout(.sizeThatFits)
     }
 }

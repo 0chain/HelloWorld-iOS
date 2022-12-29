@@ -6,12 +6,19 @@
 //
 
 import Foundation
+import Zcncore
 
 final class Utils: NSObject {
     private let scope : String = "0chain"
     private static let defaults = UserDefaults.standard
     private static let logFilePath = "/zcn.text"
     
+    static var zcnUsdRate: Double {
+        var error: NSError? = nil
+        var usd: Double = 0.0
+        ZcncoreGetZcnUSDInfo(&usd, &error)
+        return usd
+    }
 }
 
 extension Utils {

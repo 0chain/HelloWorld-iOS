@@ -9,15 +9,21 @@ import SwiftUI
 
 struct AppSelectionView: View {
     var body: some View {
-        GeometryReader { gr in
-            VStack(alignment: .center) {
-                Spacer()
-                AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7, action: {})
-                Spacer()
-                AppSelectionBox(icon: "vult",width: gr.size.width * 0.7, action: {})
-                Spacer()
+        NavigationView {
+            GeometryReader { gr in
+                VStack(alignment: .center) {
+                    Spacer()
+                    AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
+                        .destination(destination: BoltHome())
+                    
+                    Spacer()
+                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
+                        .destination(destination: BoltHome())
+                    
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
         }
     }
 }
