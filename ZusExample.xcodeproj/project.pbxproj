@@ -27,6 +27,7 @@
 		4B757905295D412A00724F32 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757904295D412A00724F32 /* Balance.swift */; };
 		4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757906295D46EF00724F32 /* SwiftUI.swift */; };
 		4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757908295D4AA100724F32 /* WalletActionStack.swift */; };
+		4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF739A5295DBB22006E44D8 /* Transaction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		4B757904295D412A00724F32 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		4B757906295D46EF00724F32 /* SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI.swift; sourceTree = "<group>"; };
 		4B757908295D4AA100724F32 /* WalletActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletActionStack.swift; sourceTree = "<group>"; };
+		4BF739A5295DBB22006E44D8 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
 				4B7578EC295C896500724F32 /* Wallet.swift */,
 				4B757904295D412A00724F32 /* Balance.swift */,
+				4BF739A5295DBB22006E44D8 /* Transaction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
 				4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */,
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
+				4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */,
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,

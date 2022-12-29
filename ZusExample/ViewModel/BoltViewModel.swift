@@ -17,6 +17,8 @@ class BoltViewModel:NSObject, ObservableObject {
     @Published var presentReceiveView: Bool = false
     @Published var presentSendView: Bool = false
 
+    @Published var transactions: Transactions = []
+    
     var cancellable = Set<AnyCancellable>()
     
     override init() {
@@ -42,6 +44,7 @@ class BoltViewModel:NSObject, ObservableObject {
     func walletAction(_ action: WalletActionType) {
         switch action {
         case .send:
+            self.sendZCN(to: "6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3", amount: 5000000)
             self.presentSendView = true
         case .receive:
             self.presentReceiveView = true
@@ -119,7 +122,7 @@ extension BoltViewModel: ZcncoreGetBalanceCallbackProtocol {
                   return
               }
         DispatchQueue.main.async {
-            self.balance = balance.balanceToken.rounded(toPlaces: 3)
+            self.balance = balance.balanceToken
             self.balanceUSD = balance.usd
         }
     }
@@ -146,6 +149,22 @@ extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
 
 extension BoltViewModel: ZcncoreGetInfoCallbackProtocol {
     func onInfoAvailable(_ op: Int, status: Int, info: String?, err: String?) {
+        guard status == ZcncoreStatusSuccess,
+              let response = info,
+              let data = response.data(using: .utf8,allowLossyConversion: true) else {
+            print(err ?? "onInfoAvailable Error")
+            return
+        }
         
+        do {
+            if op == ZcncoreOpStorageSCGetTransactions {
+                let txns = try JSONDecoder().decode(Transactions.self, from: data)
+                var transactions = self.transactions
+                transactions.append(contentsOf: txns)
+                self.transactions = Array(Set(transactions))
+            }
+        } catch let error {
+            print(error)
+        }
     }
 }

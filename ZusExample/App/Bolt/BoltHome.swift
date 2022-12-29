@@ -24,12 +24,15 @@ struct BoltHome: View {
                 
                 WalletActionStack(width: gr.size.width)
                 
-                //    RecentTrancationsTable()
+                List(boltVM.transactions) { txn in
+                    Text(txn.hash)
+                }
                 
             }
         }
         .padding(20)
         .environmentObject(boltVM)
+        .onAppear(perform: boltVM.getTransactions)
     }
     
 }
