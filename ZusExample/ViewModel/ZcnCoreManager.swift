@@ -8,15 +8,15 @@
 import Foundation
 import Zcncore
 
-final class ZcncoreManager: NSObject {
+class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
     private let network: NetworkConfig = NetworkConfig.bcv1
     
-    func initialize(_ init: Bool = true,_ wallet: Bool = true) {
+    func initialize() {
         do {
             try initialiseSDK()
-            try setWalletInfo()
+            setWalletInfo()
         } catch let error {
             print(error.localizedDescription)
         }
@@ -46,16 +46,54 @@ final class ZcncoreManager: NSObject {
         }
     }
     
-    func setWalletInfo(wallet: String? = nil) throws -> Bool {
+    func createWallet() {
         var error: NSError? = nil
-        let wallet = wallet ?? Utils.get(key: .walletJSON) as? String
-        ZcncoreSetWalletInfo(wallet, false,&error)
-        if let error = error {
-            throw error
-        }
+        ZcncoreCreateWallet(self, &error)
         
-        return true
+        if let error = error {
+            self.onWalletCreateFailed(error: error.localizedDescription)
+        }
     }
     
+    func setWalletInfo() {
+        var error: NSError? = nil
+        let wallet = Utils.get(key: .walletJSON) as? String
+        ZcncoreSetWalletInfo(wallet, false,&error)
+        if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    func onWalletCreateComplete(wallet: Wallet) {
+        
+    }
+    
+    func onWalletCreateFailed(error: String) {
+        
+    }
+    
+}
+
+extension ZcncoreManager: ZcncoreWalletCallbackProtocol {
+    func onWalletCreateComplete(_ status: Int, wallet: String?, err: String?) {
+        DispatchQueue.main.async {
+            guard status == ZcncoreStatusSuccess,
+                  err == "",
+                  let walletJSON = wallet,
+                  let w = try? JSONDecoder().decode(Wallet.self, from: Data(walletJSON.utf8)) else {
+                self.onWalletCreateFailed(error: err ?? "Something went wrong :(")
+                return
+            }
+            
+            print(w.debugDescription())
+            Utils.set(walletJSON, for: .walletJSON)
+            Utils.wallet = w
+            
+            self.setWalletInfo()
+            
+            self.onWalletCreateComplete(wallet: w)
+        }
+    }
 }
 

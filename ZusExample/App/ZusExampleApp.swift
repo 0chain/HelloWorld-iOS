@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct ZusExampleApp: App {
+    @AppStorage(Utils.UserDefaultsKey.walletJSON.rawValue) var wallet: String = ""
+    @StateObject var zcncoreVM: ZcncoreManager = ZcncoreManager.shared
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if wallet.isEmpty {
+                    CreateWalletView(zcncoreVM: zcncoreVM)
+                } else {
+                    AppSelectionView()
+                }
+            }
+            .onAppear(perform: zcncoreVM.initialize)
         }
     }
 }

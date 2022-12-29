@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */; };
-		4B7578C5295C7D0B00724F32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C4295C7D0B00724F32 /* ContentView.swift */; };
+		4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */; };
 		4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578C6295C7D0D00724F32 /* Assets.xcassets */; };
 		4B7578CB295C7D0D00724F32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */; };
 		4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578D8295C7DA900724F32 /* BoltViewModel.swift */; };
@@ -17,16 +17,17 @@
 		4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578E1295C7F5A00724F32 /* zcncore.xcframework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */; };
 		4B7578E8295C82D900724F32 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E7295C82D900724F32 /* Utils.swift */; };
-		4B7578EB295C88EC00724F32 /* ZcncoreWalletCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EA295C88EC00724F32 /* ZcncoreWalletCallback.swift */; };
 		4B7578ED295C896500724F32 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EC295C896500724F32 /* Wallet.swift */; };
-		4B7578EF295CA88700724F32 /* libbls384_256.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578EE295CA88700724F32 /* libbls384_256.a */; };
 		4B7578F2295CAD9100724F32 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Int.swift */; };
+		4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F5295CB9B100724F32 /* AppSelectionView.swift */; };
+		4B7578F8295CBA5100724F32 /* AppSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */; };
+		4B7578FA295CC70200724F32 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578F9295CC70200724F32 /* libbls.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4B7578BF295C7D0B00724F32 /* ZusExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZusExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZusExampleApp.swift; sourceTree = "<group>"; };
-		4B7578C4295C7D0B00724F32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
 		4B7578C6295C7D0D00724F32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B7578C8295C7D0D00724F32 /* ZusExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZusExample.entitlements; sourceTree = "<group>"; };
 		4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -36,10 +37,11 @@
 		4B7578E1295C7F5A00724F32 /* zcncore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = zcncore.xcframework; sourceTree = "<group>"; };
 		4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcnCoreManager.swift; sourceTree = "<group>"; };
 		4B7578E7295C82D900724F32 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		4B7578EA295C88EC00724F32 /* ZcncoreWalletCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreWalletCallback.swift; sourceTree = "<group>"; };
 		4B7578EC295C896500724F32 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
-		4B7578EE295CA88700724F32 /* libbls384_256.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbls384_256.a; sourceTree = "<group>"; };
 		4B7578F1295CAD9100724F32 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		4B7578F5295CB9B100724F32 /* AppSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionView.swift; sourceTree = "<group>"; };
+		4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionBox.swift; sourceTree = "<group>"; };
+		4B7578F9295CC70200724F32 /* libbls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libbls.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */,
-				4B7578EF295CA88700724F32 /* libbls384_256.a in Frameworks */,
+				4B7578FA295CC70200724F32 /* libbls.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +100,8 @@
 				4B7578F4295CB10100724F32 /* Vult */,
 				4B7578F3295CB0FB00724F32 /* Bolt */,
 				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
-				4B7578C4295C7D0B00724F32 /* ContentView.swift */,
+				4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */,
+				4B7578F5295CB9B100724F32 /* AppSelectionView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -106,6 +109,7 @@
 		4B7578D3295C7D4600724F32 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -125,7 +129,6 @@
 				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
 				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
 				4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */,
-				4B7578EA295C88EC00724F32 /* ZcncoreWalletCallback.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -153,7 +156,7 @@
 		4B7578E0295C7F5A00724F32 /* GoSDK */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578EE295CA88700724F32 /* libbls384_256.a */,
+				4B7578F9295CC70200724F32 /* libbls.xcframework */,
 				4B7578E1295C7F5A00724F32 /* zcncore.xcframework */,
 			);
 			path = GoSDK;
@@ -251,16 +254,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B7578EB295C88EC00724F32 /* ZcncoreWalletCallback.swift in Sources */,
 				4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */,
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
-				4B7578C5295C7D0B00724F32 /* ContentView.swift in Sources */,
+				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Int.swift in Sources */,
+				4B7578F8295CBA5100724F32 /* AppSelectionBox.swift in Sources */,
 				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
+				4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
