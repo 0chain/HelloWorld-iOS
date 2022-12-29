@@ -28,6 +28,10 @@ class BoltViewModel:NSObject, ObservableObject {
             .map { _ in }
             .sink(receiveValue: getBalance)
             .store(in: &cancellable)
+        
+        if let balance = Utils.get(key: .balance) as? Int64 {
+            self.balance = balance.tokens
+        }
     }
     
     deinit {
@@ -121,6 +125,7 @@ extension BoltViewModel: ZcncoreGetBalanceCallbackProtocol {
               let balance = try? JSONDecoder().decode(Balance.self, from: data) else {
                   return
               }
+        Utils.set(value, for: .balance)
         DispatchQueue.main.async {
             self.balance = balance.balanceToken
             self.balanceUSD = balance.usd
@@ -143,7 +148,7 @@ extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
     }
     
     func onVerifyComplete(_ t: ZcncoreTransaction?, status: Int) {
-        
+        self.getBalance()
     }
 }
 

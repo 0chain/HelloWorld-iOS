@@ -21,7 +21,7 @@ struct WalletActionStack: View {
         .frame(height:width/4)
         .background(Color.white)
         .cornerRadius(12)
-        .shadow(color: .init(white: 0.6), radius: 75, x: 0, y: 0)
+        .shadow(color: .init(white: 0.75), radius: 75, x: 0, y: 0)
         .padding(.bottom,10)
     }
 }

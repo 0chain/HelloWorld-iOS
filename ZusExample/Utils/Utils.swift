@@ -42,6 +42,7 @@ extension Utils {
     enum UserDefaultsKey: String, CaseIterable {
         case wallet
         case walletJSON
+        case balance
     }
     
     

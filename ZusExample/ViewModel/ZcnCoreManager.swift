@@ -11,7 +11,7 @@ import Zcncore
 class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
-    private let network: NetworkConfig = NetworkConfig.bcv1
+    private let network: NetworkConfig = NetworkConfig.demoZus
     
     func initialize() {
         do {
