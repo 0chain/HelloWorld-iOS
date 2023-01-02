@@ -74,6 +74,16 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
+    func downloadImage(path: String) {
+        do {
+            try VultViewModel.zboxAllocationHandle?.downloadFile(path,
+                                                                 localPath: "",
+                                                                statusCb: self)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
     func listDir(at path: String = "/") {
         do {
             guard let allocation = VultViewModel.zboxAllocationHandle else { return }
@@ -86,7 +96,7 @@ class VultViewModel: NSObject, ObservableObject {
             guard let data = jsonStr.data(using: .utf8) else { return }
             
             let files = try JSONDecoder().decode(Directory.self, from: data).list
-
+            
             DispatchQueue.main.async {
                 self.files = files
             }
