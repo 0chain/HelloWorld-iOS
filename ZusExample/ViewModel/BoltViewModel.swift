@@ -102,14 +102,15 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func getTransactions() {
-        var error: NSError? = nil
-        let clientId = Utils.wallet?.client_id
-        
-        ZcncoreGetTransactions(clientId, nil, nil, "desc", 20, 0, self , &error)
-        ZcncoreGetTransactions(nil, clientId, nil, "desc", 20, 0, self , &error)
-        
-        if let error = error { print(error.localizedDescription) }
-        
+        DispatchQueue.global().async {
+            var error: NSError? = nil
+            let clientId = Utils.wallet?.client_id
+            
+            ZcncoreGetTransactions(clientId, nil, nil, "desc", 20, 0, self , &error)
+            ZcncoreGetTransactions(nil, clientId, nil, "desc", 20, 0, self , &error)
+            
+            if let error = error { print(error.localizedDescription) }
+        }
     }
     
     func onTransactionComplete(t: ZcncoreTransaction) {

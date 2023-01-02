@@ -26,7 +26,8 @@
 		4B757905295D412A00724F32 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757904295D412A00724F32 /* Balance.swift */; };
 		4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757906295D46EF00724F32 /* SwiftUI.swift */; };
 		4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757908295D4AA100724F32 /* WalletActionStack.swift */; };
-		4BEEDB942962D82D00A154E0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB932962D82D00A154E0 /* String.swift */; };
+		4BEEDB962963190E00A154E0 /* Allocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB952963190E00A154E0 /* Allocation.swift */; };
+		4BEEDB9829631CE000A154E0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9729631CE000A154E0 /* File.swift */; };
 		4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF739A5295DBB22006E44D8 /* Transaction.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +53,8 @@
 		4B757904295D412A00724F32 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		4B757906295D46EF00724F32 /* SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI.swift; sourceTree = "<group>"; };
 		4B757908295D4AA100724F32 /* WalletActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletActionStack.swift; sourceTree = "<group>"; };
-		4BEEDB932962D82D00A154E0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		4BEEDB952963190E00A154E0 /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
+		4BEEDB9729631CE000A154E0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		4BF739A5295DBB22006E44D8 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,8 @@
 				4B7578EC295C896500724F32 /* Wallet.swift */,
 				4B757904295D412A00724F32 /* Balance.swift */,
 				4BF739A5295DBB22006E44D8 /* Transaction.swift */,
+				4BEEDB952963190E00A154E0 /* Allocation.swift */,
+				4BEEDB9729631CE000A154E0 /* File.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,6 +303,7 @@
 				4B757903295D3F0300724F32 /* AvailableBalanceBlock.swift in Sources */,
 				4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */,
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
+				4BEEDB962963190E00A154E0 /* Allocation.swift in Sources */,
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
 				4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */,
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
@@ -312,6 +317,7 @@
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */,
+				4BEEDB9829631CE000A154E0 /* File.swift in Sources */,
 				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
