@@ -51,7 +51,7 @@ class BoltViewModel:NSObject, ObservableObject {
             self.sendZCN(to: "6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3", amount: 5000000)
             self.presentSendView = true
         case .receive:
-            VultViewModel().createAllocation()
+            VultViewModel().getAllocation()
             self.presentReceiveView = true
         case .faucet:
             self.receiveFaucet()
