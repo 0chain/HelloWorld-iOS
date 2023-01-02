@@ -13,6 +13,7 @@ class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
     
     @Published var allocations: Allocations = []
+    @Published var files: Files = []
     
     func createAllocation() {
         DispatchQueue.global().async {
@@ -73,11 +74,25 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func listFiles() {
+    func listDir(at path: String = "/") {
         do {
+            guard let allocation = VultViewModel.zboxAllocationHandle else { return }
             
-        } catch {
+            var error: NSError? = nil
+            let jsonStr = allocation.listDir(path, error: &error)
             
+            if let error = error { throw error }
+            
+            guard let data = jsonStr.data(using: .utf8) else { return }
+            
+            let files = try JSONDecoder().decode(Directory.self, from: data).list
+
+            DispatchQueue.main.async {
+                self.files = files
+            }
+            
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
 }
