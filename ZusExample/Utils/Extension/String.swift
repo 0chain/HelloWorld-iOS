@@ -15,4 +15,9 @@ extension String {
     var isValidNumber: Bool {
         return Double(self) != 0.0
     }
+    
+    var doubleValue: Double {
+        return Double(self) ?? 0.0
+    }
+    
 }
