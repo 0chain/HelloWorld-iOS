@@ -51,41 +51,9 @@ class BoltViewModel:NSObject, ObservableObject {
             self.sendZCN(to: "6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3", amount: 5000000)
             self.presentSendView = true
         case .receive:
-            self.createAllocation()
             self.presentReceiveView = true
         case .faucet:
             self.receiveFaucet()
-        }
-    }
-    
-    func createAllocation() {
-        DispatchQueue.global().async {
-            var error: NSError?
-            
-            do {
-                
-                let txObj =  ZcncoreNewTransaction(self,"0",0,&error)
-                
-                if let error = error { throw error }
-
-                guard let wallet = Utils.wallet else { return }
-                
-                let request = ZcncoreCreateAllocationRequest()
-                request.dataShards = 2
-                request.parityShards = 2
-                request.size = 2147483648
-                request.expiration = Int64(Date().timeIntervalSince1970 + 2592000)
-                request.owner = wallet.client_id
-                request.ownerPublicKey = wallet.client_key
-                request.readPriceMin = 0
-                request.readPriceMax = 184467440737095516
-                request.writePriceMin = 0
-                request.writePriceMax = 184467440737095516
-
-                try txObj?.createAllocation(request, lock: "10000000000", fee: "0")
-            } catch let error {
-                self.onTransactionFailed(error: error.localizedDescription)
-            }
         }
     }
     
