@@ -11,8 +11,10 @@ import Zcncore
 class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
-    private let network: NetworkConfig = NetworkConfig.demoZus
-    
+
+    private static let network: NetworkConfig = NetworkConfig.demoZus
+    static var zboxStorageSDKHandle : SdkStorageSDK? = nil
+
     func initialize() {
         do {
             try initialiseSDK()
@@ -22,7 +24,7 @@ class ZcncoreManager: NSObject, ObservableObject {
         }
     }
     
-    private func configString() throws -> String? {
+    class func configString() throws -> String? {
         let encoder: JSONEncoder = JSONEncoder()
         let data = try encoder.encode(self.network)
         return String(data: data, encoding: .utf8)
@@ -33,13 +35,13 @@ class ZcncoreManager: NSObject, ObservableObject {
         let logPath = Utils.logPath()
         ZcncoreSetLogFile(logPath.path, true)
         
-        let jsonData = try JSONEncoder().encode(self.network)
+        let jsonData = try JSONEncoder().encode(ZcncoreManager.network)
         let configString = String(data: jsonData, encoding: .utf8)!
         let wallet = Utils.get(key: .walletJSON) as? String
         
         ZcncoreInit(configString, &error)
         
-        SdkInitStorageSDK(wallet, configString, &error)
+        ZcncoreManager.zboxStorageSDKHandle = SdkInitStorageSDK(wallet, configString, &error)
         
         if let error = error {
             throw error
@@ -96,4 +98,3 @@ extension ZcncoreManager: ZcncoreWalletCallbackProtocol {
         }
     }
 }
-

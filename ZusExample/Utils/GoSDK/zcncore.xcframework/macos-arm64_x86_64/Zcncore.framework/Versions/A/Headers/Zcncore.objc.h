@@ -1160,6 +1160,8 @@ FOUNDATION_EXPORT NSString* _Nonnull ZcncoreGetWalletAddrFromEthMnemonic(NSStrin
 // skipped function GetWalletBalance with unsupported parameter or return types
 
 
+FOUNDATION_EXPORT NSString* _Nonnull ZcncoreGetWalletBalanceMobile(NSString* _Nullable id_, NSError* _Nullable* _Nullable error);
+
 /**
  * GetWalletClientID -- given a walletstr return ClientID
  */
