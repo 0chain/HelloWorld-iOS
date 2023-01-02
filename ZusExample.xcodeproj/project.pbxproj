@@ -20,13 +20,13 @@
 		4B7578ED295C896500724F32 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EC295C896500724F32 /* Wallet.swift */; };
 		4B7578F2295CAD9100724F32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Number.swift */; };
 		4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F5295CB9B100724F32 /* AppSelectionView.swift */; };
-		4B7578F8295CBA5100724F32 /* AppSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */; };
 		4B7578FA295CC70200724F32 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578F9295CC70200724F32 /* libbls.xcframework */; };
 		4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578FD295D3E9000724F32 /* BoltHome.swift */; };
 		4B757903295D3F0300724F32 /* AvailableBalanceBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */; };
 		4B757905295D412A00724F32 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757904295D412A00724F32 /* Balance.swift */; };
 		4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757906295D46EF00724F32 /* SwiftUI.swift */; };
 		4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757908295D4AA100724F32 /* WalletActionStack.swift */; };
+		4BEEDB942962D82D00A154E0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB932962D82D00A154E0 /* String.swift */; };
 		4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF739A5295DBB22006E44D8 /* Transaction.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,13 +46,13 @@
 		4B7578EC295C896500724F32 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		4B7578F1295CAD9100724F32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		4B7578F5295CB9B100724F32 /* AppSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionView.swift; sourceTree = "<group>"; };
-		4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionBox.swift; sourceTree = "<group>"; };
 		4B7578F9295CC70200724F32 /* libbls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libbls.xcframework; sourceTree = "<group>"; };
 		4B7578FD295D3E9000724F32 /* BoltHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoltHome.swift; sourceTree = "<group>"; };
 		4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableBalanceBlock.swift; sourceTree = "<group>"; };
 		4B757904295D412A00724F32 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		4B757906295D46EF00724F32 /* SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI.swift; sourceTree = "<group>"; };
 		4B757908295D4AA100724F32 /* WalletActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletActionStack.swift; sourceTree = "<group>"; };
+		4BEEDB932962D82D00A154E0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4BF739A5295DBB22006E44D8 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +183,7 @@
 			children = (
 				4B7578F1295CAD9100724F32 /* Number.swift */,
 				4B757906295D46EF00724F32 /* SwiftUI.swift */,
+				4BEEDB932962D82D00A154E0 /* String.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -221,7 +222,6 @@
 		4B757901295D3EF300724F32 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578F7295CBA5100724F32 /* AppSelectionBox.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -307,7 +307,7 @@
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
-				4B7578F8295CBA5100724F32 /* AppSelectionBox.swift in Sources */,
+				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,
 				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
@@ -369,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +422,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -453,7 +453,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -496,7 +496,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (

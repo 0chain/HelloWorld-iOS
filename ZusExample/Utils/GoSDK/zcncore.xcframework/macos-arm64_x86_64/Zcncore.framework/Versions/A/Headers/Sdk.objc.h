@@ -54,10 +54,31 @@
  * CancelAllocation - cancel allocation by ID
  */
 - (NSString* _Nonnull)cancelAllocation:(NSString* _Nullable)allocationID error:(NSError* _Nullable* _Nullable)error;
-// skipped method StorageSDK.CreateAllocation with unsupported parameter or return types
+/**
+ * CreateAllocation - creating new allocation
+## Inputs
+  - name: allocation name
+  - datashards: number of data shards, effects upload and download speeds
+  - parityshards: number of parity shards, effects availability
+  - size: size of space reserved on blobbers
+  - expiration: duration to allocation expiration
+  - lock: lock write pool with given number of tokens
+ */
+- (ZboxAllocation* _Nullable)createAllocation:(NSString* _Nullable)name datashards:(long)datashards parityshards:(long)parityshards size:(int64_t)size expiration:(int64_t)expiration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+/**
+ * CreateAllocationWithBlobbers - creating new allocation with list of blobbers
 
-// skipped method StorageSDK.CreateAllocationWithBlobbers with unsupported parameter or return types
-
+		## Inputs
+	  - name: allocation name
+	  - datashards: number of data shards, effects upload and download speeds
+	  - parityshards: number of parity shards, effects availability
+	  - size: size of space reserved on blobbers
+	  - expiration: duration to allocation expiration
+		- lock: lock write pool with given number of tokens
+		- blobberUrls: concat blobber urls with comma. leave it as empty if you don't have any preferred blobbers
+		- blobberIds: concat blobber ids with comma. leave it as empty if you don't have any preferred blobbers
+ */
+- (ZboxAllocation* _Nullable)createAllocationWithBlobbers:(NSString* _Nullable)name datashards:(long)datashards parityshards:(long)parityshards size:(int64_t)size expiration:(int64_t)expiration lock:(NSString* _Nullable)lock blobberUrls:(NSString* _Nullable)blobberUrls blobberIds:(NSString* _Nullable)blobberIds error:(NSError* _Nullable* _Nullable)error;
 /**
  * FinalizeAllocation - finalize allocation
  */
