@@ -41,4 +41,11 @@ extension Int64 {
     var tokens: Double {
         return ZcncoreConvertToToken(self)
     }
+    
+    var formattedByteCount: String {
+        let formatter = ByteCountFormatter()
+        formatter.countStyle = .file
+        formatter.isAdaptive = true
+        return formatter.string(fromByteCount: self)
+    }
 }
