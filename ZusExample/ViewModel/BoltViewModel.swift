@@ -28,6 +28,10 @@ class BoltViewModel:NSObject, ObservableObject {
             .map { _ in }
             .sink(receiveValue: getBalance)
             .store(in: &cancellable)
+        
+        if let balance = Utils.get(key: .balance) as? Int64 {
+            self.balance = balance.tokens
+        }
     }
     
     deinit {
@@ -90,14 +94,15 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func getTransactions() {
-        var error: NSError? = nil
-        let clientId = Utils.wallet?.client_id
-        
-        ZcncoreGetTransactions(clientId, nil, nil, "desc", 20, 0, self , &error)
-        ZcncoreGetTransactions(nil, clientId, nil, "desc", 20, 0, self , &error)
-        
-        if let error = error { print(error.localizedDescription) }
-        
+        DispatchQueue.global().async {
+            var error: NSError? = nil
+            let clientId = Utils.wallet?.client_id
+            
+            ZcncoreGetTransactions(clientId, nil, nil, "desc", 20, 0, self , &error)
+            ZcncoreGetTransactions(nil, clientId, nil, "desc", 20, 0, self , &error)
+            
+            if let error = error { print(error.localizedDescription) }
+        }
     }
     
     func onTransactionComplete(t: ZcncoreTransaction) {
@@ -121,6 +126,7 @@ extension BoltViewModel: ZcncoreGetBalanceCallbackProtocol {
               let balance = try? JSONDecoder().decode(Balance.self, from: data) else {
                   return
               }
+        Utils.set(value, for: .balance)
         DispatchQueue.main.async {
             self.balance = balance.balanceToken
             self.balanceUSD = balance.usd
@@ -138,12 +144,12 @@ extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
             self.onTransactionFailed(error: t?.getTransactionError() ?? "error: \(status)")
             return
         }
-        
+        try? txObj.verify()
         self.onTransactionComplete(t: txObj)
     }
     
     func onVerifyComplete(_ t: ZcncoreTransaction?, status: Int) {
-        
+        self.getBalance()
     }
 }
 

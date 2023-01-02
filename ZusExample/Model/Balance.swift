@@ -9,10 +9,18 @@ import Foundation
 import Zcncore
 
 struct Balance: Codable, Equatable {
+    
     private var txn: String?
     private var round: Int64?
     private var _balance: Int64?
     private var error: String?
+    
+    internal init(txn: String? = nil, round: Int64? = nil,balance _balance: Int64? = nil, error: String? = nil) {
+        self.txn = txn
+        self.round = round
+        self._balance = _balance
+        self.error = error
+    }
     
     enum CodingKeys: String, CodingKey {
         case txn
