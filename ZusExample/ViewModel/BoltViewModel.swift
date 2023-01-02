@@ -8,6 +8,7 @@
 import Foundation
 import Zcncore
 import Combine
+import UIKit
 
 class BoltViewModel:NSObject, ObservableObject {
     
@@ -62,6 +63,7 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func receiveFaucet() {
+        self.presentSendView = false
         DispatchQueue.global().async {
             var error: NSError?
             
@@ -101,6 +103,10 @@ class BoltViewModel:NSObject, ObservableObject {
         }
     }
     
+    func copyClientID() {
+        UIPasteboard.general.string = Utils.wallet?.client_key ?? ""
+    }
+    
     func getTransactions() {
         DispatchQueue.global().async {
             var error: NSError? = nil
@@ -121,8 +127,10 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func onTransactionFailed(error: String) {
-        self.alertMessage = error
-        self.presentErrorAlert = true
+        DispatchQueue.main.async {
+            self.alertMessage = error
+            self.presentErrorAlert = true
+        }
     }
     
 }

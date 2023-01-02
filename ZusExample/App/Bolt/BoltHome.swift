@@ -32,9 +32,12 @@ struct BoltHome: View {
         .environmentObject(boltVM)
         .onAppear(perform: boltVM.getTransactions)
         .alert("Recieve ZCN", isPresented: $boltVM.presentReceiveView,actions: {recievAlert}) {
-            Text("Use your client ID to recieve zcn to your wallet - \(Utils.wallet?.client_id ?? "")")
+            Text("Wallet address\n\(Utils.wallet?.client_id ?? "")")
         }
         .alert("Send ZCN", isPresented: $boltVM.presentSendView,actions: {sendAlert})
+        .alert("Error", isPresented: $boltVM.presentErrorAlert) {
+            Text(boltVM.alertMessage)
+        }
     }
     
     @ViewBuilder func TransactionRow(index:Int,txn:Transaction) -> some View {
@@ -60,15 +63,8 @@ struct BoltHome: View {
     }
     
     @ViewBuilder var recievAlert: some View {
-        Button("OK") {
-            
-        }
-        Button("Copy") {
-            UIPasteboard.general.string = Utils.wallet?.client_id ?? ""
-        }
+        Button("Copy",action:boltVM.copyClientID)
     }
-    
-    
     
 }
 
