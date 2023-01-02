@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias var Allocations = [Allocation]
+typealias Allocations = [Allocation]
 
 struct Allocation: Codable {
   var id,name: String?

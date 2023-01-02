@@ -9,7 +9,7 @@ import Foundation
 import Zcncore
 import Combine
 
-class VultViewModel: NSObject {
+class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
     
     @Published var allocations: Allocations = []
@@ -50,6 +50,7 @@ class VultViewModel: NSObject {
                     
                     allocation.addStats(allocationStatsModel)
                 }
+                
                 DispatchQueue.main.async {
                     self.allocations = allocationsList
                 }
@@ -59,4 +60,50 @@ class VultViewModel: NSObject {
         }
     }
     
+    func uploadImage(fromPath: String, thumbnailPath: String, toPath: String) {
+        do {
+            try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: "",
+                                                               localPath: "",
+                                                               remotePath: "/",
+                                                               fileAttrs: nil,
+                                                               thumbnailpath: "",
+                                                               statusCb: self)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func listFiles() {
+        do {
+            
+        } catch {
+            
+        }
+    }
+}
+
+extension VultViewModel: ZboxStatusCallbackMockedProtocol {
+    func commitMetaCompleted(_ request: String?, response: String?, err: Error?) {
+        
+    }
+    
+    func completed(_ allocationId: String?, filePath: String?, filename: String?, mimetype: String?, size: Int, op: Int) {
+        
+    }
+    
+    func error(_ allocationID: String?, filePath: String?, op: Int, err: Error?) {
+        
+    }
+    
+    func inProgress(_ allocationId: String?, filePath: String?, op: Int, completedBytes: Int, data: Data?) {
+        
+    }
+    
+    func repairCompleted(_ filesRepaired: Int) {
+        
+    }
+    
+    func started(_ allocationId: String?, filePath: String?, op: Int, totalBytes: Int) {
+        
+    }
 }
