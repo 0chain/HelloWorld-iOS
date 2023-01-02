@@ -43,6 +43,7 @@ extension Utils {
         case wallet
         case walletJSON
         case balance
+        case allocationID
     }
     
     
