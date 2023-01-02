@@ -8,6 +8,7 @@
 import Foundation
 import Zcncore
 import Combine
+import UIKit
 
 class BoltViewModel:NSObject, ObservableObject {
     
@@ -15,7 +16,12 @@ class BoltViewModel:NSObject, ObservableObject {
     @Published var balanceUSD: String = "$ 0.00"
 
     @Published var presentReceiveView: Bool = false
+    @Published var presentErrorAlert: Bool = false
     @Published var presentSendView: Bool = false
+
+    @Published var alertMessage: String = ""
+    @Published var clientID: String = ""
+    @Published var amount: String = ""
 
     @Published var transactions: Transactions = []
     
@@ -48,7 +54,6 @@ class BoltViewModel:NSObject, ObservableObject {
     func walletAction(_ action: WalletActionType) {
         switch action {
         case .send:
-            self.sendZCN(to: "6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3", amount: 5000000)
             self.presentSendView = true
         case .receive:
             self.presentReceiveView = true
@@ -58,6 +63,7 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func receiveFaucet() {
+        self.presentSendView = false
         DispatchQueue.global().async {
             var error: NSError?
             
@@ -77,7 +83,7 @@ class BoltViewModel:NSObject, ObservableObject {
         }
     }
     
-    func sendZCN(to clientID: String, amount:Int) {
+    func sendZCN() {
         DispatchQueue.global(qos: .default).async {
             do {
                 var error: NSError? = nil
@@ -85,12 +91,20 @@ class BoltViewModel:NSObject, ObservableObject {
                 
                 if let error = error { throw error }
                 
-                try txObj?.send(clientID, val: amount.stringValue, desc: "")
+                try txObj?.send(self.clientID, val: ZcncoreConvertToValue(Double(self.amount) ?? 0.0), desc: "")
                 
+                DispatchQueue.main.async {
+                    self.clientID = ""
+                    self.amount = ""
+                }
             } catch let error {
                 self.onTransactionFailed(error: error.localizedDescription)
             }
         }
+    }
+    
+    func copyClientID() {
+        UIPasteboard.general.string = Utils.wallet?.client_key ?? ""
     }
     
     func getTransactions() {
@@ -106,7 +120,6 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func onTransactionComplete(t: ZcncoreTransaction) {
-        
     }
     
     func onVerifyComplete(t: ZcncoreTransaction) {
@@ -114,7 +127,10 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func onTransactionFailed(error: String) {
-       
+        DispatchQueue.main.async {
+            self.alertMessage = error
+            self.presentErrorAlert = true
+        }
     }
     
 }
@@ -139,12 +155,19 @@ extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
     
     func onTransactionComplete(_ t: ZcncoreTransaction?, status: Int) {
         
+        DispatchQueue.main.async {
+            let transaction = Transaction(hash: t?.getTransactionHash() ?? "", creationDate: Date().timeIntervalSince1970 * 1e9, status: status == 0 ? 1 : 2)
+            self.transactions.append(transaction)
+            self.objectWillChange.send()
+        }
+        
         guard status == ZcncoreStatusSuccess,
               let txObj = t else {
             self.onTransactionFailed(error: t?.getTransactionError() ?? "error: \(status)")
             return
         }
         try? txObj.verify()
+        
         self.onTransactionComplete(t: txObj)
     }
     
