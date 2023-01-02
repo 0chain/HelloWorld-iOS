@@ -166,7 +166,9 @@ extension BoltViewModel: ZcncoreGetInfoCallbackProtocol {
                 let txns = try JSONDecoder().decode(Transactions.self, from: data)
                 var transactions = self.transactions
                 transactions.append(contentsOf: txns)
-                self.transactions = Array(Set(transactions))
+                DispatchQueue.main.async {
+                    self.transactions = Array(Set(transactions))
+                }
             }
         } catch let error {
             print(error)

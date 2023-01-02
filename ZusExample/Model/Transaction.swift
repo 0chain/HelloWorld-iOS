@@ -12,32 +12,34 @@ typealias Transactions = [Transaction]
 struct Transaction: Codable, Identifiable, Hashable {
     let id: Int
     let createdAt, updatedAt: String
-    let hash, blockHash, version, clientID: String
-    let toClientID, transactionData: String
-    let value: Int64
+    let deletedAt: String?
+    let hash, blockHash: String
+    let round: Int
+    let version, clientID, toClientID, transactionData: String
+    let value: Int
     let signature: String
     let creationDate: Double
-    let fee, transactionType: Int
+    let fee, nonce, transactionType: Int
     let transactionOutput, outputHash: String
     let status: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "ID"
         case createdAt = "CreatedAt"
         case updatedAt = "UpdatedAt"
-        case hash = "Hash"
-        case blockHash = "BlockHash"
-        case version = "Version"
-        case clientID = "ClientId"
-        case toClientID = "ToClientId"
-        case transactionData = "TransactionData"
-        case value = "Value"
-        case signature = "Signature"
-        case creationDate = "CreationDate"
-        case fee = "Fee"
-        case transactionType = "TransactionType"
-        case transactionOutput = "TransactionOutput"
-        case outputHash = "OutputHash"
-        case status = "Status"
+        case deletedAt = "DeletedAt"
+        case hash
+        case blockHash = "block_hash"
+        case round, version
+        case clientID = "client_id"
+        case toClientID = "to_client_id"
+        case transactionData = "transaction_data"
+        case value, signature
+        case creationDate = "creation_date"
+        case fee, nonce
+        case transactionType = "transaction_type"
+        case transactionOutput = "transaction_output"
+        case outputHash = "output_hash"
+        case status
     }
 }
