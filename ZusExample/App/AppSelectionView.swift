@@ -56,7 +56,7 @@ struct AppSelectionView: View {
                     .opacity(allocationButton ? 0.5 : 1)
                 
                 if allocationButton {
-                    Text("Create Allocation")
+                    Text(zcncoreVM.vultButtonTitle)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(3)

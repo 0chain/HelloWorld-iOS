@@ -13,7 +13,7 @@ struct AllocationDetailsBlock: View {
     var body: some View {
             HStack(spacing:20) {
                 VStack(alignment: .leading) {
-                    Text(vultVM.allocation.name ?? "Allocation")
+                    Text(vultVM.allocation.defaultName)
                         .font(.system(size: 14, weight: .semibold))
                     Text(vultVM.allocation.expirationDate?.formattedUNIX ?? "")
                         .font(.system(size: 12, weight: .semibold))

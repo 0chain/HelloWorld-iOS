@@ -11,10 +11,28 @@ struct CreateWalletView: View {
     @ObservedObject var zcncoreVM: ZcncoreManager
     
     var body: some View {
-        VStack {
-            Button("Create Wallet", action: zcncoreVM.createWallet)
+        GeometryReader { gr in
+            VStack(alignment: .center) {
+                Spacer()
+                Image("zus")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: gr.size.width * 0.7)
+                Spacer()
+                Button(action: zcncoreVM.createWallet) {
+                    Text("Create Wallet")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .bold()
+                }
+                Spacer()
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity)
         }
-        .padding()
     }
 }
 
