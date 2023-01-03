@@ -21,6 +21,7 @@ struct ZusExampleApp: App {
                     AppSelectionView()
                 }
             }
+            .environmentObject(zcncoreVM)
             .onAppear(perform: zcncoreVM.initialize)
         }
     }

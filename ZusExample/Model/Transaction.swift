@@ -14,6 +14,28 @@ struct Transaction: Codable, Identifiable, Hashable,Comparable {
         return rhs.creationDate < lhs.creationDate
     }
     
+    /// <#Description#>
+    /// - Parameters:
+    ///   - id: <#id description#>
+    ///   - createdAt: <#createdAt description#>
+    ///   - updatedAt: <#updatedAt description#>
+    ///   - devaredAt: <#devaredAt description#>
+    ///   - hash: <#hash description#>
+    ///   - blockHash: <#blockHash description#>
+    ///   - round: <#round description#>
+    ///   - version: <#version description#>
+    ///   - clientID: <#clientID description#>
+    ///   - toClientID: <#toClientID description#>
+    ///   - transactionData: <#transactionData description#>
+    ///   - value: <#value description#>
+    ///   - signature: <#signature description#>
+    ///   - creationDate: <#creationDate description#>
+    ///   - fee: <#fee description#>
+    ///   - nonce: <#nonce description#>
+    ///   - transactionType: <#transactionType description#>
+    ///   - transactionOutput: <#transactionOutput description#>
+    ///   - outputHash: <#outputHash description#>
+    ///   - status: <#status description#>
     internal init(id: Int? = nil, createdAt: String? = nil, updatedAt: String? = nil, devaredAt: String? = nil, hash: String, blockHash: String = "", round: Int? = nil, version: String? = nil, clientID: String? = nil, toClientID: String? = nil, transactionData: String? = nil, value: Int? = nil, signature: String? = nil, creationDate: Double, fee: Int? = nil, nonce: Int? = nil, transactionType: Int? = nil, transactionOutput: String? = nil, outputHash: String? = nil, status: Int) {
         self.id = id
         self.createdAt = createdAt

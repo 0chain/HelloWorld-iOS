@@ -8,7 +8,7 @@
 import Foundation
 import Zcncore
 import Combine
-import UIKit
+import SwiftUI
 
 class BoltViewModel:NSObject, ObservableObject {
     
@@ -35,7 +35,7 @@ class BoltViewModel:NSObject, ObservableObject {
             .sink(receiveValue: getBalance)
             .store(in: &cancellable)
         
-        if let balance = Utils.get(key: .balance) as? Int64 {
+        if let balance = Utils.get(key: .balance) as? Int {
             self.balance = balance.tokens
         }
     }
@@ -104,7 +104,7 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func copyClientID() {
-        UIPasteboard.general.string = Utils.wallet?.client_key ?? ""
+        PasteBoard.general.setString(Utils.wallet?.client_key)
     }
     
     func getTransactions() {

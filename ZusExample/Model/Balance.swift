@@ -11,11 +11,11 @@ import Zcncore
 struct Balance: Codable, Equatable {
     
     private var txn: String?
-    private var round: Int64?
-    private var _balance: Int64?
+    private var round: Int?
+    private var _balance: Int?
     private var error: String?
     
-    internal init(txn: String? = nil, round: Int64? = nil,balance _balance: Int64? = nil, error: String? = nil) {
+    internal init(txn: String? = nil, round: Int? = nil,balance _balance: Int? = nil, error: String? = nil) {
         self.txn = txn
         self.round = round
         self._balance = _balance
@@ -29,13 +29,13 @@ struct Balance: Codable, Equatable {
         case error
     }
     
-    var balance: Int64 {
+    var balance: Int {
         return _balance ?? 0
     }
     
     var balanceToken: Double {
-        get { return ZcncoreConvertToToken(balance) }
-        set { self._balance = Int64(exactly: ZcncoreConvertToValue(newValue).doubleValue) }
+        get { return balance.tokens }
+        set { self._balance = Int(exactly: ZcncoreConvertToValue(newValue).doubleValue) }
     }
     
     var usd: String {
