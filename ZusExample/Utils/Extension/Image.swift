@@ -41,7 +41,7 @@ extension UIPasteboard {
     }
 }
 extension Image {
-    convenience init(_ image: ZCNImage) {
+    init(_ image: ZCNImage) {
         self.init(uiImage: image)
     }
 }
