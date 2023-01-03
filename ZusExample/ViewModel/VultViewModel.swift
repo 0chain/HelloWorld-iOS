@@ -124,11 +124,18 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
     
     func completed(_ allocationId: String?, filePath: String?, filename: String?, mimetype: String?, size: Int, op: Int) {
         print("completed \(filePath) \(size.formattedByteCount)")
+        if let index = files.firstIndex(where: {$0.path == filePath}) {
+            files[index].completedBytes = size
+            files[index].status = .completed
+        }
         self.getAllocation()
     }
     
     func error(_ allocationID: String?, filePath: String?, op: Int, err: Error?) {
         print("error \(filePath) \(err?.localizedDescription)")
+        if let index = files.firstIndex(where: {$0.path == filePath}) {
+            files[index].status = .error
+        }
     }
     
     func inProgress(_ allocationId: String?, filePath: String?, op: Int, completedBytes: Int, data: Data?) {
@@ -149,6 +156,8 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
         file.path = filePath ?? ""
         file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
         file.size = totalBytes
+        file.completedBytes = 0
+        file.status = .progress
         self.files.append(file)
     }
     

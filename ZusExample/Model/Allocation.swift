@@ -43,5 +43,8 @@ struct Allocation: Codable {
     self.numFailedChallenges = model.numFailedChallenges
     self.latestClosedChallenge = model.latestClosedChallenge
   }
-    
+   
+    var allocationFraction: Double {
+        return Double(usedSize ?? 0)/Double(size ?? 1)
+    }
 }

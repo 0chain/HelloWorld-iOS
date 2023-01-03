@@ -24,6 +24,7 @@ struct AllocationActionStack: View {
             
             WalletActionBlock(icon: "allocation", "Allocation Details")
         }
+        .aspectRatio(2.4, contentMode: .fit)
         .shadow(color: .init(white: 0.95), radius: 100, x: 0, y: 0)
     }
     
@@ -37,8 +38,7 @@ struct AllocationActionStack: View {
                 Text(title.split(separator: " ")[0])
                 Text(title.split(separator: " ")[1])
             }
-            .frame(height: gr.size.width * 1.33)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity,maxHeight: .infinity)
             .font(.system(size: 13, weight: .semibold))
             .foregroundColor(.primary)
             .background(Color.white)
@@ -52,5 +52,6 @@ struct AllocationActionStack_Previews: PreviewProvider {
         AllocationActionStack()
             .environmentObject(VultViewModel())
             .background(Color.gray.opacity(0.1))
+            .previewLayout(.sizeThatFits)
     }
 }

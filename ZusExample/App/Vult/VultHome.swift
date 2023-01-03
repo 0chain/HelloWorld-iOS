@@ -16,11 +16,13 @@ struct VultHome: View {
             VStack(alignment: .leading) {
                 AllocationDetailsBlock()
                 AllocationActionStack()
+                
+                Text("All Files").bold()
+                
                 ScrollView(showsIndicators: false) {
                     ForEach(vultVM.files) { file in
-                        Text(file.name)
+                        FileRow(file: file)
                     }
-                    .listStyle(.plain)
                 }
             }
             .padding(22)
