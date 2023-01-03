@@ -35,7 +35,7 @@ class BoltViewModel:NSObject, ObservableObject {
             .sink(receiveValue: getBalance)
             .store(in: &cancellable)
         
-        if let balance = Utils.get(key: .balance) as? Int64 {
+        if let balance = Utils.get(key: .balance) as? Int {
             self.balance = balance.tokens
         }
     }

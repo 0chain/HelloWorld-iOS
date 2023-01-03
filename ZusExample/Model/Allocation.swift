@@ -12,7 +12,7 @@ typealias Allocations = [Allocation]
 struct Allocation: Codable {
   var id,name: String?
   var dataShards, parityShards, expirationDate: Int?
-  var size, usedSize, numOfWrites, numOfReads, totalChallenges: Int64?
+  var size, usedSize, numOfWrites, numOfReads, totalChallenges: Int?
   var numOpenChallenges, numSuccessChallenges, numFailedChallenges: Int?
   var latestClosedChallenge: String?
 

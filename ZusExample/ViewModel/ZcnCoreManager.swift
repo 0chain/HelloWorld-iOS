@@ -57,6 +57,19 @@ class ZcncoreManager: NSObject, ObservableObject {
         }
     }
     
+    func createAllocation() {
+        DispatchQueue.global().async {
+            do {
+                BoltViewModel().receiveFaucet()
+                let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation("Allocation", datashards: 2, parityshards: 2, size: 2147483648, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
+                VultViewModel.zboxAllocationHandle = allocation
+                Utils.set(allocation?.id_, for: .allocationID)
+            } catch let error {
+                print(error)
+            }
+        }
+    }
+    
     func setWalletInfo() {
         var error: NSError? = nil
         let wallet = Utils.get(key: .walletJSON) as? String

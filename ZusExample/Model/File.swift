@@ -20,11 +20,11 @@ class File: NSObject, Codable, Identifiable {
     var path: String = ""
     var lookupHash: String = ""
     var type: String = ""
-    var size: Int64 = 0
+    var size: Int = 0
     
-    var numBlocks : Int64? = 0
-    var actualSize : Int64? = 0
-    var actualNumBlocks : Int64? = 0
+    var numBlocks : Int? = 0
+    var actualSize : Int? = 0
+    var actualNumBlocks : Int? = 0
     var encryptionKey: String? = ""
     var createdAt: Double = 0
     var updatedAt: Double = 0
@@ -43,4 +43,22 @@ class File: NSObject, Codable, Identifiable {
         case  createdAt = "created_at"
         case  updatedAt = "updated_at"
     }
+    
+    var localThumbnailPath: URL {
+      return Utils.downloadedThumbnailPath.appendingPathComponent(self.path)
+    }
+    
+    var localUploadPath: URL {
+      return Utils.uploadPath.appendingPathComponent(self.path)
+    }
+    
+    var localFilePath: URL {
+        return Utils.downloadPath.appendingPathComponent(self.path)
+    }
+    
+    var isDownloaded: Bool {
+      return FileManager.default.fileExists(atPath: localFilePath.path)
+    }
+    
+    var completedBytes: Int = 0
 }

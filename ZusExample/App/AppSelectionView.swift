@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct AppSelectionView: View {
-    @State var present:Bool = false
-
+    @State var presentWalletDetails : Bool = false
+    @State var presentVultHome: Bool = false
+    
+    @AppStorage(Utils.UserDefaultsKey.allocationID.rawValue) var allocationID: String = ""
+    @EnvironmentObject var zcncoreVM: ZcncoreManager
+    
     var body: some View {
         NavigationView {
             GeometryReader { gr in
@@ -19,12 +23,20 @@ struct AppSelectionView: View {
                         .destination(destination: BoltHome())
                     
                     Spacer()
-                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
-                        .destination(destination: BoltHome())
+                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7,allocationButton: allocationID.isEmpty)
+                        .onTapGesture {
+                            if allocationID.isEmpty {
+                                zcncoreVM.createAllocation()
+                            } else {
+                                self.presentVultHome = true
+                            }
+                        }
                     
                     Spacer()
                     
                     WalletDetailsBlock(wallet: Utils.wallet!,width: gr.size.width * 0.7)
+                    
+                    NavigationLink(destination: VultHome(), isActive: $presentVultHome) { EmptyView() }
                     
                     Spacer()
                 }
@@ -34,20 +46,33 @@ struct AppSelectionView: View {
         }
     }
     
-    @ViewBuilder func AppSelectionBox(icon: String,width:CGFloat) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 16).fill(.background).frame(maxWidth: .infinity).shadow(radius: 5)
-            
-            Image(icon)
-                .resizable()
-                .aspectRatio(2, contentMode: .fit)
-                .padding(width/10)
+    @ViewBuilder func AppSelectionBox(icon: String,width:CGFloat,allocationButton:Bool = false) -> some View {
+        ZStack(alignment: .bottom) {
+            VStack {
+                Image(icon)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(width/10)
+                    .opacity(allocationButton ? 0.5 : 1)
+                
+                if allocationButton {
+                    Text("Create Allocation")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(3)
+                        .background(.blue)
+                }
+            }
         }
+        .frame(maxWidth: .infinity)
+        .background(.background)
+        .aspectRatio(2,contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(radius: 5)
     }
     
     
     @ViewBuilder func WalletDetailsBlock(wallet: Wallet,width:CGFloat) -> some View  {
-
+        
         VStack(alignment: .leading,spacing: 20) {
             HStack {
                 Text("Wallet Details")
@@ -55,9 +80,9 @@ struct AppSelectionView: View {
                     .bold()
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .rotationEffect(.degrees(present ? 90.0 : 0.0))
+                    .rotationEffect(.degrees(presentWalletDetails ? 90.0 : 0.0))
             }
-            if present {
+            if presentWalletDetails {
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack(alignment: .leading,spacing: 10) {
                         self.row(title: "Client ID: ", text: wallet.client_id)
@@ -73,7 +98,7 @@ struct AppSelectionView: View {
         .background(RoundedRectangle(cornerRadius: 16).fill(.background).shadow(radius: 5))
         .onTapGesture {
             withAnimation {
-                self.present.toggle()
+                self.presentWalletDetails.toggle()
             }
         }
     }
@@ -88,6 +113,17 @@ struct AppSelectionView: View {
 
 struct AppSelectionView_Previews: PreviewProvider {
     static var previews: some View {
+        let previewDefaults: UserDefaults = {
+            let defaults = UserDefaults.standard
+            let wallet = Wallet.init(client_id: "8378938937893893639", client_key: "397397639837", keys: [], mnemonics: "", version: "")
+            let data = try? JSONEncoder().encode(wallet)
+            defaults.set(data, forKey: Utils.UserDefaultsKey.wallet.rawValue)
+            defaults.set("", forKey: Utils.UserDefaultsKey.allocationID.rawValue)
+            return defaults
+        }()
+        
         AppSelectionView()
+            .environmentObject(ZcncoreManager())
+            .defaultAppStorage(previewDefaults)
     }
 }

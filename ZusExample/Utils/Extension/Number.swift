@@ -22,24 +22,22 @@ extension Int {
         let amount: Double = tokens * usd
         return amount
     }
+    
+    var formattedByteCount: String {
+        let formatter = ByteCountFormatter()
+        formatter.countStyle = .file
+        formatter.isAdaptive = true
+        return formatter.string(fromByteCount: Int64(self))
+    }
+    
+    var formattedUNIX: String {
+        return Date(timeIntervalSince1970: Double(self)).formatted()
+    }
 }
 
 extension Double {
     func rounded(toPlaces places:Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
-    }
-}
-
-extension Int64 {
-    var tokens: Double {
-        return ZcncoreConvertToToken(self)
-    }
-    
-    var formattedByteCount: String {
-        let formatter = ByteCountFormatter()
-        formatter.countStyle = .file
-        formatter.isAdaptive = true
-        return formatter.string(fromByteCount: self)
     }
 }
