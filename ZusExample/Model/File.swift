@@ -76,6 +76,8 @@ class File: NSObject, Codable, Identifiable {
       return FileManager.default.fileExists(atPath: localFilePath.path)
     }
     
+    var isUploaded: Bool = true
+    
     var completedBytes: Int = 0
     
     enum FileStatus {
@@ -90,6 +92,10 @@ class File: NSObject, Codable, Identifiable {
         case .progress: return "\(completedBytes/size) %"
         case .error: return "failed"
         }
+    }
+    
+    var fileDownloadPercent: String {
+        return "\(completedBytes/size) %"
     }
     
     var status: FileStatus = .completed

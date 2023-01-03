@@ -18,6 +18,9 @@ class VultViewModel: NSObject, ObservableObject {
     @Published var files: Files = []
     @Published var selectedPhoto: PhotosPickerItem? = nil
     
+    @Published var selectedFile: File? = nil
+    @Published var openFile: Bool = false
+    
     override init() {
         super.init()
         VultViewModel.zboxAllocationHandle = try? ZcncoreManager.zboxStorageSDKHandle?.getAllocation(Utils.get(key: .allocationID) as? String)
@@ -83,10 +86,10 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func downloadImage(path: String) {
+    func downloadImage(file: File) {
         do {
-            try VultViewModel.zboxAllocationHandle?.downloadFile(path,
-                                                                 localPath: "",
+            try VultViewModel.zboxAllocationHandle?.downloadFile(file.path,
+                                                                 localPath: file.localFilePath.path,
                                                                  statusCb: self)
         } catch let error {
             print(error.localizedDescription)
@@ -124,24 +127,33 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
     
     func completed(_ allocationId: String?, filePath: String?, filename: String?, mimetype: String?, size: Int, op: Int) {
         print("completed \(filePath) \(size.formattedByteCount)")
-        if let index = files.firstIndex(where: {$0.path == filePath}) {
-            files[index].completedBytes = size
-            files[index].status = .completed
+        DispatchQueue.main.async {
+            if let index = self.files.firstIndex(where: {$0.path == filePath}) {
+                self.files[index].completedBytes = size
+                self.files[index].status = .completed
+                if op == 0 {
+                    self.files[index].isUploaded = true
+                }
+            }
         }
         self.getAllocation()
     }
     
     func error(_ allocationID: String?, filePath: String?, op: Int, err: Error?) {
         print("error \(filePath) \(err?.localizedDescription)")
-        if let index = files.firstIndex(where: {$0.path == filePath}) {
-            files[index].status = .error
+        DispatchQueue.main.async {
+            if let index = self.files.firstIndex(where: {$0.path == filePath}) {
+                self.files[index].status = .error
+            }
         }
     }
     
     func inProgress(_ allocationId: String?, filePath: String?, op: Int, completedBytes: Int, data: Data?) {
         print("inProgress \(filePath) \(completedBytes.formattedByteCount)")
-        if let index = files.firstIndex(where: {$0.path == filePath}) {
-            files[index].completedBytes = completedBytes
+        DispatchQueue.main.async {
+            if let index = self.files.firstIndex(where: {$0.path == filePath}) {
+                self.files[index].completedBytes = completedBytes
+            }
         }
     }
     
@@ -151,14 +163,18 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
     
     func started(_ allocationId: String?, filePath: String?, op: Int, totalBytes: Int) {
         print("started \(filePath) \(totalBytes.formattedByteCount)")
-
-        let file = File()
-        file.path = filePath ?? ""
-        file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
-        file.size = totalBytes
-        file.completedBytes = 0
-        file.status = .progress
-        self.files.append(file)
+        if op == 0 {
+            let file = File()
+            file.path = filePath ?? ""
+            file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
+            file.size = totalBytes
+            file.completedBytes = 0
+            file.status = .progress
+            file.isUploaded = false
+            DispatchQueue.main.async {
+                self.files.append(file)
+            }
+        }
     }
     
 }

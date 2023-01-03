@@ -15,14 +15,13 @@ struct VultHome: View {
         GeometryReader { gr in
             VStack(alignment: .leading) {
                 AllocationDetailsBlock()
+                
                 AllocationActionStack()
                 
-                Text("All Files").bold()
+                FilesTable()
                 
-                ScrollView(showsIndicators: false) {
-                    ForEach(vultVM.files) { file in
-                        FileRow(file: file)
-                    }
+                NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile),isActive: $vultVM.openFile) {
+                    EmptyView()
                 }
             }
             .padding(22)

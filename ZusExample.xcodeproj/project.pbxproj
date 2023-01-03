@@ -29,8 +29,9 @@
 		4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */; };
 		4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */; };
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
-		4B75CB0A2964110F0046C0ED /* FileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB092964110F0046C0ED /* FileRow.swift */; };
 		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
+		4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
+		4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E329646F3000B00B5C /* PreviewController.swift */; };
 		4BEEDB942962D82D00A154E0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB932962D82D00A154E0 /* String.swift */; };
 		4BEEDB99296324B600A154E0 /* Allocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB952963190E00A154E0 /* Allocation.swift */; };
 		4BEEDB9A296324B800A154E0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9729631CE000A154E0 /* File.swift */; };
@@ -63,8 +64,9 @@
 		4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsBlock.swift; sourceTree = "<group>"; };
 		4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNProgressStyle.swift; sourceTree = "<group>"; };
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
-		4B75CB092964110F0046C0ED /* FileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRow.swift; sourceTree = "<group>"; };
 		4BA115D229645B3C00951E8B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		4BB813E02964687A00B00B5C /* FilesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTable.swift; sourceTree = "<group>"; };
+		4BB813E329646F3000B00B5C /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		4BEEDB932962D82D00A154E0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4BEEDB952963190E00A154E0 /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
 		4BEEDB9729631CE000A154E0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		4B7578D6295C7D5900724F32 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4BB813E229646F2900B00B5C /* SwiftUI */,
 				4B7578F0295CAD8700724F32 /* Extension */,
 				4B7578E0295C7F5A00724F32 /* GoSDK */,
 				4B7578D7295C7D5F00724F32 /* Resources */,
@@ -237,9 +240,17 @@
 				4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */,
 				4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */,
 				4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */,
-				4B75CB092964110F0046C0ED /* FileRow.swift */,
+				4BB813E02964687A00B00B5C /* FilesTable.swift */,
 			);
 			path = Vult;
+			sourceTree = "<group>";
+		};
+		4BB813E229646F2900B00B5C /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				4BB813E329646F3000B00B5C /* PreviewController.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,14 +337,15 @@
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
+				4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
 				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,
-				4B75CB0A2964110F0046C0ED /* FileRow.swift in Sources */,
 				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */,
 				4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */,
+				4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */,
 				4BEEDB9A296324B800A154E0 /* File.swift in Sources */,
 				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,
 				4BA115D329645B3C00951E8B /* Image.swift in Sources */,
