@@ -15,10 +15,12 @@ class VultViewModel: NSObject, ObservableObject {
     
     @Published var allocation: Allocation = Allocation()
     @Published var presentAllocationDetails: Bool = false
+    @Published var presentDocumentPicker: Bool = false
 
     @Published var files: Files = []
     @Published var selectedPhoto: PhotosPickerItem? = nil
-    
+    @Published var selectedDocument: URL? = nil
+
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
 
@@ -81,6 +83,38 @@ class VultViewModel: NSObject, ObservableObject {
                                                                        thumbnailpath: thumbnailPath.path,
                                                                        statusCb: self)
                 }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func uploadDocument(url: URL?) {
+        Task {
+            do {
+                guard let url = url else { return }
+                guard url.startAccessingSecurityScopedResource() else { return }
+                
+                let name = url.lastPathComponent
+                
+                let localPath = Utils.uploadPath.appendingPathComponent(name)
+                let thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
+                
+                let data = try Data(contentsOf: url)
+                let image = ZCNImage(data: data)
+                let pngData = image?.pngData()
+                try pngData?.write(to: localPath,options: .atomic)
+                
+                let thumbnailData = image?.jpegData(compressionQuality: 0.1)
+                try thumbnailData?.write(to: thumbnailPath)
+                
+                try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: Utils.tempPath(),
+                                                                   localPath: localPath.path,
+                                                                   remotePath: "/\(name)",
+                                                                   fileAttrs: nil,
+                                                                   thumbnailpath: thumbnailPath.path,
+                                                                   statusCb: self)
+                
             } catch let error {
                 print(error.localizedDescription)
             }

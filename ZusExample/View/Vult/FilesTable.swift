@@ -36,6 +36,7 @@ struct FilesTable: View {
             }
             Text(file.name)
                 .font(.system(size: 15, weight: .semibold))
+                .lineLimit(1)
             
             Spacer()
             
