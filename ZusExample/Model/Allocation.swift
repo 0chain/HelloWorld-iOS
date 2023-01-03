@@ -47,4 +47,12 @@ struct Allocation: Codable {
     var allocationFraction: Double {
         return Double(usedSize ?? 0)/Double(size ?? 1)
     }
+    
+    var defaultName: String {
+        if let name = self.name, !name.isEmpty {
+            return name
+        } else {
+            return "Allocation"
+        }
+    }
 }
