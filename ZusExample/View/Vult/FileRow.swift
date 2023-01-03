@@ -11,8 +11,8 @@ struct FileRow: View {
     @State var file: File
     var body: some View {
         HStack(spacing: 20) {
-            if let image = UIImage(contentsOfFile: file.localThumbnailPath.path) {
-                Image(uiImage: image)
+            if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {
+                Image(image)
                     .resizable()
                     .frame(width: 40, height: 40)
             } else {
