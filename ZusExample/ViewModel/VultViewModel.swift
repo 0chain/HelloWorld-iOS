@@ -63,7 +63,7 @@ class VultViewModel: NSObject, ObservableObject {
                 let localPath = Utils.uploadPath.appendingPathComponent(name)
                 let thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
                 
-                if let data = data, let image = UIImage(data: data) {
+                if let data = data, let image = ZCNImage(data: data) {
                     let pngData = image.pngData()
                     try pngData?.write(to: localPath,options: .atomic)
                     

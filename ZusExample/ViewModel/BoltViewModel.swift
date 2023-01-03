@@ -8,7 +8,7 @@
 import Foundation
 import Zcncore
 import Combine
-import UIKit
+import SwiftUI
 
 class BoltViewModel:NSObject, ObservableObject {
     
@@ -104,7 +104,7 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func copyClientID() {
-        UIPasteboard.general.string = Utils.wallet?.client_key ?? ""
+        PasteBoard.general.setString(Utils.wallet?.client_key)
     }
     
     func getTransactions() {
