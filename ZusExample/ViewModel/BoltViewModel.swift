@@ -44,13 +44,15 @@ class BoltViewModel:NSObject, ObservableObject {
         NotificationCenter.default.removeObserver(self)
         self.cancellable.removeAll()
     }
-    
+    /// getBalance - get zcn balance from gosdk api
     func getBalance() {
         var error: NSError? = nil
         ZcncoreGetBalance(self, &error)
         if let error = error { print(error.localizedDescription) }
     }
     
+    /// Wallet action type
+    /// - Parameter action: type of wallet action
     func walletAction(_ action: WalletActionType) {
         switch action {
         case .send:
@@ -62,6 +64,7 @@ class BoltViewModel:NSObject, ObservableObject {
         }
     }
     
+    /// Receive faucet from gosdk api
     func receiveFaucet() {
         self.presentSendView = false
         DispatchQueue.global().async {
@@ -82,7 +85,7 @@ class BoltViewModel:NSObject, ObservableObject {
             }
         }
     }
-    
+    /// Send ZCN token
     func sendZCN() {
         DispatchQueue.global(qos: .default).async {
             do {
@@ -102,11 +105,12 @@ class BoltViewModel:NSObject, ObservableObject {
             }
         }
     }
-    
+    /// Copy client Id
     func copyClientID() {
         UIPasteboard.general.string = Utils.wallet?.client_key ?? ""
     }
     
+    /// Get transactions from gosdk api
     func getTransactions() {
         DispatchQueue.global().async {
             var error: NSError? = nil
@@ -119,13 +123,19 @@ class BoltViewModel:NSObject, ObservableObject {
         }
     }
     
+    /// Transaction completed
+    /// - Parameter t: get Zcn core transaction information
     func onTransactionComplete(t: ZcncoreTransaction) {
     }
     
+    /// Verify completed
+    /// - Parameter t: get Zcn core transaction information
     func onVerifyComplete(t: ZcncoreTransaction) {
        
     }
     
+    /// Transaction failed
+    /// - Parameter error: error of transaction failed
     func onTransactionFailed(error: String) {
         DispatchQueue.main.async {
             self.alertMessage = error
@@ -136,6 +146,11 @@ class BoltViewModel:NSObject, ObservableObject {
 }
 
 extension BoltViewModel: ZcncoreGetBalanceCallbackProtocol {
+    /// Balance Available
+    /// - Parameters:
+    ///   - status: status code of balance
+    ///   - value: value of balance
+    ///   - info: info of balance
     func onBalanceAvailable(_ status: Int, value: Int64, info: String?) {
         guard let response = info,
               let data = response.data(using: .utf8),
@@ -151,8 +166,16 @@ extension BoltViewModel: ZcncoreGetBalanceCallbackProtocol {
 }
 
 extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
+    /// Auth completed
+    /// - Parameters:
+    ///   - t: get Zcn Core transaction information
+    ///   - status: status code of success or failure
     func onAuthComplete(_ t: ZcncoreTransaction?, status: Int) { }
     
+    /// Transaction completed
+    /// - Parameters:
+    ///   - t: get Zcn Core transaction information
+    ///   - status: status code of success or failure
     func onTransactionComplete(_ t: ZcncoreTransaction?, status: Int) {
         
         DispatchQueue.main.async {
@@ -171,12 +194,22 @@ extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
         self.onTransactionComplete(t: txObj)
     }
     
+    /// Verify Completed
+    /// - Parameters:
+    ///   - t: get Zcn core transaction information
+    ///   - status: status code of success or failure
     func onVerifyComplete(_ t: ZcncoreTransaction?, status: Int) {
         self.getBalance()
     }
 }
 
 extension BoltViewModel: ZcncoreGetInfoCallbackProtocol {
+    /// Information available of zcn
+    /// - Parameters:
+    ///   - op: transaction operation code
+    ///   - status: status code of success or failure
+    ///   - info: info of zcn core transaction
+    ///   - err: error of zcn core transaction
     func onInfoAvailable(_ op: Int, status: Int, info: String?, err: String?) {
         guard status == ZcncoreStatusSuccess,
               let response = info,

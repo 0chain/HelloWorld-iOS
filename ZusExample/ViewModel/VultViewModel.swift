@@ -24,6 +24,7 @@ class VultViewModel: NSObject, ObservableObject {
         self.getAllocation()
     }
     
+    /// get allocation information from gosdk api
     func getAllocation()  {
         DispatchQueue.global().async {
             do {
@@ -54,6 +55,8 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
+    /// Upload images
+    /// - Parameter selectedPhoto: selected image from photo picker
     func uploadImage(selectedPhoto: PhotosPickerItem?) {
         Task {
             do {
@@ -83,6 +86,8 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
+    /// Download image
+    /// - Parameter path: path of download image
     func downloadImage(path: String) {
         do {
             try VultViewModel.zboxAllocationHandle?.downloadFile(path,
@@ -93,6 +98,7 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
+    /// get list of directory
     func listDir() {
         do {
             guard let allocation = VultViewModel.zboxAllocationHandle else { return }
@@ -118,10 +124,23 @@ class VultViewModel: NSObject, ObservableObject {
 }
 
 extension VultViewModel: ZboxStatusCallbackMockedProtocol {
+    /// commit meta completed
+    /// - Parameters:
+    ///   - request: request of file
+    ///   - response: response of file
+    ///   - err: error of Zbox
     func commitMetaCompleted(_ request: String?, response: String?, err: Error?) {
         
     }
     
+    /// Allocation completed
+    /// - Parameters:
+    ///   - allocationId: allocationId of file
+    ///   - filePath: filePath of file
+    ///   - filename: filename of file
+    ///   - mimetype: mimetype of file
+    ///   - size: size of file
+    ///   - op: transaction operation code
     func completed(_ allocationId: String?, filePath: String?, filename: String?, mimetype: String?, size: Int, op: Int) {
         print("completed \(filePath) \(size.formattedByteCount)")
         if let index = files.firstIndex(where: {$0.path == filePath}) {
@@ -131,6 +150,12 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
         self.getAllocation()
     }
     
+    /// Allocation failed
+    /// - Parameters:
+    ///   - allocationID: allocationId of file
+    ///   - filePath: filePath of file
+    ///   - op: transaction operation code
+    ///   - err: error of file
     func error(_ allocationID: String?, filePath: String?, op: Int, err: Error?) {
         print("error \(filePath) \(err?.localizedDescription)")
         if let index = files.firstIndex(where: {$0.path == filePath}) {
@@ -138,6 +163,13 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
         }
     }
     
+    /// Allocation inProgress
+    /// - Parameters:
+    ///   - allocationId: allocationId of file
+    ///   - filePath: filePath of file
+    ///   - op: transaction operation code
+    ///   - completedBytes: completedBytes of file
+    ///   - data: data of file
     func inProgress(_ allocationId: String?, filePath: String?, op: Int, completedBytes: Int, data: Data?) {
         print("inProgress \(filePath) \(completedBytes.formattedByteCount)")
         if let index = files.firstIndex(where: {$0.path == filePath}) {
@@ -145,10 +177,18 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
         }
     }
     
+    /// Allocation repair completed
+    /// - Parameter filesRepaired: Repaired of file
     func repairCompleted(_ filesRepaired: Int) {
         
     }
     
+    /// Allocation stared
+    /// - Parameters:
+    ///   - allocationId: allocationId of file
+    ///   - filePath: filePath of file
+    ///   - op: transaction operation code
+    ///   - totalBytes: totalBytes of file
     func started(_ allocationId: String?, filePath: String?, op: Int, totalBytes: Int) {
         print("started \(filePath) \(totalBytes.formattedByteCount)")
 

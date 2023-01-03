@@ -9,20 +9,24 @@ import Foundation
 import Zcncore
 
 extension Int {
+    /// stringValue - Convert Int to String and return String value
     var stringValue: String {
         return String(self)
     }
     
+    /// tokens - Convert Int to Double and return Double value
     var tokens: Double {
         return ZcncoreConvertToToken(Int64(self))
     }
     
+    /// usd - Convert Int to Double and return Double value
     var usd: Double {
         let usd: Double = Utils.zcnUsdRate
         let amount: Double = tokens * usd
         return amount
     }
     
+    /// formattedByteCount - Convert Int to String and return String value
     var formattedByteCount: String {
         let formatter = ByteCountFormatter()
         formatter.countStyle = .file
@@ -30,6 +34,7 @@ extension Int {
         return formatter.string(fromByteCount: Int64(self))
     }
     
+    /// formattedUNIX - Convert Int to String and return String value
     var formattedUNIX: String {
         return Date(timeIntervalSince1970: Double(self)).formatted()
     }
