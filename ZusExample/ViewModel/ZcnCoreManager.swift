@@ -11,6 +11,7 @@ import Zcncore
 class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
+
     private static let network: NetworkConfig = NetworkConfig.demoZus
     static var zboxStorageSDKHandle : SdkStorageSDK? = nil
 
@@ -53,6 +54,19 @@ class ZcncoreManager: NSObject, ObservableObject {
         
         if let error = error {
             self.onWalletCreateFailed(error: error.localizedDescription)
+        }
+    }
+    
+    func createAllocation() {
+        DispatchQueue.global().async {
+            do {
+                BoltViewModel().receiveFaucet()
+                let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation("Allocation", datashards: 2, parityshards: 2, size: 2147483648, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
+                VultViewModel.zboxAllocationHandle = allocation
+                Utils.set(allocation?.id_, for: .allocationID)
+            } catch let error {
+                print(error)
+            }
         }
     }
     

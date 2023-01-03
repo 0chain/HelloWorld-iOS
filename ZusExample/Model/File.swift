@@ -20,11 +20,11 @@ class File: NSObject, Codable, Identifiable {
     var path: String = ""
     var lookupHash: String = ""
     var type: String = ""
-    var size: Int64 = 0
+    var size: Int = 0
     
-    var numBlocks : Int64? = 0
-    var actualSize : Int64? = 0
-    var actualNumBlocks : Int64? = 0
+    var numBlocks : Int? = 0
+    var actualSize : Int? = 0
+    var actualNumBlocks : Int? = 0
     var encryptionKey: String? = ""
     var createdAt: Double = 0
     var updatedAt: Double = 0
@@ -43,4 +43,54 @@ class File: NSObject, Codable, Identifiable {
         case  createdAt = "created_at"
         case  updatedAt = "updated_at"
     }
+    
+    internal init(name: String = "", mimetype: String = "", path: String = "", lookupHash: String = "", type: String = "", size: Int = 0, numBlocks: Int? = 0, actualSize: Int? = 0, actualNumBlocks: Int? = 0, encryptionKey: String? = "", createdAt: Double = 0, updatedAt: Double = 0, completedBytes: Int = 0) {
+        self.name = name
+        self.mimetype = mimetype
+        self.path = path
+        self.lookupHash = lookupHash
+        self.type = type
+        self.size = size
+        self.numBlocks = numBlocks
+        self.actualSize = actualSize
+        self.actualNumBlocks = actualNumBlocks
+        self.encryptionKey = encryptionKey
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.completedBytes = completedBytes
+    }
+    
+    var localThumbnailPath: URL {
+      return Utils.downloadedThumbnailPath.appendingPathComponent(self.path)
+    }
+    
+    var localUploadPath: URL {
+      return Utils.uploadPath.appendingPathComponent(self.path)
+    }
+    
+    var localFilePath: URL {
+        return Utils.downloadPath.appendingPathComponent(self.path)
+    }
+    
+    var isDownloaded: Bool {
+      return FileManager.default.fileExists(atPath: localFilePath.path)
+    }
+    
+    var completedBytes: Int = 0
+    
+    enum FileStatus {
+        case error
+        case progress
+        case completed
+    }
+    
+    var fileSize: String {
+        switch status {
+        case .completed: return size.formattedByteCount
+        case .progress: return "\(completedBytes/size) %"
+        case .error: return "failed"
+        }
+    }
+    
+    var status: FileStatus = .completed
 }

@@ -8,69 +8,78 @@
 import Foundation
 import Zcncore
 import Combine
+import _PhotosUI_SwiftUI
 
 class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
     
-    @Published var allocations: Allocations = []
-    @Published var files: Files = []
+    @Published var allocation: Allocation = Allocation()
     
-    func createAllocation() {
-        DispatchQueue.global().async {
-            do {
-                let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation("", datashards: 2, parityshards: 2, size: 2147483648, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
-                VultViewModel.zboxAllocationHandle = allocation
-                Utils.set(allocation?.id_, for: .allocationID)
-            } catch let error {
-                print(error)
-            }
-        }
+    @Published var files: Files = []
+    @Published var selectedPhoto: PhotosPickerItem? = nil
+    
+    override init() {
+        super.init()
+        VultViewModel.zboxAllocationHandle = try? ZcncoreManager.zboxStorageSDKHandle?.getAllocation(Utils.get(key: .allocationID) as? String)
+        self.getAllocation()
     }
     
-    func getAllocations()  {
+    func getAllocation()  {
         DispatchQueue.global().async {
             do {
                 let decoder = JSONDecoder()
-                var error: NSError? = nil
                 
-                guard let zboxStorageSDKHandle = ZcncoreManager.zboxStorageSDKHandle else { return }
+                guard let zboxAllocationHandle = VultViewModel.zboxAllocationHandle else { return }
                 
-                let allocations = zboxStorageSDKHandle.getAllocations(&error)
-                if let error = error { throw error }
+                var allocation = Allocation()
+                allocation.size = Int(zboxAllocationHandle.size)
+                allocation.dataShards = zboxAllocationHandle.dataShards
+                allocation.parityShards = zboxAllocationHandle.parityShards
+                allocation.name = zboxAllocationHandle.name
+                allocation.expirationDate = Int(zboxAllocationHandle.expiration)
                 
-                let allocationData = Data(allocations.utf8)
-                let allocationsList = try decoder.decode(Allocations.self, from: allocationData)
-                
-                for i in 0..<allocationsList.count {
-                    var allocation = allocationsList[i]
-                    let allocationStats = zboxStorageSDKHandle.getAllocationStats(allocation.id, error: &error)
-                    if let error = error { throw error }
-                    
-                    let allocationStatsData = Data(allocationStats.utf8)
-                    let allocationStatsModel = try decoder.decode(Allocation.self, from: allocationStatsData)
-                    
-                    allocation.addStats(allocationStatsModel)
-                }
+                let allocationStats = zboxAllocationHandle.stats
+                let allocationStatsData = Data(allocationStats.utf8)
+                let allocationStatsModel = try decoder.decode(Allocation.self, from: allocationStatsData)
+
+                allocation.addStats(allocationStatsModel)
                 
                 DispatchQueue.main.async {
-                    self.allocations = allocationsList
+                    self.allocation = allocation
                 }
+                
             } catch let error {
                 print(error)
             }
         }
     }
     
-    func uploadImage(fromPath: String, thumbnailPath: String, toPath: String) {
-        do {
-            try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: "",
-                                                               localPath: "",
-                                                               remotePath: "/",
-                                                               fileAttrs: nil,
-                                                               thumbnailpath: "",
-                                                               statusCb: self)
-        } catch let error {
-            print(error.localizedDescription)
+    func uploadImage(selectedPhoto: PhotosPickerItem?) {
+        Task {
+            do {
+                guard let newItem = selectedPhoto else { return }
+                let name = PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
+                let data = try await newItem.loadTransferable(type: Data.self)
+                let localPath = Utils.uploadPath.appendingPathComponent(name)
+                let thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
+                
+                if let data = data, let image = UIImage(data: data) {
+                    let pngData = image.pngData()
+                    try pngData?.write(to: localPath,options: .atomic)
+                    
+                    let thumbnailData = image.jpegData(compressionQuality: 0.1)
+                    try thumbnailData?.write(to: thumbnailPath)
+                    
+                    try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: Utils.tempPath(),
+                                                                       localPath: localPath.path,
+                                                                       remotePath: "/\(name)",
+                                                                       fileAttrs: nil,
+                                                                       thumbnailpath: thumbnailPath.path,
+                                                                       statusCb: self)
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -78,18 +87,18 @@ class VultViewModel: NSObject, ObservableObject {
         do {
             try VultViewModel.zboxAllocationHandle?.downloadFile(path,
                                                                  localPath: "",
-                                                                statusCb: self)
+                                                                 statusCb: self)
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
-    func listDir(at path: String = "/") {
+    func listDir() {
         do {
             guard let allocation = VultViewModel.zboxAllocationHandle else { return }
             
             var error: NSError? = nil
-            let jsonStr = allocation.listDir(path, error: &error)
+            let jsonStr = allocation.listDir("/", error: &error)
             
             if let error = error { throw error }
             
@@ -105,6 +114,7 @@ class VultViewModel: NSObject, ObservableObject {
             print(error.localizedDescription)
         }
     }
+    
 }
 
 extension VultViewModel: ZboxStatusCallbackMockedProtocol {
@@ -113,15 +123,26 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
     }
     
     func completed(_ allocationId: String?, filePath: String?, filename: String?, mimetype: String?, size: Int, op: Int) {
-        
+        print("completed \(filePath) \(size.formattedByteCount)")
+        if let index = files.firstIndex(where: {$0.path == filePath}) {
+            files[index].completedBytes = size
+            files[index].status = .completed
+        }
+        self.getAllocation()
     }
     
     func error(_ allocationID: String?, filePath: String?, op: Int, err: Error?) {
-        
+        print("error \(filePath) \(err?.localizedDescription)")
+        if let index = files.firstIndex(where: {$0.path == filePath}) {
+            files[index].status = .error
+        }
     }
     
     func inProgress(_ allocationId: String?, filePath: String?, op: Int, completedBytes: Int, data: Data?) {
-        
+        print("inProgress \(filePath) \(completedBytes.formattedByteCount)")
+        if let index = files.firstIndex(where: {$0.path == filePath}) {
+            files[index].completedBytes = completedBytes
+        }
     }
     
     func repairCompleted(_ filesRepaired: Int) {
@@ -129,6 +150,15 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
     }
     
     func started(_ allocationId: String?, filePath: String?, op: Int, totalBytes: Int) {
-        
+        print("started \(filePath) \(totalBytes.formattedByteCount)")
+
+        let file = File()
+        file.path = filePath ?? ""
+        file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
+        file.size = totalBytes
+        file.completedBytes = 0
+        file.status = .progress
+        self.files.append(file)
     }
+    
 }
