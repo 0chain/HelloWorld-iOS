@@ -11,7 +11,7 @@ struct FilesTable: View {
     @EnvironmentObject var vultVM: VultViewModel
     @State var previewFile:Bool = false
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("All Files").bold()
             
             ScrollView(showsIndicators: false) {
@@ -53,8 +53,11 @@ struct FilesTable: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 20)
                             .symbolRenderingMode(file.status == .progress ? .monochrome : .hierarchical)
-                        Text(file.fileDownloadPercent)
-                            .font(.system(size: 8))
+                        
+                        if file.status == .progress {
+                            Text(file.fileDownloadPercent)
+                                .font(.system(size: 8))
+                        }
                     }
                     .foregroundColor(.teal)
                 }

@@ -14,13 +14,14 @@ class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
     
     @Published var allocation: Allocation = Allocation()
-    
+    @Published var presentAllocationDetails: Bool = false
+
     @Published var files: Files = []
     @Published var selectedPhoto: PhotosPickerItem? = nil
     
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
-    
+
     override init() {
         super.init()
         VultViewModel.zboxAllocationHandle = try? ZcncoreManager.zboxStorageSDKHandle?.getAllocation(Utils.get(key: .allocationID) as? String)
@@ -153,6 +154,7 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
         DispatchQueue.main.async {
             if let index = self.files.firstIndex(where: {$0.path == filePath}) {
                 self.files[index].completedBytes = completedBytes
+                self.files[index].status = .progress
             }
         }
     }

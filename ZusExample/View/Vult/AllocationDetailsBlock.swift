@@ -13,7 +13,7 @@ struct AllocationDetailsBlock: View {
     var body: some View {
             HStack(spacing:20) {
                 VStack(alignment: .leading) {
-                    Text(vultVM.allocation.defaultName)
+                    Text(vultVM.allocation.name ?? "")
                         .font(.system(size: 14, weight: .semibold))
                     Text(vultVM.allocation.expirationDate?.formattedUNIX ?? "")
                         .font(.system(size: 12, weight: .semibold))
@@ -21,7 +21,7 @@ struct AllocationDetailsBlock: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    ProgressView(value: vultVM.allocation.allocationFraction ?? 0.0)
+                    ProgressView(value: vultVM.allocation.allocationFraction)
                         .progressViewStyle(ZCNProgressStyle())
                         .frame(height: 10)
                     

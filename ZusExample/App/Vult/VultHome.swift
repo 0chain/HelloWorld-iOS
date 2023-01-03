@@ -28,6 +28,7 @@ struct VultHome: View {
         }
         .onAppear(perform: vultVM.listDir)
         .background(Color.gray.opacity(0.1))
+        .sheet(isPresented: $vultVM.presentAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
         .onChange(of: vultVM.selectedPhoto, perform: vultVM.uploadImage)
         .environmentObject(vultVM)
     }
