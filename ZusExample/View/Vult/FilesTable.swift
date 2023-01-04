@@ -15,14 +15,31 @@ struct FilesTable: View {
             Text("All Files").bold()
             
             ScrollView(showsIndicators: false) {
-                ForEach(vultVM.files) { file in
+                ForEach($vultVM.files) { file in
                     FileRow(file: file)
                 }
             }
         }
     }
     
-    @ViewBuilder func FileRow(file: File) -> some View {
+}
+
+struct FilesTable_Previews: PreviewProvider {
+    static var previews: some View {
+        let vm : VultViewModel = {
+            let vm = VultViewModel()
+            vm.files = [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)]
+            return vm
+        }()
+        
+        FilesTable()
+            .environmentObject(vm)
+    }
+}
+
+struct FileRow: View {
+    @Binding var file: File
+    var body: some View {
         HStack(spacing: 20) {
             if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {
                 Image(image)
@@ -46,7 +63,7 @@ struct FilesTable: View {
             
             if !file.isDownloaded && file.isUploaded {
                 Button {
-                    vultVM.downloadImage(file: file)
+                  //  vultVM.downloadImage(file: file)
                 } label: {
                     VStack(alignment: .center,spacing: 3) {
                         Image(systemName: "arrow.down.to.line.circle")
@@ -70,22 +87,9 @@ struct FilesTable: View {
         .cornerRadius(12)
         .onTapGesture {
             if file.isDownloaded {
-                self.vultVM.openFile = true
-                self.vultVM.selectedFile = file
+             //   self.vultVM.openFile = true
+              //  self.vultVM.selectedFile = file
             }
         }
-    }
-}
-
-struct FilesTable_Previews: PreviewProvider {
-    static var previews: some View {
-        let vm : VultViewModel = {
-            let vm = VultViewModel()
-            vm.files = [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)]
-            return vm
-        }()
-        
-        FilesTable()
-            .environmentObject(vm)
     }
 }

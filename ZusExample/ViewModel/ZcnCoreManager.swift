@@ -14,7 +14,6 @@ class ZcncoreManager: NSObject, ObservableObject {
 
     private static let network: NetworkConfig = NetworkConfig.demoZus
     static var zboxStorageSDKHandle : SdkStorageSDK? = nil
-    @Published var vultButtonTitle: String = "Create Allocation"
     
     func initialize() {
         do {
@@ -59,10 +58,8 @@ class ZcncoreManager: NSObject, ObservableObject {
     }
     
     func createAllocation() {
-        self.vultButtonTitle = "Creating Allocation ..."
         DispatchQueue.global().async {
             do {
-                BoltViewModel().receiveFaucet()
                 let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation("Allocation", datashards: 2, parityshards: 2, size: 214748364, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
                 VultViewModel.zboxAllocationHandle = allocation
                 if let allocationId = allocation?.id_ {
@@ -70,9 +67,6 @@ class ZcncoreManager: NSObject, ObservableObject {
                 }
             } catch let error {
                 print(error)
-                DispatchQueue.main.async {
-                    self.vultButtonTitle = "Allocation Creation Failed"
-                }
             }
         }
     }
@@ -88,7 +82,8 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     
     func onWalletCreateComplete(wallet: Wallet) {
-        
+        BoltViewModel().receiveFaucet()
+        self.createAllocation()
     }
     
     func onWalletCreateFailed(error: String) {
@@ -113,7 +108,7 @@ extension ZcncoreManager: ZcncoreWalletCallbackProtocol {
             Utils.wallet = w
             
             self.setWalletInfo()
-            
+            try? self.initialiseSDK()
             self.onWalletCreateComplete(wallet: w)
         }
     }
