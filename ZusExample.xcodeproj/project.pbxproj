@@ -111,12 +111,11 @@
 		4B7578C1295C7D0B00724F32 /* ZusExample */ = {
 			isa = PBXGroup;
 			children = (
+				4BB813ED2965AEEB00B00B5C /* Common */,
+				4BB813EC2965AEE700B00B5C /* Vult */,
+				4BB813EB2965AEE400B00B5C /* Bolt */,
 				4BB813E9296576FF00B00B5C /* Info.plist */,
 				4B7578D6295C7D5900724F32 /* Utils */,
-				4B7578D5295C7D4C00724F32 /* ViewModel */,
-				4B7578D4295C7D4900724F32 /* Model */,
-				4B7578D3295C7D4600724F32 /* View */,
-				4B7578D2295C7D4300724F32 /* App */,
 				4B7578C9295C7D0D00724F32 /* Preview Content */,
 			);
 			path = ZusExample;
@@ -133,8 +132,6 @@
 		4B7578D2295C7D4300724F32 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578F4295CB10100724F32 /* Vult */,
-				4B7578F3295CB0FB00724F32 /* Bolt */,
 				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
 				4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */,
 				4B7578F5295CB9B100724F32 /* AppSelectionView.swift */,
@@ -142,33 +139,9 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		4B7578D3295C7D4600724F32 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4B757900295D3EEF00724F32 /* Vult */,
-				4B7578FF295D3EEC00724F32 /* Bolt */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		4B7578D4295C7D4900724F32 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
-				4B7578EC295C896500724F32 /* Wallet.swift */,
-				4B757904295D412A00724F32 /* Balance.swift */,
-				4BF739A5295DBB22006E44D8 /* Transaction.swift */,
-				4BEEDB952963190E00A154E0 /* Allocation.swift */,
-				4BEEDB9729631CE000A154E0 /* File.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		4B7578D5295C7D4C00724F32 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
-				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
 				4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */,
 			);
 			path = ViewModel;
@@ -215,43 +188,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		4B7578F3295CB0FB00724F32 /* Bolt */ = {
-			isa = PBXGroup;
-			children = (
-				4B7578FD295D3E9000724F32 /* BoltHome.swift */,
-			);
-			path = Bolt;
-			sourceTree = "<group>";
-		};
-		4B7578F4295CB10100724F32 /* Vult */ = {
-			isa = PBXGroup;
-			children = (
-				4BEEDB9B29632FE900A154E0 /* VultHome.swift */,
-				4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */,
-			);
-			path = Vult;
-			sourceTree = "<group>";
-		};
-		4B7578FF295D3EEC00724F32 /* Bolt */ = {
-			isa = PBXGroup;
-			children = (
-				4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */,
-				4B757908295D4AA100724F32 /* WalletActionStack.swift */,
-			);
-			path = Bolt;
-			sourceTree = "<group>";
-		};
-		4B757900295D3EEF00724F32 /* Vult */ = {
-			isa = PBXGroup;
-			children = (
-				4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */,
-				4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */,
-				4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */,
-				4BB813E02964687A00B00B5C /* FilesTable.swift */,
-			);
-			path = Vult;
-			sourceTree = "<group>";
-		};
 		4BB813E229646F2900B00B5C /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +195,118 @@
 				4BB813E72964A54100B00B5C /* DocumentPicker.swift */,
 			);
 			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		4BB813EB2965AEE400B00B5C /* Bolt */ = {
+			isa = PBXGroup;
+			children = (
+				4BB813EE2965AEF200B00B5C /* App */,
+				4BB813EF2965AEF500B00B5C /* View */,
+				4BB813F02965AEF900B00B5C /* Model */,
+				4BB813F12965AEFD00B00B5C /* ViewModel */,
+			);
+			path = Bolt;
+			sourceTree = "<group>";
+		};
+		4BB813EC2965AEE700B00B5C /* Vult */ = {
+			isa = PBXGroup;
+			children = (
+				4BB813F42965AF2D00B00B5C /* App */,
+				4BB813F52965AF2F00B00B5C /* View */,
+				4BB813F22965AF0800B00B5C /* Model */,
+				4BB813F62965AF3200B00B5C /* ViewModel */,
+			);
+			path = Vult;
+			sourceTree = "<group>";
+		};
+		4BB813ED2965AEEB00B00B5C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578D2295C7D4300724F32 /* App */,
+				4BB813F32965AF1000B00B5C /* Model */,
+				4B7578D5295C7D4C00724F32 /* ViewModel */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4BB813EE2965AEF200B00B5C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578FD295D3E9000724F32 /* BoltHome.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4BB813EF2965AEF500B00B5C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */,
+				4B757908295D4AA100724F32 /* WalletActionStack.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4BB813F02965AEF900B00B5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578EC295C896500724F32 /* Wallet.swift */,
+				4B757904295D412A00724F32 /* Balance.swift */,
+				4BF739A5295DBB22006E44D8 /* Transaction.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4BB813F12965AEFD00B00B5C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4BB813F22965AF0800B00B5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEDB952963190E00A154E0 /* Allocation.swift */,
+				4BEEDB9729631CE000A154E0 /* File.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4BB813F32965AF1000B00B5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4BB813F42965AF2D00B00B5C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */,
+				4BEEDB9B29632FE900A154E0 /* VultHome.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4BB813F52965AF2F00B00B5C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */,
+				4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */,
+				4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */,
+				4BB813E02964687A00B00B5C /* FilesTable.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4BB813F62965AF3200B00B5C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
