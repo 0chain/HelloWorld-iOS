@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BoltHome: View {
-    @StateObject var boltVM: BoltViewModel = BoltViewModel()
+    @EnvironmentObject var boltVM: BoltViewModel
     
     var body: some View {
         GeometryReader { gr in

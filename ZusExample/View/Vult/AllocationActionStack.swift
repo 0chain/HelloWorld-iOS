@@ -13,7 +13,6 @@ struct AllocationActionStack: View {
     
     var body: some View {
         HStack(spacing:10) {
-            WalletActionBlock(icon: "folder", "Create Folder")
             
             PhotosPicker(
                 selection: $vultVM.selectedPhoto,
@@ -22,7 +21,15 @@ struct AllocationActionStack: View {
                     WalletActionBlock(icon: "photo", "Upload Image")
                 }
             
+            WalletActionBlock(icon: "document", "Upload Document")
+                .onTapGesture {
+                    vultVM.presentDocumentPicker = true
+                }
+            
             WalletActionBlock(icon: "allocation", "Allocation Details")
+                .onTapGesture {
+                    vultVM.presentAllocationDetails = true
+                }
         }
         .aspectRatio(2.4, contentMode: .fit)
         .shadow(color: .init(white: 0.95), radius: 100, x: 0, y: 0)

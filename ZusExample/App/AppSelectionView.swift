@@ -11,33 +11,27 @@ struct AppSelectionView: View {
     @State var presentWalletDetails : Bool = false
     @State var presentVultHome: Bool = false
     
-    @AppStorage(Utils.UserDefaultsKey.allocationID.rawValue) var allocationID: String = ""
     @EnvironmentObject var zcncoreVM: ZcncoreManager
     
+    @StateObject var boltVM: BoltViewModel = BoltViewModel()
+    @StateObject var vultVM: VultViewModel = VultViewModel()
+
     var body: some View {
         NavigationView {
             GeometryReader { gr in
                 VStack(alignment: .center,spacing: 20) {
                     Spacer()
                     AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
-                        .destination(destination: BoltHome())
+                        .destination(destination: BoltHome().environmentObject(boltVM))
                     
                     Spacer()
-                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7,allocationButton: allocationID.isEmpty)
-                        .onTapGesture {
-                            if allocationID.isEmpty {
-                                zcncoreVM.createAllocation()
-                            } else {
-                                self.presentVultHome = true
-                            }
-                        }
+                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
+                        .destination(destination: VultHome().environmentObject(vultVM))
                     
                     Spacer()
                     
                     WalletDetailsBlock(wallet: Utils.wallet!,width: gr.size.width * 0.7)
-                    
-                    NavigationLink(destination: VultHome(), isActive: $presentVultHome) { EmptyView() }
-                    
+                                        
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
@@ -46,28 +40,14 @@ struct AppSelectionView: View {
         }
     }
     
-    @ViewBuilder func AppSelectionBox(icon: String,width:CGFloat,allocationButton:Bool = false) -> some View {
-        ZStack(alignment: .bottom) {
-            VStack {
-                Image(icon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(width/10)
-                    .opacity(allocationButton ? 0.5 : 1)
-                
-                if allocationButton {
-                    Text(zcncoreVM.vultButtonTitle)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(3)
-                        .background(.blue)
-                }
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .background(.background)
-        .aspectRatio(2,contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(radius: 5)
+    @ViewBuilder func AppSelectionBox(icon: String,width:CGFloat) -> some View {
+        Image(icon)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .padding(width/10)
+            .frame(maxWidth: .infinity)
+            .background(.background)
+            .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(radius: 5)
     }
     
     

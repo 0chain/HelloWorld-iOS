@@ -18,10 +18,10 @@ struct ZCNProgressStyle: ProgressViewStyle {
         return ZStack {
             GeometryReader { gr in
                 RoundedRectangle(cornerRadius: gr.size.height/2)
-                    .fill(Color.blue.opacity(0.3))
+                    .fill(Color.teal.opacity(0.3))
                     .frame(width: gr.size.width, alignment: .leading)
                 RoundedRectangle(cornerRadius: gr.size.height/2)
-                    .fill(Color.blue)
+                    .fill(Color.teal)
                     .frame(width: gr.size.width * fractionCompleted, alignment: .leading)
             }
         }

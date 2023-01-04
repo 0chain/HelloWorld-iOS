@@ -21,7 +21,7 @@ struct AllocationDetailsBlock: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    ProgressView(value: vultVM.allocation.allocationFraction ?? 0.0)
+                    ProgressView(value: vultVM.allocation.allocationFraction)
                         .progressViewStyle(ZCNProgressStyle())
                         .frame(height: 10)
                     
