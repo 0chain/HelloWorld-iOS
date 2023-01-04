@@ -15,13 +15,20 @@ struct FilesTable: View {
             Text("All Files").bold()
             
             ScrollView(showsIndicators: false) {
-                ForEach($vultVM.files) { file in
+                ForEach(vultVM.files,id:\.self) { file in
                     FileRow(file: file)
+                        .onTapGesture {
+                            if file.isDownloaded {
+                                self.vultVM.openFile = true
+                                self.vultVM.selectedFile = file
+                            } else if file.isUploaded {
+                                vultVM.downloadImage(file: file)
+                            }
+                        }
                 }
             }
         }
     }
-    
 }
 
 struct FilesTable_Previews: PreviewProvider {
@@ -38,7 +45,7 @@ struct FilesTable_Previews: PreviewProvider {
 }
 
 struct FileRow: View {
-    @Binding var file: File
+    var file: File
     var body: some View {
         HStack(spacing: 20) {
             if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {
@@ -62,34 +69,25 @@ struct FileRow: View {
                 .foregroundColor(.gray)
             
             if !file.isDownloaded && file.isUploaded {
-                Button {
-                  //  vultVM.downloadImage(file: file)
-                } label: {
-                    VStack(alignment: .center,spacing: 3) {
-                        Image(systemName: "arrow.down.to.line.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 20)
-                            .symbolRenderingMode(file.status == .progress ? .monochrome : .hierarchical)
-                        
-                        if file.status == .progress {
-                            Text(file.fileDownloadPercent)
-                                .font(.system(size: 8))
-                        }
+                VStack(alignment: .center,spacing: 3) {
+                    Image(systemName: "arrow.down.to.line.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 20)
+                        .symbolRenderingMode(file.status == .progress ? .monochrome : .hierarchical)
+                    
+                    if file.status == .progress {
+                        Text(file.fileDownloadPercent)
+                            .font(.system(size: 8))
                     }
-                    .foregroundColor(.teal)
                 }
+                .foregroundColor(.teal)
             }
         }
         .padding(.vertical,12)
         .padding(.horizontal,18)
         .background(.white)
         .cornerRadius(12)
-        .onTapGesture {
-            if file.isDownloaded {
-             //   self.vultVM.openFile = true
-              //  self.vultVM.selectedFile = file
-            }
-        }
+
     }
 }

@@ -20,13 +20,21 @@ struct CreateWalletView: View {
                     .frame(width: gr.size.width * 0.7)
                 Spacer()
                 Button(action: zcncoreVM.createWallet) {
-                    Text("Create Wallet")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                        .bold()
+                    ZStack(alignment: .trailing) {
+                        Text(zcncoreVM.processTitle)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                            .bold()
+                        
+                        if zcncoreVM.processing {
+                            ProgressView()
+                                .padding(.trailing,50)
+                                .tint(.white)
+                        }
+                    }
                 }
                 Spacer()
             }

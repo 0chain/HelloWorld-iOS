@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct VultHome: View {
-    @StateObject var vultVM: VultViewModel = VultViewModel()
+    @EnvironmentObject var vultVM: VultViewModel
     
     var body: some View {
         GeometryReader { gr in

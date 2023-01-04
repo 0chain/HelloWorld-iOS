@@ -13,18 +13,20 @@ struct ZusExampleApp: App {
     @AppStorage(Utils.UserDefaultsKey.allocationID.rawValue) var allocation: String = ""
 
     @StateObject var zcncoreVM: ZcncoreManager = ZcncoreManager.shared
-    
+    init() {
+        zcncoreVM.initialize()
+    }
     var body: some Scene {
         WindowGroup {
             Group {
-                if wallet.isEmpty && allocation.isEmpty {
+                if wallet.isEmpty || allocation.isEmpty {
                     CreateWalletView(zcncoreVM: zcncoreVM)
                 } else {
                     AppSelectionView()
                 }
             }
             .environmentObject(zcncoreVM)
-            .onAppear(perform: zcncoreVM.initialize)
+            //.onAppear(perform: zcncoreVM.initialize)
         }
     }
 }

@@ -189,6 +189,17 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
             if let index = self.files.firstIndex(where: {$0.path == filePath}) {
                 self.files[index].completedBytes = completedBytes
                 self.files[index].status = .progress
+                self.objectWillChange.send()
+            } else {
+                var file = File()
+                file.path = filePath ?? ""
+                file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
+                file.completedBytes = completedBytes
+                file.status = .progress
+                file.isUploaded = false
+                DispatchQueue.main.async {
+                    self.files.append(file)
+                }
             }
         }
     }
@@ -200,7 +211,7 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
     func started(_ allocationId: String?, filePath: String?, op: Int, totalBytes: Int) {
         print("started \(filePath) \(totalBytes.formattedByteCount)")
         if op == 0 {
-            let file = File()
+            var file = File()
             file.path = filePath ?? ""
             file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
             file.size = totalBytes
