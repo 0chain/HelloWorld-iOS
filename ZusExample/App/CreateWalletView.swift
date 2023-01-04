@@ -13,7 +13,7 @@ struct CreateWalletView: View {
     var body: some View {
         VStack {
             Button("Create Wallet", action: zcncoreVM.createWallet)
-        }
+        } //VStack
         .padding()
     }
 }

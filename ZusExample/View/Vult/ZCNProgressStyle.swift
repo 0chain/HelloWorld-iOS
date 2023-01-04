@@ -23,7 +23,7 @@ struct ZCNProgressStyle: ProgressViewStyle {
                 RoundedRectangle(cornerRadius: gr.size.height/2)
                     .fill(Color.blue)
                     .frame(width: gr.size.width * fractionCompleted, alignment: .leading)
-            }
-        }
+            }//GR
+        } //ZStack
     }
 }

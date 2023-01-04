@@ -24,12 +24,15 @@ class ZcncoreManager: NSObject, ObservableObject {
         }
     }
     
+    /// Config network string
+    /// - Returns: data of network
     class func configString() throws -> String? {
         let encoder: JSONEncoder = JSONEncoder()
         let data = try encoder.encode(self.network)
         return String(data: data, encoding: .utf8)
     }
     
+    /// Initialize goSdk
     func initialiseSDK() throws {
         var error: NSError? = nil
         let logPath = Utils.logPath()
@@ -48,6 +51,7 @@ class ZcncoreManager: NSObject, ObservableObject {
         }
     }
     
+    /// Create wallet of zcn
     func createWallet() {
         var error: NSError? = nil
         ZcncoreCreateWallet(self, &error)
@@ -57,6 +61,7 @@ class ZcncoreManager: NSObject, ObservableObject {
         }
     }
     
+    /// Create Allocation of zcn files
     func createAllocation() {
         DispatchQueue.global().async {
             do {
@@ -70,6 +75,7 @@ class ZcncoreManager: NSObject, ObservableObject {
         }
     }
     
+    /// Store wallet information
     func setWalletInfo() {
         var error: NSError? = nil
         let wallet = Utils.get(key: .walletJSON) as? String
@@ -80,10 +86,14 @@ class ZcncoreManager: NSObject, ObservableObject {
     }
     
     
+    /// Wallet create completed
+    /// - Parameter wallet: wallet Information in Wallet object
     func onWalletCreateComplete(wallet: Wallet) {
         
     }
     
+    /// Wallet create failed
+    /// - Parameter error: error of wallet create failed
     func onWalletCreateFailed(error: String) {
         
     }
@@ -91,6 +101,11 @@ class ZcncoreManager: NSObject, ObservableObject {
 }
 
 extension ZcncoreManager: ZcncoreWalletCallbackProtocol {
+    /// Wallet create completed
+    /// - Parameters:
+    ///   - status: status code of zcn wallet create
+    ///   - wallet: wallet Information in wallet string
+    ///   - err: error of wallet create
     func onWalletCreateComplete(_ status: Int, wallet: String?, err: String?) {
         DispatchQueue.main.async {
             guard status == ZcncoreStatusSuccess,

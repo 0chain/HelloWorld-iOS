@@ -29,7 +29,7 @@ struct FileRow: View {
             Text(file.fileSize)
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.gray)
-        }
+        } //HStack
         .padding(.vertical,12)
         .padding(.horizontal,18)
         .background(.white)

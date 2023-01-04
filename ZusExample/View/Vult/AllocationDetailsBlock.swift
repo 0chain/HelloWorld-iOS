@@ -11,26 +11,26 @@ struct AllocationDetailsBlock: View {
     @EnvironmentObject var vultVM: VultViewModel
     
     var body: some View {
-            HStack(spacing:20) {
-                VStack(alignment: .leading) {
-                    Text(vultVM.allocation.name ?? "Allocation")
-                        .font(.system(size: 14, weight: .semibold))
-                    Text(vultVM.allocation.expirationDate?.formattedUNIX ?? "")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(.gray)
-                }
+        HStack(spacing:20) {
+            VStack(alignment: .leading) {
+                Text(vultVM.allocation.name ?? "Allocation")
+                    .font(.system(size: 14, weight: .semibold))
+                Text(vultVM.allocation.expirationDate?.formattedUNIX ?? "")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.gray)
+            }//VStack
+            
+            VStack(alignment: .leading) {
+                ProgressView(value: vultVM.allocation.allocationFraction ?? 0.0)
+                    .progressViewStyle(ZCNProgressStyle())
+                    .frame(height: 10)
                 
-                VStack(alignment: .leading) {
-                    ProgressView(value: vultVM.allocation.allocationFraction ?? 0.0)
-                        .progressViewStyle(ZCNProgressStyle())
-                        .frame(height: 10)
-                    
-                    Text("\(vultVM.allocation.usedSize?.formattedByteCount ?? "") used of \(vultVM.allocation.size?.formattedByteCount ?? "")")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(.gray)
-                        .lineLimit(1)
-                }
-        }
+                Text("\(vultVM.allocation.usedSize?.formattedByteCount ?? "") used of \(vultVM.allocation.size?.formattedByteCount ?? "")")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.gray)
+                    .lineLimit(1)
+            }//VStack
+        } //HStack
         .padding(.horizontal,16)
         .padding(.vertical,12)
         .background(Color.white)

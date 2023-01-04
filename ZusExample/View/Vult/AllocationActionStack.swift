@@ -23,7 +23,7 @@ struct AllocationActionStack: View {
                 }
             
             WalletActionBlock(icon: "allocation", "Allocation Details")
-        }
+        } //HStack
         .aspectRatio(2.4, contentMode: .fit)
         .shadow(color: .init(white: 0.95), radius: 100, x: 0, y: 0)
     }
@@ -37,13 +37,13 @@ struct AllocationActionStack: View {
                     .frame(width: gr.size.width/2)
                 Text(title.split(separator: " ")[0])
                 Text(title.split(separator: " ")[1])
-            }
+            } //VStack
             .frame(maxWidth: .infinity,maxHeight: .infinity)
             .font(.system(size: 13, weight: .semibold))
             .foregroundColor(.primary)
             .background(Color.white)
             .cornerRadius(12)
-        }
+        } //GR
     }
 }
 

@@ -25,9 +25,9 @@ struct BoltHome: View {
                         Link(destination: URL(string: "https://staging-atlus-beta.testnet-0chain.net/transaction-details/\(txn.hash)")!,label: { TransactionRow(index: index, txn: txn) })
                     }
                     .listStyle(.plain)
-                }
-            }
-        }
+                } //ScrollView
+            } //VStack
+        } //GR
         .padding(20)
         .environmentObject(boltVM)
         .onAppear(perform: boltVM.getTransactions)
@@ -46,7 +46,7 @@ struct BoltHome: View {
             Spacer()
             Text(Date(timeIntervalSince1970: txn.creationDate/1e9).formatted()).layoutPriority(1)
             Image(systemName: "chevron.right")
-        }
+        } //HStack
         .foregroundColor(txn.status == 1 ? .black : .pink)
         .lineLimit(1)
         .padding(.vertical,10)

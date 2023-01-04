@@ -39,11 +39,11 @@ struct AppSelectionView: View {
                     NavigationLink(destination: VultHome(), isActive: $presentVultHome) { EmptyView() }
                     
                     Spacer()
-                }
+                } //VStack
                 .frame(maxWidth: .infinity)
                 .padding(gr.size.width/15)
-            }
-        }
+            } //GR
+        } //NavigationView
     }
     
     @ViewBuilder func AppSelectionBox(icon: String,width:CGFloat,allocationButton:Bool = false) -> some View {
@@ -62,8 +62,8 @@ struct AppSelectionView: View {
                         .padding(3)
                         .background(.blue)
                 }
-            }
-        }
+            } //VStack
+        } // ZStack
         .frame(maxWidth: .infinity)
         .background(.background)
         .aspectRatio(2,contentMode: .fit)
@@ -81,7 +81,7 @@ struct AppSelectionView: View {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .rotationEffect(.degrees(presentWalletDetails ? 90.0 : 0.0))
-            }
+            } //HStack
             if presentWalletDetails {
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack(alignment: .leading,spacing: 10) {
@@ -90,10 +90,10 @@ struct AppSelectionView: View {
                         self.row(title: "Private Key: ", text: wallet.keys.first?.private_key ?? "")
                         self.row(title: "Public Key: ", text: wallet.keys.first?.public_key ?? "")
                         self.row(title: "Mnemonics: ", text: wallet.mnemonics)
-                    }
-                }
+                    } //VStack
+                } //ScrollView
             }
-        }
+        } //VStack
         .padding(width/10)
         .background(RoundedRectangle(cornerRadius: 16).fill(.background).shadow(radius: 5))
         .onTapGesture {

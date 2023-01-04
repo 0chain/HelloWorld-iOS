@@ -15,9 +15,9 @@ struct WalletActionStack: View {
         HStack(spacing:0) {
             ForEach(WalletActionType.allCases,id:\.self) { action in
                 WalletActionButton(width: width, action: boltVM.walletAction, button: action)
-
+                
             }
-        }
+        } //HStack
         .frame(height:width/4)
         .background(Color.white)
         .cornerRadius(12)
@@ -45,7 +45,7 @@ struct WalletActionButton: View {
                 .frame(width: width/13)
             Text(button.title)
                 .font(.system(size: 13, weight: .semibold))
-        }
+        } //VStack
         .frame(width: width/3)
         .onTapGesture{ self.action(button) }
     }

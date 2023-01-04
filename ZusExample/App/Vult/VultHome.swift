@@ -23,10 +23,10 @@ struct VultHome: View {
                     ForEach(vultVM.files) { file in
                         FileRow(file: file)
                     }
-                }
-            }
+                } //ScrollView
+            } //VStack
             .padding(22)
-        }
+        } //GR
         .onAppear(perform: vultVM.listDir)
         .background(Color.gray.opacity(0.1))
         .onChange(of: vultVM.selectedPhoto, perform: vultVM.uploadImage)

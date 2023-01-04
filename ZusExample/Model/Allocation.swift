@@ -32,7 +32,9 @@ struct Allocation: Codable {
       case numFailedChallenges = "num_failed_challenges"
       case latestClosedChallenge = "latest_closed_challenge"
   }
-  
+    
+    /// Add stats of allocation
+    /// - Parameter model: model of allocation
   mutating func addStats(_ model: Self) {
     self.usedSize = model.usedSize
     self.numOfWrites = model.numOfWrites
@@ -44,6 +46,7 @@ struct Allocation: Codable {
     self.latestClosedChallenge = model.latestClosedChallenge
   }
    
+    /// allocation of fraction value
     var allocationFraction: Double {
         return Double(usedSize ?? 0)/Double(size ?? 1)
     }

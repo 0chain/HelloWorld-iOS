@@ -10,7 +10,7 @@ import SwiftUI
 struct AvailableBalanceBlock: View {
     @EnvironmentObject var boltVM: BoltViewModel
     @AppStorage(Utils.UserDefaultsKey.balance.rawValue) var balance: Int = 0
-
+    
     var body: some View {
         VStack(alignment:.leading,spacing: 10) {
             
@@ -23,7 +23,7 @@ struct AvailableBalanceBlock: View {
                 Text(" ZCN")
                     .font(.system(size: 14, weight: .regular))
                     .padding(.bottom, 8)
-            }
+            } //HStack
             .padding(.top,-10)
             
             HStack {
@@ -31,8 +31,8 @@ struct AvailableBalanceBlock: View {
                     .font(.system(size: 16, weight: .regular))
                 Text("$ \(balance.usd)")
                     .font(.system(size: 16, weight: .bold))
-            }
-        }
+            } //HStack
+        } //VStack
     }
 }
 

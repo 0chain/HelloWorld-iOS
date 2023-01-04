@@ -20,9 +20,9 @@ struct ZusExampleApp: App {
                 } else {
                     AppSelectionView()
                 }
-            }
+            } //Group
             .environmentObject(zcncoreVM)
             .onAppear(perform: zcncoreVM.initialize)
-        }
+        } //WindowGroup
     }
 }

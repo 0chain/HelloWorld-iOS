@@ -14,28 +14,28 @@ struct Transaction: Codable, Identifiable, Hashable,Comparable {
         return rhs.creationDate < lhs.creationDate
     }
     
-    /// <#Description#>
+    /// Initialize Transaction information
     /// - Parameters:
-    ///   - id: <#id description#>
-    ///   - createdAt: <#createdAt description#>
-    ///   - updatedAt: <#updatedAt description#>
-    ///   - devaredAt: <#devaredAt description#>
-    ///   - hash: <#hash description#>
-    ///   - blockHash: <#blockHash description#>
-    ///   - round: <#round description#>
-    ///   - version: <#version description#>
-    ///   - clientID: <#clientID description#>
-    ///   - toClientID: <#toClientID description#>
-    ///   - transactionData: <#transactionData description#>
-    ///   - value: <#value description#>
-    ///   - signature: <#signature description#>
-    ///   - creationDate: <#creationDate description#>
-    ///   - fee: <#fee description#>
-    ///   - nonce: <#nonce description#>
-    ///   - transactionType: <#transactionType description#>
-    ///   - transactionOutput: <#transactionOutput description#>
-    ///   - outputHash: <#outputHash description#>
-    ///   - status: <#status description#>
+    ///   - id: id of transaction
+    ///   - createdAt: createdAt of transaction
+    ///   - updatedAt: updatedAt of transaction
+    ///   - devaredAt: devaredAt of transaction
+    ///   - hash: hash of transaction
+    ///   - blockHash: blockHash of transaction
+    ///   - round: round of transaction
+    ///   - version: version of transaction
+    ///   - clientID: clientID of transaction
+    ///   - toClientID: toClientID of transaction
+    ///   - transactionData: transaction data of transaction
+    ///   - value: value of transaction
+    ///   - signature: signature of transaction
+    ///   - creationDate: creation date of transaction
+    ///   - fee: fee of transaction
+    ///   - nonce: nonce of transaction
+    ///   - transactionType: transaction type of transaction
+    ///   - transactionOutput: transaction output of transaction
+    ///   - outputHash: output hash of transaction
+    ///   - status: status of transaction
     internal init(id: Int? = nil, createdAt: String? = nil, updatedAt: String? = nil, devaredAt: String? = nil, hash: String, blockHash: String = "", round: Int? = nil, version: String? = nil, clientID: String? = nil, toClientID: String? = nil, transactionData: String? = nil, value: Int? = nil, signature: String? = nil, creationDate: Double, fee: Int? = nil, nonce: Int? = nil, transactionType: Int? = nil, transactionOutput: String? = nil, outputHash: String? = nil, status: Int) {
         self.id = id
         self.createdAt = createdAt

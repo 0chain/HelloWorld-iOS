@@ -20,6 +20,12 @@ struct NetworkConfig: Codable {
         case zboxURL
     }
     
+    /// Initialize core setup
+    /// - Parameters:
+    ///   - signatureScheme: signature Scheme of network setting
+    ///   - confirmationChainLength: confirmationChainLength of network setting
+    ///   - blockWorker: blockWorker of network setting
+    ///   - zboxURL: zboxURL of network setting
     internal init(signatureScheme: String = "bls0chain",
                   confirmationChainLength: Int = 3,
                   blockWorker: String, zboxURL: String) {
@@ -35,6 +41,7 @@ struct NetworkConfig: Codable {
     static let potato = NetworkConfig(blockWorker: "https://potato.devnet-0chain.net/dns", zboxURL: "https://0box.potato.devnet-0chain.net")
     static let test = NetworkConfig(blockWorker: "https://test.0chain.net/dns", zboxURL: "https://0box.test.0chain.net")
     
+    /// Host url of network
     var host: String {
         return URLComponents(string: blockWorker)?.host ?? ""
     }

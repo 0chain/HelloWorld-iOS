@@ -14,6 +14,8 @@ struct Wallet: Codable {
     var mnemonics: String
     let version: String
     
+    /// Debug description
+    /// - Returns: description logs of Api response
     func debugDescription() -> String {
         return "\n----------Wallet----------\nclient_id: \(client_id)\nclient_key: \(client_key)\npublic_key: \(keys[0].public_key)\nprivate_key: \(keys[0].private_key)\nmnemonics: \(mnemonics)\nversion: \(version)\n--------------------------"
     }
