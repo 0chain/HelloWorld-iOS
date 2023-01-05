@@ -30,6 +30,8 @@ struct BoltHome: View {
         } //GR
         .padding(20)
         .environmentObject(boltVM)
+        .navigationTitle(Text("Bolt"))
+        .navigationBarTitleDisplayMode(.large)
         .onAppear(perform: boltVM.getTransactions)
         .alert("Recieve ZCN", isPresented: $boltVM.presentReceiveView,actions: {recievAlert}) {
             Text("Wallet address\n\(Utils.wallet?.client_id ?? "")")

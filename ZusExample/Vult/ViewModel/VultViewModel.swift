@@ -19,7 +19,6 @@ class VultViewModel: NSObject, ObservableObject {
 
     @Published var files: Files = []
     @Published var selectedPhoto: PhotosPickerItem? = nil
-    @Published var selectedDocument: URL? = nil
 
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
@@ -68,23 +67,8 @@ class VultViewModel: NSObject, ObservableObject {
             do {
                 guard let newItem = selectedPhoto else { return }
                 let name = PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
-                let data = try await newItem.loadTransferable(type: Data.self)
-                let localPath = Utils.uploadPath.appendingPathComponent(name)
-                let thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
-                
-                if let data = data, let image = ZCNImage(data: data) {
-                    let pngData = image.pngData()
-                    try pngData?.write(to: localPath,options: .atomic)
-                    
-                    let thumbnailData = image.jpegData(compressionQuality: 0.1)
-                    try thumbnailData?.write(to: thumbnailPath)
-                    
-                    try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: Utils.tempPath(),
-                                                                       localPath: localPath.path,
-                                                                       remotePath: "/\(name)",
-                                                                       fileAttrs: nil,
-                                                                       thumbnailpath: thumbnailPath.path,
-                                                                       statusCb: self)
+                if let data = try await newItem.loadTransferable(type: Data.self) {
+                    try uploadFile(data: data, name: name)
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -92,42 +76,42 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    /// Upload Document
-    /// - Parameter url: url of upload document
-    func uploadDocument(url: URL?) {
-        Task {
-            do {
-                guard let url = url else { return }
-                guard url.startAccessingSecurityScopedResource() else { return }
-                
-                let name = url.lastPathComponent
-                
-                let localPath = Utils.uploadPath.appendingPathComponent(name)
-                let thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
-                
-                let data = try Data(contentsOf: url)
-                let image = ZCNImage(data: data)
-                let pngData = image?.pngData()
-                try pngData?.write(to: localPath,options: .atomic)
-                
-                let thumbnailData = image?.jpegData(compressionQuality: 0.1)
-                try thumbnailData?.write(to: thumbnailPath)
-                
-                try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: Utils.tempPath(),
-                                                                   localPath: localPath.path,
-                                                                   remotePath: "/\(name)",
-                                                                   fileAttrs: nil,
-                                                                   thumbnailpath: thumbnailPath.path,
-                                                                   statusCb: self)
-                
-            } catch let error {
-                print(error.localizedDescription)
-            }
+    func uploadDocument(result: Result<URL, Error>) {
+        do {
+            let url = try result.get()
+            guard url.startAccessingSecurityScopedResource() else { return }
+            let name = url.lastPathComponent
+            let data = try Data(contentsOf: url)
+            try uploadFile(data: data, name: name)
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
     
-    /// Download image
-    /// - Parameter path: path of download image
+    func uploadFile(data: Data, name: String) throws {
+                
+        var localPath = Utils.uploadPath.appendingPathComponent(name)
+        var thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
+        
+        if let image = ZCNImage(data: data) {
+            let pngData = image.pngData()
+            try pngData?.write(to: localPath,options: .atomic)
+            
+            let thumbnailData = image.jpegData(compressionQuality: 0.1)
+            try thumbnailData?.write(to: thumbnailPath)
+        } else {
+            try data.write(to: localPath,options: .atomic)
+        }
+        
+        try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: Utils.tempPath(),
+                                                           localPath: localPath.path,
+                                                           remotePath: "/\(name)",
+                                                           fileAttrs: nil,
+                                                           thumbnailpath: thumbnailPath.path,
+                                                           statusCb: self)
+    }
+    
+
     func downloadImage(file: File) {
         do {
             try VultViewModel.zboxAllocationHandle?.downloadFile(file.path,
@@ -140,24 +124,26 @@ class VultViewModel: NSObject, ObservableObject {
     
     /// get list of directory
     func listDir() {
-        do {
-            guard let allocation = VultViewModel.zboxAllocationHandle else { return }
-            
-            var error: NSError? = nil
-            let jsonStr = allocation.listDir("/", error: &error)
-            
-            if let error = error { throw error }
-            
-            guard let data = jsonStr.data(using: .utf8) else { return }
-            
-            let files = try JSONDecoder().decode(Directory.self, from: data).list
-            
-            DispatchQueue.main.async {
-                self.files = files
+        DispatchQueue.global().async {
+            do {
+                guard let allocation = VultViewModel.zboxAllocationHandle else { return }
+                
+                var error: NSError? = nil
+                let jsonStr = allocation.listDir("/", error: &error)
+                
+                if let error = error { throw error }
+                
+                guard let data = jsonStr.data(using: .utf8) else { return }
+                
+                let files = try JSONDecoder().decode(Directory.self, from: data).list
+                
+                DispatchQueue.main.async {
+                    self.files = files
+                }
+                
+            } catch let error {
+                print(error.localizedDescription)
             }
-            
-        } catch let error {
-            print(error.localizedDescription)
         }
     }
     
@@ -261,7 +247,7 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
             file.status = .progress
             file.isUploaded = false
             DispatchQueue.main.async {
-                self.files.append(file)
+                self.files.insert(file, at: 0)
             }
         }
     }

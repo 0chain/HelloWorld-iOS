@@ -53,11 +53,14 @@ struct FileRow: View {
                     .resizable()
                     .frame(width: 40, height: 40)
             } else {
-                Image("sample")
+                Image(systemName: "doc.circle.fill")
                     .resizable()
+                    .symbolRenderingMode(.hierarchical)
                     .frame(width: 38, height: 38)
                     .cornerRadius(8)
+                    .foregroundColor(.teal)
             }
+            
             Text(file.name)
                 .font(.system(size: 15, weight: .semibold))
                 .lineLimit(1)

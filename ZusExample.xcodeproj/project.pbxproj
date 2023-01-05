@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,8 @@
 		4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
 		4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E329646F3000B00B5C /* PreviewController.swift */; };
 		4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */; };
-		4BB813E82964A54100B00B5C /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E72964A54100B00B5C /* DocumentPicker.swift */; };
+		4BB813F82965BA1200B00B5C /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813F72965BA1200B00B5C /* Bundle.swift */; };
+		4BB813FA2966F7E300B00B5C /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BB813F92966F7E300B00B5C /* Launch.storyboard */; };
 		4BEEDB942962D82D00A154E0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB932962D82D00A154E0 /* String.swift */; };
 		4BEEDB99296324B600A154E0 /* Allocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB952963190E00A154E0 /* Allocation.swift */; };
 		4BEEDB9A296324B800A154E0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9729631CE000A154E0 /* File.swift */; };
@@ -70,8 +71,9 @@
 		4BB813E02964687A00B00B5C /* FilesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTable.swift; sourceTree = "<group>"; };
 		4BB813E329646F3000B00B5C /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsView.swift; sourceTree = "<group>"; };
-		4BB813E72964A54100B00B5C /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		4BB813E9296576FF00B00B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4BB813F72965BA1200B00B5C /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		4BB813F92966F7E300B00B5C /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		4BEEDB932962D82D00A154E0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4BEEDB952963190E00A154E0 /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
 		4BEEDB9729631CE000A154E0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -111,12 +113,11 @@
 		4B7578C1295C7D0B00724F32 /* ZusExample */ = {
 			isa = PBXGroup;
 			children = (
+				4BB813ED2965AEEB00B00B5C /* Common */,
+				4BB813EC2965AEE700B00B5C /* Vult */,
+				4BB813EB2965AEE400B00B5C /* Bolt */,
 				4BB813E9296576FF00B00B5C /* Info.plist */,
 				4B7578D6295C7D5900724F32 /* Utils */,
-				4B7578D5295C7D4C00724F32 /* ViewModel */,
-				4B7578D4295C7D4900724F32 /* Model */,
-				4B7578D3295C7D4600724F32 /* View */,
-				4B7578D2295C7D4300724F32 /* App */,
 				4B7578C9295C7D0D00724F32 /* Preview Content */,
 			);
 			path = ZusExample;
@@ -133,42 +134,17 @@
 		4B7578D2295C7D4300724F32 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578F4295CB10100724F32 /* Vult */,
-				4B7578F3295CB0FB00724F32 /* Bolt */,
 				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
 				4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */,
 				4B7578F5295CB9B100724F32 /* AppSelectionView.swift */,
+				4BB813F92966F7E300B00B5C /* Launch.storyboard */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		4B7578D3295C7D4600724F32 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4B757900295D3EEF00724F32 /* Vult */,
-				4B7578FF295D3EEC00724F32 /* Bolt */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		4B7578D4295C7D4900724F32 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
-				4B7578EC295C896500724F32 /* Wallet.swift */,
-				4B757904295D412A00724F32 /* Balance.swift */,
-				4BF739A5295DBB22006E44D8 /* Transaction.swift */,
-				4BEEDB952963190E00A154E0 /* Allocation.swift */,
-				4BEEDB9729631CE000A154E0 /* File.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		4B7578D5295C7D4C00724F32 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
-				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
 				4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */,
 			);
 			path = ViewModel;
@@ -211,37 +187,113 @@
 				4B757906295D46EF00724F32 /* SwiftUI.swift */,
 				4BEEDB932962D82D00A154E0 /* String.swift */,
 				4BA115D229645B3C00951E8B /* Image.swift */,
+				4BB813F72965BA1200B00B5C /* Bundle.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		4B7578F3295CB0FB00724F32 /* Bolt */ = {
+		4BB813E229646F2900B00B5C /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578FD295D3E9000724F32 /* BoltHome.swift */,
+				4BB813E329646F3000B00B5C /* PreviewController.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		4BB813EB2965AEE400B00B5C /* Bolt */ = {
+			isa = PBXGroup;
+			children = (
+				4BB813EE2965AEF200B00B5C /* App */,
+				4BB813EF2965AEF500B00B5C /* View */,
+				4BB813F02965AEF900B00B5C /* Model */,
+				4BB813F12965AEFD00B00B5C /* ViewModel */,
 			);
 			path = Bolt;
 			sourceTree = "<group>";
 		};
-		4B7578F4295CB10100724F32 /* Vult */ = {
+		4BB813EC2965AEE700B00B5C /* Vult */ = {
 			isa = PBXGroup;
 			children = (
-				4BEEDB9B29632FE900A154E0 /* VultHome.swift */,
-				4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */,
+				4BB813F42965AF2D00B00B5C /* App */,
+				4BB813F52965AF2F00B00B5C /* View */,
+				4BB813F22965AF0800B00B5C /* Model */,
+				4BB813F62965AF3200B00B5C /* ViewModel */,
 			);
 			path = Vult;
 			sourceTree = "<group>";
 		};
-		4B7578FF295D3EEC00724F32 /* Bolt */ = {
+		4BB813ED2965AEEB00B00B5C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578D2295C7D4300724F32 /* App */,
+				4BB813F32965AF1000B00B5C /* Model */,
+				4B7578D5295C7D4C00724F32 /* ViewModel */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4BB813EE2965AEF200B00B5C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578FD295D3E9000724F32 /* BoltHome.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4BB813EF2965AEF500B00B5C /* View */ = {
 			isa = PBXGroup;
 			children = (
 				4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */,
 				4B757908295D4AA100724F32 /* WalletActionStack.swift */,
 			);
-			path = Bolt;
+			path = View;
 			sourceTree = "<group>";
 		};
-		4B757900295D3EEF00724F32 /* Vult */ = {
+		4BB813F02965AEF900B00B5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578EC295C896500724F32 /* Wallet.swift */,
+				4B757904295D412A00724F32 /* Balance.swift */,
+				4BF739A5295DBB22006E44D8 /* Transaction.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4BB813F12965AEFD00B00B5C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578D8295C7DA900724F32 /* BoltViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4BB813F22965AF0800B00B5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4BEEDB952963190E00A154E0 /* Allocation.swift */,
+				4BEEDB9729631CE000A154E0 /* File.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4BB813F32965AF1000B00B5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4BB813F42965AF2D00B00B5C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */,
+				4BEEDB9B29632FE900A154E0 /* VultHome.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4BB813F52965AF2F00B00B5C /* View */ = {
 			isa = PBXGroup;
 			children = (
 				4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */,
@@ -249,16 +301,15 @@
 				4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */,
 				4BB813E02964687A00B00B5C /* FilesTable.swift */,
 			);
-			path = Vult;
+			path = View;
 			sourceTree = "<group>";
 		};
-		4BB813E229646F2900B00B5C /* SwiftUI */ = {
+		4BB813F62965AF3200B00B5C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4BB813E329646F3000B00B5C /* PreviewController.swift */,
-				4BB813E72964A54100B00B5C /* DocumentPicker.swift */,
+				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
 			);
-			path = SwiftUI;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,7 +348,7 @@
 				};
 			};
 			buildConfigurationList = 4B7578BA295C7D0B00724F32 /* Build configuration list for PBXProject "ZusExample" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -321,6 +372,7 @@
 			files = (
 				4B7578CB295C7D0D00724F32 /* Preview Assets.xcassets in Resources */,
 				4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */,
+				4BB813FA2966F7E300B00B5C /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */,
+				4BB813F82965BA1200B00B5C /* Bundle.swift in Sources */,
 				4B757903295D3F0300724F32 /* AvailableBalanceBlock.swift in Sources */,
 				4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */,
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
@@ -343,7 +396,6 @@
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
 				4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */,
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
-				4BB813E82964A54100B00B5C /* DocumentPicker.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
 				4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */,
@@ -501,6 +553,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -548,6 +601,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launch.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
