@@ -41,5 +41,6 @@ struct VultHome: View {
 struct VultHome_Previews: PreviewProvider {
     static var previews: some View {
         VultHome()
+            .environmentObject(VultViewModel())
     }
 }

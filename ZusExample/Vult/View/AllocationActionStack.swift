@@ -25,9 +25,8 @@ struct AllocationActionStack: View {
                 .onTapGesture {
                     vultVM.presentDocumentPicker = true
                 }
-            
         }
-        .aspectRatio(2.4, contentMode: .fit)
+        .aspectRatio(3.2, contentMode: .fit)
         .shadow(color: .init(white: 0.95), radius: 100, x: 0, y: 0)
     }
     
@@ -38,12 +37,12 @@ struct AllocationActionStack: View {
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: gr.size.width/2)
-                Text(title.split(separator: " ")[0])
-                Text(title.split(separator: " ")[1])
+                Text(title)
             }
             .frame(maxWidth: .infinity,maxHeight: .infinity)
             .font(.system(size: 13, weight: .semibold))
             .foregroundColor(.primary)
+            .padding()
             .background(Color.white)
             .cornerRadius(12)
         }
