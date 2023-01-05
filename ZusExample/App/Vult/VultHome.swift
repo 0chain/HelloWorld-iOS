@@ -9,27 +9,28 @@ import SwiftUI
 import PhotosUI
 
 struct VultHome: View {
-    @StateObject var vultVM: VultViewModel = VultViewModel()
+    @EnvironmentObject var vultVM: VultViewModel
     
     var body: some View {
         GeometryReader { gr in
             VStack(alignment: .leading) {
                 AllocationDetailsBlock()
+                
                 AllocationActionStack()
                 
-                Text("All Files").bold()
-                
-                ScrollView(showsIndicators: false) {
-                    ForEach(vultVM.files) { file in
-                        FileRow(file: file)
-                    }
-                } //ScrollView
+                FilesTable()
+                NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile),isActive: $vultVM.openFile) {
+                    EmptyView()
+                }
             } //VStack
             .padding(22)
         } //GR
         .onAppear(perform: vultVM.listDir)
         .background(Color.gray.opacity(0.1))
+        .sheet(isPresented: $vultVM.presentAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
+        .sheet(isPresented: $vultVM.presentDocumentPicker) { DocumentPicker(filePath: $vultVM.selectedDocument) }
         .onChange(of: vultVM.selectedPhoto, perform: vultVM.uploadImage)
+        .onChange(of: vultVM.selectedDocument, perform: vultVM.uploadDocument)
         .environmentObject(vultVM)
     }
 }

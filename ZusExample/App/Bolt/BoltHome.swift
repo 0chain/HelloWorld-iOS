@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BoltHome: View {
-    @StateObject var boltVM: BoltViewModel = BoltViewModel()
+    @EnvironmentObject var boltVM: BoltViewModel
     
     var body: some View {
         GeometryReader { gr in
@@ -56,7 +56,6 @@ struct BoltHome: View {
         
         TextField("client ID", text: $boltVM.clientID)
         TextField("amount", text: $boltVM.amount)
-            .keyboardType(.decimalPad)
         
         Button("Send",action:boltVM.sendZCN)
             .disabled(!boltVM.clientID.isValidAddress || !boltVM.amount.isValidNumber)

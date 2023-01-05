@@ -29,7 +29,11 @@
 		4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */; };
 		4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */; };
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
-		4B75CB0A2964110F0046C0ED /* FileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB092964110F0046C0ED /* FileRow.swift */; };
+		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
+		4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
+		4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E329646F3000B00B5C /* PreviewController.swift */; };
+		4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */; };
+		4BB813E82964A54100B00B5C /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E72964A54100B00B5C /* DocumentPicker.swift */; };
 		4BEEDB942962D82D00A154E0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB932962D82D00A154E0 /* String.swift */; };
 		4BEEDB99296324B600A154E0 /* Allocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB952963190E00A154E0 /* Allocation.swift */; };
 		4BEEDB9A296324B800A154E0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9729631CE000A154E0 /* File.swift */; };
@@ -62,7 +66,12 @@
 		4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsBlock.swift; sourceTree = "<group>"; };
 		4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNProgressStyle.swift; sourceTree = "<group>"; };
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
-		4B75CB092964110F0046C0ED /* FileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRow.swift; sourceTree = "<group>"; };
+		4BA115D229645B3C00951E8B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		4BB813E02964687A00B00B5C /* FilesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTable.swift; sourceTree = "<group>"; };
+		4BB813E329646F3000B00B5C /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
+		4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsView.swift; sourceTree = "<group>"; };
+		4BB813E72964A54100B00B5C /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		4BB813E9296576FF00B00B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4BEEDB932962D82D00A154E0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4BEEDB952963190E00A154E0 /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
 		4BEEDB9729631CE000A154E0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -102,6 +111,7 @@
 		4B7578C1295C7D0B00724F32 /* ZusExample */ = {
 			isa = PBXGroup;
 			children = (
+				4BB813E9296576FF00B00B5C /* Info.plist */,
 				4B7578D6295C7D5900724F32 /* Utils */,
 				4B7578D5295C7D4C00724F32 /* ViewModel */,
 				4B7578D4295C7D4900724F32 /* Model */,
@@ -167,6 +177,7 @@
 		4B7578D6295C7D5900724F32 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4BB813E229646F2900B00B5C /* SwiftUI */,
 				4B7578F0295CAD8700724F32 /* Extension */,
 				4B7578E0295C7F5A00724F32 /* GoSDK */,
 				4B7578D7295C7D5F00724F32 /* Resources */,
@@ -199,6 +210,7 @@
 				4B7578F1295CAD9100724F32 /* Number.swift */,
 				4B757906295D46EF00724F32 /* SwiftUI.swift */,
 				4BEEDB932962D82D00A154E0 /* String.swift */,
+				4BA115D229645B3C00951E8B /* Image.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -215,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				4BEEDB9B29632FE900A154E0 /* VultHome.swift */,
+				4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */,
 			);
 			path = Vult;
 			sourceTree = "<group>";
@@ -234,9 +247,18 @@
 				4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */,
 				4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */,
 				4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */,
-				4B75CB092964110F0046C0ED /* FileRow.swift */,
+				4BB813E02964687A00B00B5C /* FilesTable.swift */,
 			);
 			path = Vult;
+			sourceTree = "<group>";
+		};
+		4BB813E229646F2900B00B5C /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				4BB813E329646F3000B00B5C /* PreviewController.swift */,
+				4BB813E72964A54100B00B5C /* DocumentPicker.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,18 +343,22 @@
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
 				4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */,
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
+				4BB813E82964A54100B00B5C /* DocumentPicker.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
+				4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
 				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,
-				4B75CB0A2964110F0046C0ED /* FileRow.swift in Sources */,
 				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */,
 				4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */,
+				4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */,
 				4BEEDB9A296324B800A154E0 /* File.swift in Sources */,
 				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,
+				4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */,
+				4BA115D329645B3C00951E8B /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,9 +416,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lc++";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -443,8 +471,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-lc++";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
@@ -463,6 +493,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZusExample/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "upload photos";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -488,6 +519,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -507,6 +540,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZusExample/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "upload photos";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -532,6 +566,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

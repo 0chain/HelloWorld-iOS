@@ -7,13 +7,15 @@
 
 import Foundation
 
-class Directory: NSObject, Codable {
+struct Directory: Codable {
     let list: [File]
 }
 
 typealias Files = [File]
 
-class File: NSObject, Codable, Identifiable {
+struct File: Codable, Identifiable, Hashable {
+    
+    var id = UUID()
     
     var name : String = ""
     var mimetype: String = ""
@@ -95,6 +97,8 @@ class File: NSObject, Codable, Identifiable {
       return FileManager.default.fileExists(atPath: localFilePath.path)
     }
     
+    var isUploaded: Bool = true
+    
     var completedBytes: Int = 0
     
     /// File status type
@@ -113,5 +117,15 @@ class File: NSObject, Codable, Identifiable {
         }
     }
     
+    var fileDownloadPercent: String {
+        return "\(completedBytes/size) %"
+    }
+    
     var status: FileStatus = .completed
+    
+       func hash(into hasher: inout Hasher) {
+           hasher.combine(path)
+           hasher.combine(completedBytes)
+           hasher.combine(status)
+       }
 }

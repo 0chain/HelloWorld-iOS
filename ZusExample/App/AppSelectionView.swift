@@ -11,8 +11,10 @@ struct AppSelectionView: View {
     @State var presentWalletDetails : Bool = false
     @State var presentVultHome: Bool = false
     
-    @AppStorage(Utils.UserDefaultsKey.allocationID.rawValue) var allocationID: String = ""
     @EnvironmentObject var zcncoreVM: ZcncoreManager
+    
+    @StateObject var boltVM: BoltViewModel = BoltViewModel()
+    @StateObject var vultVM: VultViewModel = VultViewModel()
     
     var body: some View {
         NavigationView {
@@ -20,23 +22,15 @@ struct AppSelectionView: View {
                 VStack(alignment: .center,spacing: 20) {
                     Spacer()
                     AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
-                        .destination(destination: BoltHome())
+                        .destination(destination: BoltHome().environmentObject(boltVM))
                     
                     Spacer()
-                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7,allocationButton: allocationID.isEmpty)
-                        .onTapGesture {
-                            if allocationID.isEmpty {
-                                zcncoreVM.createAllocation()
-                            } else {
-                                self.presentVultHome = true
-                            }
-                        }
+                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
+                        .destination(destination: VultHome().environmentObject(vultVM))
                     
                     Spacer()
                     
                     WalletDetailsBlock(wallet: Utils.wallet!,width: gr.size.width * 0.7)
-                    
-                    NavigationLink(destination: VultHome(), isActive: $presentVultHome) { EmptyView() }
                     
                     Spacer()
                 } //VStack
@@ -107,7 +101,7 @@ struct AppSelectionView: View {
         HStack {
             Text(title)
             Text(text)
-        }
+        } //HStack
     }
 }
 
