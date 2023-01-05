@@ -30,6 +30,15 @@ struct AllocationDetailsBlock: View {
                         .foregroundColor(.gray)
                         .lineLimit(1)
                 }
+                
+                Button(action: {vultVM.presentAllocationDetails = true}) {
+                    Image(systemName: "info.circle")
+                        .resizable()
+                        .symbolRenderingMode(.hierarchical)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 30)
+                        .foregroundColor(.teal)
+                }
         }
         .padding(.horizontal,16)
         .padding(.vertical,12)

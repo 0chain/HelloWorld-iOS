@@ -26,10 +26,6 @@ struct AllocationActionStack: View {
                     vultVM.presentDocumentPicker = true
                 }
             
-            WalletActionBlock(icon: "allocation", "Allocation Details")
-                .onTapGesture {
-                    vultVM.presentAllocationDetails = true
-                }
         }
         .aspectRatio(2.4, contentMode: .fit)
         .shadow(color: .init(white: 0.95), radius: 100, x: 0, y: 0)
