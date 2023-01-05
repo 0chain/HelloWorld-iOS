@@ -16,6 +16,7 @@ struct ZusExampleApp: App {
     init() {
         zcncoreVM.initialize()
     }
+    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -26,7 +27,6 @@ struct ZusExampleApp: App {
                 }
             }
             .environmentObject(zcncoreVM)
-            //.onAppear(perform: zcncoreVM.initialize)
         }
     }
 }

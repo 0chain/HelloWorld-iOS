@@ -20,18 +20,20 @@ struct VultHome: View {
                 
                 FilesTable()
                 
-                NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile),isActive: $vultVM.openFile) {
+                NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
+,isActive: $vultVM.openFile) {
                     EmptyView()
                 }
             }
             .padding(22)
         }
         .onAppear(perform: vultVM.listDir)
+        .navigationTitle(Text("Vult"))
+        .navigationBarTitleDisplayMode(.large)
         .background(Color.gray.opacity(0.1))
         .sheet(isPresented: $vultVM.presentAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
-        .sheet(isPresented: $vultVM.presentDocumentPicker) { DocumentPicker(filePath: $vultVM.selectedDocument) }
+        .fileImporter(isPresented: $vultVM.presentDocumentPicker, allowedContentTypes: [.image,.pdf,.audio],onCompletion: vultVM.uploadDocument)
         .onChange(of: vultVM.selectedPhoto, perform: vultVM.uploadImage)
-        .onChange(of: vultVM.selectedDocument, perform: vultVM.uploadDocument)
         .environmentObject(vultVM)
     }
 }
