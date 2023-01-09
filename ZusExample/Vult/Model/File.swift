@@ -7,13 +7,13 @@
 
 import Foundation
 
-class Directory: Codable {
+struct Directory: Codable {
     let list: [File]
 }
 
 typealias Files = [File]
 
-class File: Codable, Identifiable, Hashable, ObservableObject {
+struct File: Codable, Identifiable, Equatable  {
     
     var id = UUID()
     
@@ -78,9 +78,9 @@ class File: Codable, Identifiable, Hashable, ObservableObject {
       return FileManager.default.fileExists(atPath: localFilePath.path)
     }
     
-    @Published var isUploaded: Bool = true
+     var isUploaded: Bool = true
     
-    @Published var completedBytes: Int = 0
+     var completedBytes: Int = 0
     
     enum FileStatus {
         case error
@@ -100,13 +100,6 @@ class File: Codable, Identifiable, Hashable, ObservableObject {
         return "\(completedBytes/size) %"
     }
     
-    @Published var status: FileStatus = .completed
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(path)
-    }
-    
-    static func == (lhs: File, rhs: File) -> Bool {
-        lhs.path == rhs.path
-    }
+     var status: FileStatus = .completed
+
 }
