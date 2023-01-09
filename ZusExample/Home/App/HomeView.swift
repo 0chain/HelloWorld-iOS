@@ -7,36 +7,57 @@
 
 import SwiftUI
 
-struct AppSelectionView: View {
+struct HomeView: View {
     @State var presentWalletDetails : Bool = false
     @State var presentVultHome: Bool = false
     
-    @EnvironmentObject var zcncoreVM: ZcncoreManager
-    
+    @Environment(\.colorScheme) var colorScheme
     @StateObject var boltVM: BoltViewModel = BoltViewModel()
     @StateObject var vultVM: VultViewModel = VultViewModel()
-
+    @StateObject var homeVM: HomeViewModel = HomeViewModel()
+    
     var body: some View {
         NavigationView {
             GeometryReader { gr in
                 VStack(alignment: .center,spacing: 20) {
+                    HStack(spacing: 15) {
+                        WalletActionBlock(icon: "wallet", title: "Wallet Details")
+                            .onTapGesture {
+                                homeVM.presentWalletDetails()
+                            }
+                        WalletActionBlock(icon: "allocation", title: "Allocation Details")
+                            .onTapGesture {
+                                homeVM.presentAllocationDetails()
+                            }
+                        
+                        WalletActionBlock(icon: "network", title: "Network Details")
+                            .onTapGesture {
+                                homeVM.presentNetworkDetails()
+                            }
+                    }
+                    .shadow(color:Color(white: 0.9),radius: 25)
+                
                     Spacer()
                     AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
                         .destination(destination: BoltHome().environmentObject(boltVM))
                     
                     Spacer()
+                    
                     AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
                         .destination(destination: VultHome().environmentObject(vultVM))
                     
                     Spacer()
-                    
-                    WalletDetailsBlock(wallet: Utils.wallet!,width: gr.size.width * 0.7)
-                                        
-                    Spacer()
+                                       
+                    Text("v 1.0 (21) ")
                 }
                 .frame(maxWidth: .infinity)
                 .padding(gr.size.width/15)
+                .sheet(isPresented: $homeVM.pushAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
+                .sheet(isPresented: $homeVM.pushWalletDetails) { WalletDetailsView() }
+                .sheet(isPresented: $homeVM.pushNetworkDetails) { NetworkDetails() }
+                .onAppear { vultVM.getAllocation() }
             }
+            .navigationTitle("ZusExample")
         }
     }
     
@@ -46,8 +67,8 @@ struct AppSelectionView: View {
             .aspectRatio(contentMode: .fit)
             .padding(width/10)
             .frame(maxWidth: .infinity)
-            .background(.background)
-            .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(radius: 5)
+            .background(Color.tertiarySystemBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(color:Color(white: 0.9),radius: 25)
     }
     
     
@@ -102,8 +123,7 @@ struct AppSelectionView_Previews: PreviewProvider {
             return defaults
         }()
         
-        AppSelectionView()
-            .environmentObject(ZcncoreManager())
+        HomeView()
             .defaultAppStorage(previewDefaults)
     }
 }

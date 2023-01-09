@@ -10,7 +10,7 @@ import PhotosUI
 
 struct AllocationActionStack: View {
     @EnvironmentObject var vultVM: VultViewModel
-    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         HStack(spacing:10) {
             
@@ -18,39 +18,16 @@ struct AllocationActionStack: View {
                 selection: $vultVM.selectedPhoto,
                 matching: .images,
                 photoLibrary: .shared()) {
-                    WalletActionBlock(icon: "photo", "Upload Image")
+                    WalletActionBlock(icon: "photo",title: "Upload Image")
                 }
             
-            WalletActionBlock(icon: "document", "Upload Document")
+            WalletActionBlock(icon: "document",title: "Upload Document")
                 .onTapGesture {
                     vultVM.presentDocumentPicker = true
                 }
-            
-            WalletActionBlock(icon: "allocation", "Allocation Details")
-                .onTapGesture {
-                    vultVM.presentAllocationDetails = true
-                }
         }
-        .aspectRatio(2.4, contentMode: .fit)
-        .shadow(color: .init(white: 0.95), radius: 100, x: 0, y: 0)
-    }
-    
-    @ViewBuilder func WalletActionBlock(icon: String,_ title:String) -> some View {
-        GeometryReader { gr in
-            VStack(alignment: .center) {
-                Image(icon)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(width: gr.size.width/2)
-                Text(title.split(separator: " ")[0])
-                Text(title.split(separator: " ")[1])
-            }
-            .frame(maxWidth: .infinity,maxHeight: .infinity)
-            .font(.system(size: 13, weight: .semibold))
-            .foregroundColor(.primary)
-            .background(Color.white)
-            .cornerRadius(12)
-        }
+        .aspectRatio(3.2, contentMode: .fit)
+        .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.95), radius: 100, x: 0, y: 0)
     }
 }
 
@@ -60,5 +37,28 @@ struct AllocationActionStack_Previews: PreviewProvider {
             .environmentObject(VultViewModel())
             .background(Color.gray.opacity(0.1))
             .previewLayout(.sizeThatFits)
+    }
+}
+
+struct WalletActionBlock: View {
+    var icon: String
+    var title: String
+    
+    var body: some View {
+        GeometryReader { gr in
+            VStack(alignment: .center) {
+                Image(icon)
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(width: gr.size.width/2)
+                Text(title)
+            }
+            .frame(maxWidth: .infinity,maxHeight: .infinity)
+            .font(.system(size: 13, weight: .semibold))
+            .foregroundColor(.primary)
+            .padding()
+            .background(Color.tertiarySystemBackground)
+            .cornerRadius(12)
+        }
     }
 }

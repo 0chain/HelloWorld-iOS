@@ -13,7 +13,7 @@ struct Directory: Codable {
 
 typealias Files = [File]
 
-struct File: Codable, Identifiable, Hashable {
+struct File: Codable, Identifiable, Equatable  {
     
     var id = UUID()
     
@@ -78,9 +78,9 @@ struct File: Codable, Identifiable, Hashable {
       return FileManager.default.fileExists(atPath: localFilePath.path)
     }
     
-    var isUploaded: Bool = true
+     var isUploaded: Bool = true
     
-    var completedBytes: Int = 0
+     var completedBytes: Int = 0
     
     enum FileStatus {
         case error
@@ -100,11 +100,6 @@ struct File: Codable, Identifiable, Hashable {
         return "\(completedBytes/size) %"
     }
     
-    var status: FileStatus = .completed
-    
-       func hash(into hasher: inout Hasher) {
-           hasher.combine(path)
-           hasher.combine(completedBytes)
-           hasher.combine(status)
-       }
+     var status: FileStatus = .completed
+
 }

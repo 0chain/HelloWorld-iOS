@@ -14,19 +14,20 @@ struct FilesTable: View {
         VStack(alignment: .leading) {
             Text("All Files").bold()
             
-            ScrollView(showsIndicators: false) {
-                ForEach(vultVM.files,id:\.self) { file in
-                    FileRow(file: file)
-                        .onTapGesture {
-                            if file.isDownloaded {
-                                self.vultVM.openFile = true
-                                self.vultVM.selectedFile = file
-                            } else if file.isUploaded {
-                                vultVM.downloadImage(file: file)
-                            }
+         //   ScrollView(showsIndicators: false) {
+                List(vultVM.files,id:\.id) { file in
+                   FileRow(file: file)
+                    .id(file.id)
+                    .onTapGesture {
+                        if file.isDownloaded {
+                            self.vultVM.openFile = true
+                            self.vultVM.selectedFile = file
+                        } else if file.isUploaded {
+                            vultVM.downloadImage(file: file)
                         }
+                    }
                 }
-            }
+       //     }
         }
     }
 }
@@ -45,13 +46,14 @@ struct FilesTable_Previews: PreviewProvider {
 }
 
 struct FileRow: View {
-    var file: File
+    @State var file: File
     var body: some View {
         HStack(spacing: 20) {
             if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {
                 Image(image)
                     .resizable()
                     .frame(width: 40, height: 40)
+                    .cornerRadius(8)
             } else {
                 Image(systemName: "doc.circle.fill")
                     .resizable()
@@ -89,8 +91,7 @@ struct FileRow: View {
         }
         .padding(.vertical,12)
         .padding(.horizontal,18)
-        .background(.white)
+        .background(Color.tertiarySystemBackground)
         .cornerRadius(12)
-
     }
 }

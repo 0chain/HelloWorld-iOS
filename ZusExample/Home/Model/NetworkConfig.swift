@@ -29,11 +29,11 @@ struct NetworkConfig: Codable {
         self.zboxURL = zboxURL
     }
     
-    static let demoZus = NetworkConfig(blockWorker: "https://demo.zus.network/dns", zboxURL: "https://0box.demo.zus.network")
-    static let bcv1 = NetworkConfig(blockWorker: "https://bcv1.devnet-0chain.net/dns", zboxURL: "https://0box.bcv1.devnet-0chain.net")
-    static let demo = NetworkConfig(blockWorker: "https://dev.0chain.net/dns", zboxURL: "https://0box.dev.0chain.net")
-    static let potato = NetworkConfig(blockWorker: "https://potato.devnet-0chain.net/dns", zboxURL: "https://0box.potato.devnet-0chain.net")
-    static let test = NetworkConfig(blockWorker: "https://test.0chain.net/dns", zboxURL: "https://0box.test.0chain.net")
+    internal init(scheme: String) {
+        let blockWorker = "https://" + scheme + "/dns"
+        let zboxURL = "https://0box." + scheme
+        self.init(blockWorker: blockWorker, zboxURL: zboxURL)
+    }
     
     var host: String {
         return URLComponents(string: blockWorker)?.host ?? ""
@@ -41,4 +41,15 @@ struct NetworkConfig: Codable {
     
 }
 
+enum Network: String,CaseIterable {
+    case demoZus = "demo.zus.network"
+    case bcv1 = "bcv1.devnet-0chain.net"
+    case demo = "demo.0chain.net"
+    case potato = "potato.devnet-0chain.net"
+    case test = "test.0chain.net"
+    
+    var config: NetworkConfig {
+        return NetworkConfig(scheme: self.rawValue)
+    }
+}
 

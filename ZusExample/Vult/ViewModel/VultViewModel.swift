@@ -160,7 +160,9 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
                 }
             }
         }
-        self.getAllocation()
+        DispatchQueue.main.async {
+            self.allocation.addSize(size)
+        }
     }
     
     func error(_ allocationID: String?, filePath: String?, op: Int, err: Error?) {

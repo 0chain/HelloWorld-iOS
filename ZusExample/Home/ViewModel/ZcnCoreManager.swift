@@ -12,7 +12,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
 
-    private static let network: NetworkConfig = NetworkConfig.demoZus
+    private static var network: NetworkConfig = Network.demoZus.config
     static var zboxStorageSDKHandle : SdkStorageSDK? = nil
     
     @Published var processing: Bool = false
@@ -20,6 +20,9 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     func initialize() {
         do {
+            if let networkScheme = Utils.get(key: .network) as? String, let network = Network(rawValue: networkScheme) {
+                ZcncoreManager.network = network.config
+            }
             try initialiseSDK()
             setWalletInfo()
         } catch let error {

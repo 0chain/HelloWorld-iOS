@@ -119,6 +119,7 @@ extension Utils {
         case walletJSON
         case balance
         case allocationID
+        case network
     }
     
     public static func set(_ value: Any, for key: UserDefaultsKey) {
@@ -127,6 +128,10 @@ extension Utils {
     
     public static func get(key: UserDefaultsKey) -> Any {
         return defaults.value(forKey: key.rawValue)
+    }
+    
+    public static func delete(key: UserDefaultsKey) {
+        defaults.set(nil, forKey: key.rawValue)
     }
     
     public static var wallet: Wallet? {
