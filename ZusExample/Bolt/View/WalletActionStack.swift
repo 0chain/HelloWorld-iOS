@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WalletActionStack: View {
     @EnvironmentObject var boltVM: BoltViewModel
+    @Environment(\.colorScheme) var colorScheme
     var width: CGFloat
     
     var body: some View {
@@ -19,9 +20,9 @@ struct WalletActionStack: View {
             }
         }
         .frame(height:width/4)
-        .background(Color.white)
+        .background(Color.tertiarySystemBackground)
         .cornerRadius(12)
-        .shadow(color: .init(white: 0.75), radius: 75, x: 0, y: 0)
+        .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.75), radius: 75, x: 0, y: 0)
         .padding(.bottom,10)
     }
 }

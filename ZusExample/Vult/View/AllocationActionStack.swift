@@ -10,7 +10,7 @@ import PhotosUI
 
 struct AllocationActionStack: View {
     @EnvironmentObject var vultVM: VultViewModel
-    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         HStack(spacing:10) {
             
@@ -18,19 +18,33 @@ struct AllocationActionStack: View {
                 selection: $vultVM.selectedPhoto,
                 matching: .images,
                 photoLibrary: .shared()) {
-                    WalletActionBlock(icon: "photo", "Upload Image")
+                    WalletActionBlock(icon: "photo",title: "Upload Image")
                 }
             
-            WalletActionBlock(icon: "document", "Upload Document")
+            WalletActionBlock(icon: "document",title: "Upload Document")
                 .onTapGesture {
                     vultVM.presentDocumentPicker = true
                 }
         }
         .aspectRatio(3.2, contentMode: .fit)
-        .shadow(color: .init(white: 0.95), radius: 100, x: 0, y: 0)
+        .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.95), radius: 100, x: 0, y: 0)
     }
+}
+
+struct AllocationActionStack_Previews: PreviewProvider {
+    static var previews: some View {
+        AllocationActionStack()
+            .environmentObject(VultViewModel())
+            .background(Color.gray.opacity(0.1))
+            .previewLayout(.sizeThatFits)
+    }
+}
+
+struct WalletActionBlock: View {
+    var icon: String
+    var title: String
     
-    @ViewBuilder func WalletActionBlock(icon: String,_ title:String) -> some View {
+    var body: some View {
         GeometryReader { gr in
             VStack(alignment: .center) {
                 Image(icon)
@@ -43,17 +57,8 @@ struct AllocationActionStack: View {
             .font(.system(size: 13, weight: .semibold))
             .foregroundColor(.primary)
             .padding()
-            .background(Color.white)
+            .background(Color.tertiarySystemBackground)
             .cornerRadius(12)
         }
-    }
-}
-
-struct AllocationActionStack_Previews: PreviewProvider {
-    static var previews: some View {
-        AllocationActionStack()
-            .environmentObject(VultViewModel())
-            .background(Color.gray.opacity(0.1))
-            .previewLayout(.sizeThatFits)
     }
 }

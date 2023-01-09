@@ -12,7 +12,7 @@ struct AvailableBalanceBlock: View {
     @AppStorage(Utils.UserDefaultsKey.balance.rawValue) var balance: Int = 0
 
     var body: some View {
-        VStack(alignment:.leading,spacing: 10) {
+        VStack(alignment:.leading,spacing: 5) {
             
             Text("Available Balance")
                 .font(.system(size: 14, weight: .regular))
@@ -31,7 +31,11 @@ struct AvailableBalanceBlock: View {
                     .font(.system(size: 16, weight: .regular))
                 Text("$ \(balance.usd)")
                     .font(.system(size: 16, weight: .bold))
+                
             }
+            
+            Text("1 ZCN ≈ $\(Utils.zcnUsdRate)")
+                .foregroundColor(.secondary)
         }
     }
 }

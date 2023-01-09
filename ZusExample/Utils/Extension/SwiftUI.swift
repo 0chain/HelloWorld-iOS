@@ -27,3 +27,14 @@ extension View {
        modifier(Navigation(destination: destination))
     }
 }
+
+extension Color {
+    static let background = Color("background")
+    
+    #if os(iOS)
+    static let tertiarySystemBackground = Color(uiColor: UIKit.UIColor.tertiarySystemBackground)
+    #else
+    static let tertiarySystemBackground = Color(nsColor: AppKit.NSColor.tertiarySystemBackground)
+    #endif
+    
+}

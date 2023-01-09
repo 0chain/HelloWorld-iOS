@@ -92,4 +92,7 @@ struct Transaction: Codable, Identifiable, Hashable,Comparable {
         case status
     }
     
+    var fomattedDate: String {
+        return Date(timeIntervalSince1970: self.creationDate/1e9).formatted()
+    }
 }
