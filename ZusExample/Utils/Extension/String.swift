@@ -23,4 +23,11 @@ extension String {
         return Double(self) ?? 0.0
     }
     
+    var json: [String:Any] {
+        if let json = try? JSONSerialization.jsonObject(with: Data(self.utf8)) as? [String:Any] {
+            return json
+        } else {
+            return [:]
+        }
+    }
 }

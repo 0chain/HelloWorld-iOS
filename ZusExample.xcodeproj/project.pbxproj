@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B5789B229692C8A00E8FCFF /* TransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789B129692C8A00E8FCFF /* TransactionDetails.swift */; };
+		4B5789B429692D9B00E8FCFF /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789B329692D9B00E8FCFF /* Codable.swift */; };
+		4B5789B62969AA7800E8FCFF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789B52969AA7800E8FCFF /* HomeViewModel.swift */; };
+		4B5789B82969AC3C00E8FCFF /* WalletDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789B72969AC3C00E8FCFF /* WalletDetailsView.swift */; };
+		4B5789BC296BC96E00E8FCFF /* ZCNToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789BB296BC96E00E8FCFF /* ZCNToast.swift */; };
+		4B5789BE296BE7BA00E8FCFF /* NetworkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789BD296BE7BA00E8FCFF /* NetworkDetails.swift */; };
 		4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */; };
 		4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */; };
 		4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578C6295C7D0D00724F32 /* Assets.xcassets */; };
@@ -19,7 +25,7 @@
 		4B7578E8295C82D900724F32 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E7295C82D900724F32 /* Utils.swift */; };
 		4B7578ED295C896500724F32 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EC295C896500724F32 /* Wallet.swift */; };
 		4B7578F2295CAD9100724F32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Number.swift */; };
-		4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F5295CB9B100724F32 /* AppSelectionView.swift */; };
+		4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F5295CB9B100724F32 /* HomeView.swift */; };
 		4B7578FA295CC70200724F32 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578F9295CC70200724F32 /* libbls.xcframework */; };
 		4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578FD295D3E9000724F32 /* BoltHome.swift */; };
 		4B757903295D3F0300724F32 /* AvailableBalanceBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */; };
@@ -30,7 +36,7 @@
 		4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */; };
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
 		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
-		4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
+		4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
 		4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E329646F3000B00B5C /* PreviewController.swift */; };
 		4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */; };
 		4BB813F82965BA1200B00B5C /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813F72965BA1200B00B5C /* Bundle.swift */; };
@@ -43,6 +49,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B5789B129692C8A00E8FCFF /* TransactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetails.swift; sourceTree = "<group>"; };
+		4B5789B329692D9B00E8FCFF /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
+		4B5789B52969AA7800E8FCFF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		4B5789B72969AC3C00E8FCFF /* WalletDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailsView.swift; sourceTree = "<group>"; };
+		4B5789BB296BC96E00E8FCFF /* ZCNToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNToast.swift; sourceTree = "<group>"; };
+		4B5789BD296BE7BA00E8FCFF /* NetworkDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDetails.swift; sourceTree = "<group>"; };
 		4B7578BF295C7D0B00724F32 /* ZusExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZusExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZusExampleApp.swift; sourceTree = "<group>"; };
 		4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
@@ -57,7 +69,7 @@
 		4B7578E7295C82D900724F32 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		4B7578EC295C896500724F32 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		4B7578F1295CAD9100724F32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
-		4B7578F5295CB9B100724F32 /* AppSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionView.swift; sourceTree = "<group>"; };
+		4B7578F5295CB9B100724F32 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4B7578F9295CC70200724F32 /* libbls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libbls.xcframework; sourceTree = "<group>"; };
 		4B7578FD295D3E9000724F32 /* BoltHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoltHome.swift; sourceTree = "<group>"; };
 		4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableBalanceBlock.swift; sourceTree = "<group>"; };
@@ -94,11 +106,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B5789B9296BC95B00E8FCFF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4B5789BA296BC95E00E8FCFF /* ZCNToast */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4B5789BA296BC95E00E8FCFF /* ZCNToast */ = {
+			isa = PBXGroup;
+			children = (
+				4B5789BB296BC96E00E8FCFF /* ZCNToast.swift */,
+			);
+			path = ZCNToast;
+			sourceTree = "<group>";
+		};
 		4B7578B6295C7D0B00724F32 = {
 			isa = PBXGroup;
 			children = (
 				4B7578C1295C7D0B00724F32 /* ZusExample */,
 				4B7578C0295C7D0B00724F32 /* Products */,
+				4BB813FD296704E900B00B5C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,7 +142,8 @@
 		4B7578C1295C7D0B00724F32 /* ZusExample */ = {
 			isa = PBXGroup;
 			children = (
-				4BB813ED2965AEEB00B00B5C /* Common */,
+				4B5789B9296BC95B00E8FCFF /* Common */,
+				4BB813ED2965AEEB00B00B5C /* Home */,
 				4BB813EC2965AEE700B00B5C /* Vult */,
 				4BB813EB2965AEE400B00B5C /* Bolt */,
 				4BB813E9296576FF00B00B5C /* Info.plist */,
@@ -136,8 +166,11 @@
 			children = (
 				4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */,
 				4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */,
-				4B7578F5295CB9B100724F32 /* AppSelectionView.swift */,
+				4B7578F5295CB9B100724F32 /* HomeView.swift */,
+				4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */,
 				4BB813F92966F7E300B00B5C /* Launch.storyboard */,
+				4B5789B72969AC3C00E8FCFF /* WalletDetailsView.swift */,
+				4B5789BD296BE7BA00E8FCFF /* NetworkDetails.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -146,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */,
+				4B5789B52969AA7800E8FCFF /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -188,6 +222,7 @@
 				4BEEDB932962D82D00A154E0 /* String.swift */,
 				4BA115D229645B3C00951E8B /* Image.swift */,
 				4BB813F72965BA1200B00B5C /* Bundle.swift */,
+				4B5789B329692D9B00E8FCFF /* Codable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -222,20 +257,21 @@
 			path = Vult;
 			sourceTree = "<group>";
 		};
-		4BB813ED2965AEEB00B00B5C /* Common */ = {
+		4BB813ED2965AEEB00B00B5C /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				4B7578D2295C7D4300724F32 /* App */,
 				4BB813F32965AF1000B00B5C /* Model */,
 				4B7578D5295C7D4C00724F32 /* ViewModel */,
 			);
-			path = Common;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		4BB813EE2965AEF200B00B5C /* App */ = {
 			isa = PBXGroup;
 			children = (
 				4B7578FD295D3E9000724F32 /* BoltHome.swift */,
+				4B5789B129692C8A00E8FCFF /* TransactionDetails.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -287,7 +323,6 @@
 		4BB813F42965AF2D00B00B5C /* App */ = {
 			isa = PBXGroup;
 			children = (
-				4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */,
 				4BEEDB9B29632FE900A154E0 /* VultHome.swift */,
 			);
 			path = App;
@@ -310,6 +345,13 @@
 				4B7578DA295C7DDE00724F32 /* VultViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4BB813FD296704E900B00B5C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,6 +398,8 @@
 				Base,
 			);
 			mainGroup = 4B7578B6295C7D0B00724F32;
+			packageReferences = (
+			);
 			productRefGroup = 4B7578C0295C7D0B00724F32 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -390,26 +434,32 @@
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
 				4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */,
 				4BEEDB99296324B600A154E0 /* Allocation.swift in Sources */,
+				4B5789BC296BC96E00E8FCFF /* ZCNToast.swift in Sources */,
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
+				4B5789BE296BE7BA00E8FCFF /* NetworkDetails.swift in Sources */,
+				4B5789B429692D9B00E8FCFF /* Codable.swift in Sources */,
 				4BEEDB9C29632FE900A154E0 /* VultHome.swift in Sources */,
+				4B5789B229692C8A00E8FCFF /* TransactionDetails.swift in Sources */,
 				4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */,
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
 				4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */,
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
-				4BB813E12964687A00B00B5C /* FilesTable.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
+				4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */,
 				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,
 				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */,
-				4B7578F6295CB9B100724F32 /* AppSelectionView.swift in Sources */,
+				4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */,
 				4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */,
 				4BEEDB9A296324B800A154E0 /* File.swift in Sources */,
 				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,
+				4B5789B82969AC3C00E8FCFF /* WalletDetailsView.swift in Sources */,
 				4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */,
+				4B5789B62969AA7800E8FCFF /* HomeViewModel.swift in Sources */,
 				4BA115D329645B3C00951E8B /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

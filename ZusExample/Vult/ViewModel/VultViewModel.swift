@@ -178,7 +178,9 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
                 }
             }
         }
-        self.getAllocation()
+        DispatchQueue.main.async {
+            self.allocation.addSize(size)
+        }
     }
     
     /// Allocation failed

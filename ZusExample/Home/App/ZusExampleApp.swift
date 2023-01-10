@@ -13,6 +13,7 @@ struct ZusExampleApp: App {
     @AppStorage(Utils.UserDefaultsKey.allocationID.rawValue) var allocation: String = ""
 
     @StateObject var zcncoreVM: ZcncoreManager = ZcncoreManager.shared
+    
     init() {
         zcncoreVM.initialize()
     }
@@ -23,7 +24,7 @@ struct ZusExampleApp: App {
                 if wallet.isEmpty || allocation.isEmpty {
                     CreateWalletView(zcncoreVM: zcncoreVM)
                 } else {
-                    AppSelectionView()
+                    HomeView()
                 }
             } //Group
             .environmentObject(zcncoreVM)

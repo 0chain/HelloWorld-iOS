@@ -3,6 +3,16 @@
     {
       "filename" : "zus.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "zus-dark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

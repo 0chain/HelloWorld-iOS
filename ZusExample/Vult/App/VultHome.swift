@@ -19,7 +19,7 @@ struct VultHome: View {
                 AllocationActionStack()
                 
                 FilesTable()
-                
+                                
                 NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
 ,isActive: $vultVM.openFile) {
                     EmptyView()
@@ -40,6 +40,13 @@ struct VultHome: View {
 
 struct VultHome_Previews: PreviewProvider {
     static var previews: some View {
+        let vm : VultViewModel = {
+            let vm = VultViewModel()
+            vm.files = [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)]
+            return vm
+        }()
+
         VultHome()
+            .environmentObject(vm)
     }
 }

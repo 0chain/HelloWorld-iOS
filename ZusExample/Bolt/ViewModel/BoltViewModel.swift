@@ -25,6 +25,9 @@ class BoltViewModel:NSObject, ObservableObject {
 
     @Published var transactions: Transactions = []
     
+    @Published var presentPopup: Bool = false
+    @Published var popup = ZCNToast.ZCNToastType.success("YES")
+    
     var cancellable = Set<AnyCancellable>()
     
     override init() {
@@ -72,6 +75,11 @@ class BoltViewModel:NSObject, ObservableObject {
             
             do {
                 
+                DispatchQueue.main.async {
+                    self.popup = .progress("Recieving ZCN from faucet")
+                    self.presentPopup = true
+                }
+                
                 let txObj =  ZcncoreNewTransaction(self,"0",0,&error)
                 
                 if let error = error { throw error }
@@ -89,12 +97,42 @@ class BoltViewModel:NSObject, ObservableObject {
     func sendZCN() {
         DispatchQueue.global(qos: .default).async {
             do {
+                guard let amount = Double(self.amount) else {
+                    self.onTransactionFailed(error: "invalid amount")
+                    return
+                }
+                
+                guard self.clientID.isValidAddress else {
+                    self.onTransactionFailed(error: "invalid address")
+                    return
+                }
+                
+                guard !amount.isZero else {
+                    self.onTransactionFailed(error: "amount cannot be zero")
+                    return
+                }
+                
+                guard amount <= self.balance else {
+                    self.onTransactionFailed(error: "amount cannot be greater than balance")
+                    return
+                }
+                
+                guard Utils.wallet?.client_id != self.clientID else {
+                    self.onTransactionFailed(error: "cannot send to own wallet")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.popup = .progress("Sending ZCN")
+                    self.presentPopup = true
+                }
+                
                 var error: NSError? = nil
                 let txObj =  ZcncoreNewTransaction(self,"0",0,&error)
                 
                 if let error = error { throw error }
                 
-                try txObj?.send(self.clientID, val: ZcncoreConvertToValue(Double(self.amount) ?? 0.0), desc: "")
+                try txObj?.send(self.clientID, val: ZcncoreConvertToValue(amount), desc: "")
                 
                 DispatchQueue.main.async {
                     self.clientID = ""
@@ -126,6 +164,10 @@ class BoltViewModel:NSObject, ObservableObject {
     /// Transaction completed
     /// - Parameter t: get Zcn core transaction information
     func onTransactionComplete(t: ZcncoreTransaction) {
+        DispatchQueue.main.async {
+            self.popup = .success("Success")
+            self.presentPopup = true
+        }
     }
     
     /// Verify completed
@@ -138,8 +180,8 @@ class BoltViewModel:NSObject, ObservableObject {
     /// - Parameter error: error of transaction failed
     func onTransactionFailed(error: String) {
         DispatchQueue.main.async {
-            self.alertMessage = error
-            self.presentErrorAlert = true
+            self.popup = .error(error)
+            self.presentPopup = true
         }
     }
     

@@ -9,25 +9,37 @@ import SwiftUI
 
 struct BoltHome: View {
     @EnvironmentObject var boltVM: BoltViewModel
-    
+    @State private var sortOrder = [KeyPathComparator(\Transaction.creationDate)]
     var body: some View {
         GeometryReader { gr in
-            VStack(alignment: .leading) {
-                
-                AvailableBalanceBlock()
-                
-                WalletActionStack(width: gr.size.width)
-                
-                Text("transactions").bold()
-                    .padding(.bottom,-7)
-                ScrollView(showsIndicators: false) {
-                    ForEach(Array(boltVM.transactions.sorted().enumerated()),id:\.offset) { index, txn in
-                        Link(destination: URL(string: "https://staging-atlus-beta.testnet-0chain.net/transaction-details/\(txn.hash)")!,label: { TransactionRow(index: index, txn: txn) })
+            ZStack(alignment: .bottom) {
+                VStack(alignment: .leading) {
+                    
+                    AvailableBalanceBlock()
+                    
+                    WalletActionStack(width: gr.size.width)
+                    
+                    HStack(spacing: 15) {
+                        Text("Transaction Hash")
+                        Spacer()
+                        Text("Transaction Date").layoutPriority(1)
+                        Image(systemName: "chevron.right").opacity(0)
                     }
-                    .listStyle(.plain)
-                } //ScrollView
-            } //VStack
-        } //GR
+                    .bold()
+                    ScrollView(showsIndicators: false) {
+                        ForEach(Array(boltVM.transactions.sorted().enumerated()),id:\.offset) { index, txn in
+                            NavigationLink(destination: TransactionDetails(transaction: txn)) {
+                                TransactionRow(index: index, txn: txn)
+                            }
+                        }
+                        .listStyle(.plain)
+                    }
+                }
+                if boltVM.presentPopup {
+                    ZCNToast(type: boltVM.popup,presented: $boltVM.presentPopup)
+                }
+            }
+        }
         .padding(20)
         .environmentObject(boltVM)
         .navigationTitle(Text("Bolt"))
@@ -48,8 +60,8 @@ struct BoltHome: View {
             Spacer()
             Text(Date(timeIntervalSince1970: txn.creationDate/1e9).formatted()).layoutPriority(1)
             Image(systemName: "chevron.right")
-        } //HStack
-        .foregroundColor(txn.status == 1 ? .black : .pink)
+        }
+        .foregroundColor(txn.status == 1 ? .primary : .pink)
         .lineLimit(1)
         .padding(.vertical,10)
     }
@@ -60,7 +72,7 @@ struct BoltHome: View {
         TextField("amount", text: $boltVM.amount)
         
         Button("Send",action:boltVM.sendZCN)
-            .disabled(!boltVM.clientID.isValidAddress || !boltVM.amount.isValidNumber)
+        //.disabled(!boltVM.clientID.isValidAddress || !boltVM.amount.isValidNumber)
     }
     
     @ViewBuilder var recievAlert: some View {
@@ -71,6 +83,13 @@ struct BoltHome: View {
 
 struct BoltHome_Previews: PreviewProvider {
     static var previews: some View {
+        var boltVM: BoltViewModel = {
+            let boltVM = BoltViewModel()
+            boltVM.transactions = [Transaction(hash: "dhudhiduididg", creationDate: 93778937837837, status: 1),Transaction(hash: "dhudheijeioeiduididg", creationDate: 937789337837, status: 1),Transaction(hash: "dhudhidehieeuididg", creationDate: 9377893474837, status: 2)]
+            return boltVM
+        }()
+        
         BoltHome()
+            .environmentObject(boltVM)
     }
 }

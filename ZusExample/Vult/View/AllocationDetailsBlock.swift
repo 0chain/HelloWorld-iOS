@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AllocationDetailsBlock: View {
     @EnvironmentObject var vultVM: VultViewModel
-    
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
             HStack(spacing:20) {
                 VStack(alignment: .leading) {
@@ -25,17 +26,17 @@ struct AllocationDetailsBlock: View {
                         .progressViewStyle(ZCNProgressStyle())
                         .frame(height: 10)
                     
-                    Text("\(vultVM.allocation.usedSize?.formattedByteCount ?? "") used of \(vultVM.allocation.size?.formattedByteCount ?? "")")
+                    Text("\(vultVM.allocation.usedSize?.formattedByteCount ?? "") used of \(vultVM.allocation.size?.formattedByteCount ?? "") (\(vultVM.allocation.allocationPercentage)%)")
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.gray)
                         .lineLimit(1)
-                } //VStack
-        } //HStack
+                }
+        }
         .padding(.horizontal,16)
         .padding(.vertical,12)
-        .background(Color.white)
+        .background(Color.tertiarySystemBackground)
         .cornerRadius(12)
-        .shadow(color: .init(white: 0.75), radius: 75, x: 0, y: 0)
+        .shadow(color: .init(white: colorScheme == .dark ? 0.25 : 0.75), radius: 100, x: 0, y: 0)
     }
 }
 

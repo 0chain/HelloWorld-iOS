@@ -141,6 +141,7 @@ extension Utils {
         case walletJSON
         case balance
         case allocationID
+        case network
     }
     
     /// Store value in user defaults
@@ -158,7 +159,10 @@ extension Utils {
         return defaults.value(forKey: key.rawValue)
     }
     
-    /// wallet - return wallet type
+    public static func delete(key: UserDefaultsKey) {
+        defaults.set(nil, forKey: key.rawValue)
+    }
+    
     public static var wallet: Wallet? {
         get {
             if let data = Utils.get(key: .wallet) as? Data,

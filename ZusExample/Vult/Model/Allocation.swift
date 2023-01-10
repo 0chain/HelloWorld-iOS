@@ -45,10 +45,17 @@ struct Allocation: Codable {
     self.numFailedChallenges = model.numFailedChallenges
     self.latestClosedChallenge = model.latestClosedChallenge
   }
-   
-    /// allocation of fraction value
+    
+    mutating func addSize(_ size: Int) {
+        self.usedSize = (self.usedSize ?? 0) + size
+    }
+
     var allocationFraction: Double {
         return Double(usedSize ?? 0)/Double(size ?? 1)
+    }
+    
+    var allocationPercentage: Int {
+        return ((usedSize ?? 0)/(size ?? 1)) * 100
     }
     
     var defaultName: String {
