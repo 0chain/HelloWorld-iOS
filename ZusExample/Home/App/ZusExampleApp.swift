@@ -28,6 +28,6 @@ struct ZusExampleApp: App {
                 }
             } //Group
             .environmentObject(zcncoreVM)
-        }
+        } //WindowGroup
     }
 }

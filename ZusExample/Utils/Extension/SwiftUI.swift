@@ -11,6 +11,8 @@ import SwiftUI
 struct Navigation<Destination: View>: ViewModifier {
     var destination: Destination
     
+    /// initialize navigation
+    /// - Parameter destination: destination of navigation view
     init(destination: Destination) {
         self.destination = destination
     }
@@ -18,7 +20,7 @@ struct Navigation<Destination: View>: ViewModifier {
     func body(content: Content) -> some View {
         NavigationLink(destination: destination) {
             content
-        }
+        } //NavigationLink
     }
 }
 

@@ -24,22 +24,22 @@ struct BoltHome: View {
                         Spacer()
                         Text("Transaction Date").layoutPriority(1)
                         Image(systemName: "chevron.right").opacity(0)
-                    }
+                    } //HStack
                     .bold()
                     ScrollView(showsIndicators: false) {
                         ForEach(Array(boltVM.transactions.sorted().enumerated()),id:\.offset) { index, txn in
                             NavigationLink(destination: TransactionDetails(transaction: txn)) {
                                 TransactionRow(index: index, txn: txn)
-                            }
-                        }
+                            } //NavigationLink
+                        }//ForEach
                         .listStyle(.plain)
-                    }
-                }
+                    } //ScrollView
+                } //VStack
                 if boltVM.presentPopup {
                     ZCNToast(type: boltVM.popup,presented: $boltVM.presentPopup)
                 }
-            }
-        }
+            }//ZStack
+        }//GR
         .padding(20)
         .environmentObject(boltVM)
         .navigationTitle(Text("Bolt"))
@@ -60,7 +60,7 @@ struct BoltHome: View {
             Spacer()
             Text(Date(timeIntervalSince1970: txn.creationDate/1e9).formatted()).layoutPriority(1)
             Image(systemName: "chevron.right")
-        }
+        } //HStack
         .foregroundColor(txn.status == 1 ? .primary : .pink)
         .lineLimit(1)
         .padding(.vertical,10)

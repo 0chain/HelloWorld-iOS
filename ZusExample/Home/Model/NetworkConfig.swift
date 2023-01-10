@@ -35,6 +35,8 @@ struct NetworkConfig: Codable {
         self.zboxURL = zboxURL
     }
     
+    /// Initialize scheme
+    /// - Parameter scheme: scheme of zbox url
     internal init(scheme: String) {
         let blockWorker = "https://" + scheme + "/dns"
         let zboxURL = "https://0box." + scheme
@@ -55,6 +57,7 @@ enum Network: String,CaseIterable {
     case potato = "potato.devnet-0chain.net"
     case test = "test.0chain.net"
     
+    /// config of network
     var config: NetworkConfig {
         return NetworkConfig(scheme: self.rawValue)
     }

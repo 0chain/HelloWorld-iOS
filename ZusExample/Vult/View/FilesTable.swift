@@ -26,9 +26,9 @@ struct FilesTable: View {
                             vultVM.downloadImage(file: file)
                         }
                     }
-                }
+                } //List
        //     }
-        }
+        } //VStack
     }
 }
 
@@ -85,10 +85,10 @@ struct FileRow: View {
                         Text(file.fileDownloadPercent)
                             .font(.system(size: 8))
                     }
-                }
+                } //VStack
                 .foregroundColor(.teal)
             }
-        }
+        } //HStack
         .padding(.vertical,12)
         .padding(.horizontal,18)
         .background(Color.tertiarySystemBackground)

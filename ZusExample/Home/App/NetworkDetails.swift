@@ -29,21 +29,21 @@ struct NetworkDetails: View {
                     ListRow(title: "Name: ", value: String(describing: network) + " Network")
                     ListRow(title: "Url: ",value: config.host)
                     ListRow(title: "0Box Url:",value: config.zboxURL)
-                }
+                } //Section
                 
                 Section {
                     Link(destination: URL(string: config.blockWorker)!) {
                         Text(config.blockWorker)
-                    }
-                }
+                    } //Link
+                } //Section
                 
                 Section("Change Network") {
                     Picker("Change Network", selection: $changeNetwork) {
                         ForEach(Network.allCases,id:\.rawValue) {
                             Text(String(describing: $0)).tag($0).layoutPriority(1)
-                        }
-                    }
-                }
+                        } //ForEach
+                    } //Picker
+                } //Section
                 
                 Section {
                     
@@ -54,8 +54,8 @@ struct NetworkDetails: View {
                         .frame(maxWidth: .infinity)
                         .foregroundColor(.teal)
                     }
-                }
-            }
+                } //Section
+            } //List
             .alert("Are you sure?", isPresented: $presentAlert) {
                 Button {
                     
@@ -74,7 +74,7 @@ struct NetworkDetails: View {
                 Text("You will be logged out and will have to create a new wallet")
             }
             .navigationTitle(Text("Network Details"))
-        }
+        } //NavigationStack
     }
 }
 

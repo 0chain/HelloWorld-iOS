@@ -159,10 +159,13 @@ extension Utils {
         return defaults.value(forKey: key.rawValue)
     }
     
+    /// Delete user default key
+    /// - Parameter key: key of user default
     public static func delete(key: UserDefaultsKey) {
         defaults.set(nil, forKey: key.rawValue)
     }
     
+    /// Wallet infomation
     public static var wallet: Wallet? {
         get {
             if let data = Utils.get(key: .wallet) as? Data,

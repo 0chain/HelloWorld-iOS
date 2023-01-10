@@ -17,7 +17,7 @@ struct WalletActionStack: View {
             ForEach(WalletActionType.allCases,id:\.self) { action in
                 WalletActionButton(width: width, action: boltVM.walletAction, button: action)
                 
-            }
+            } //ForEach
         } //HStack
         .frame(height:width/4)
         .background(Color.tertiarySystemBackground)

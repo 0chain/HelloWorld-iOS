@@ -117,10 +117,12 @@ struct File: Codable, Identifiable, Equatable  {
         }
     }
     
+    /// File download on percentage as a string
     var fileDownloadPercent: String {
         return "\(completedBytes/size) %"
     }
     
+    /// File status
      var status: FileStatus = .completed
 
 }

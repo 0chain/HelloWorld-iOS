@@ -32,11 +32,11 @@ struct AvailableBalanceBlock: View {
                 Text("$ \(balance.usd)")
                     .font(.system(size: 16, weight: .bold))
                 
-            }
+            } //HStack
             
             Text("1 ZCN ≈ $\(Utils.zcnUsdRate)")
                 .foregroundColor(.secondary)
-        }
+        } //VStack
     }
 }
 

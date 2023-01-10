@@ -17,7 +17,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     @Published var processing: Bool = false
     @Published var processTitle: String = "Create Wallet"
-    
+    /// initialize Core manager
     func initialize() {
         do {
             if let networkScheme = Utils.get(key: .network) as? String, let network = Network(rawValue: networkScheme) {

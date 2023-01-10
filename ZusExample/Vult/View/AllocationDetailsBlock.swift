@@ -30,8 +30,8 @@ struct AllocationDetailsBlock: View {
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.gray)
                         .lineLimit(1)
-                }
-        }
+                } //VStack
+        } //HStack
         .padding(.horizontal,16)
         .padding(.vertical,12)
         .background(Color.tertiarySystemBackground)

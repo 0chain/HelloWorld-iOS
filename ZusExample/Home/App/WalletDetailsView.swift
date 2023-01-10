@@ -23,17 +23,17 @@ struct WalletDetailsView: View {
                     ListRow(title: "Private Key:", body: wallet?.keys.first?.private_key ?? "")
                     ListRow(title: "Public Key:", body: wallet?.keys.first?.public_key ?? "")
                     ListRow(title: "Mnemonics:", body: wallet?.mnemonics)
-                }
-            }
+                } //Section
+            } //List
             .navigationTitle(Text("Wallet Details"))
-        }
+        } //NavigationStack
     }
     
     @ViewBuilder func ListRow(title: String, body: String?) -> some View {
         HStack {
             Text(title)
             Text(body ?? "~")
-        }
+        } //HStack
     }
 }
 

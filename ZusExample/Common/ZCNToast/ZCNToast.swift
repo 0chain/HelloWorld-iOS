@@ -24,9 +24,9 @@ struct ZCNToast: View {
                     Text(type.message)
                         .bold()
                         .foregroundColor(Color(uiColor: type.titleColor))
-                }
-            }
-        }
+                }//HStack
+            }//VStack
+        } //GR
         .aspectRatio(10, contentMode: .fit)
         .padding()
         .background(Color(type.backgroundColor))

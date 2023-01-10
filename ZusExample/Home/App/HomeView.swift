@@ -82,7 +82,7 @@ struct HomeView: View {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .rotationEffect(.degrees(presentWalletDetails ? 90.0 : 0.0))
-            }
+            } //HStack
             if presentWalletDetails {
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack(alignment: .leading,spacing: 10) {
@@ -92,9 +92,9 @@ struct HomeView: View {
                         self.row(title: "Public Key: ", text: wallet.keys.first?.public_key ?? "")
                         self.row(title: "Mnemonics: ", text: wallet.mnemonics)
                     }
-                }
+                } //ScrollView
             }
-        }
+        } //VStack
         .padding(width/10)
         .background(RoundedRectangle(cornerRadius: 16).fill(.background).shadow(radius: 5))
         .onTapGesture {
@@ -108,7 +108,7 @@ struct HomeView: View {
         HStack {
             Text(title)
             Text(text)
-        }
+        } //HStack
     }
 }
 

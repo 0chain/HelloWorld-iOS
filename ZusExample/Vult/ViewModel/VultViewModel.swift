@@ -22,7 +22,8 @@ class VultViewModel: NSObject, ObservableObject {
 
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
-
+    
+    /// initialize Zcn core manager
     override init() {
         super.init()
         VultViewModel.zboxAllocationHandle = try? ZcncoreManager.zboxStorageSDKHandle?.getAllocation(Utils.get(key: .allocationID) as? String)
@@ -76,6 +77,8 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
+    /// Upload document
+    /// - Parameter result: result of uploaded document
     func uploadDocument(result: Result<URL, Error>) {
         do {
             let url = try result.get()
@@ -88,6 +91,10 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
+    /// Upload files
+    /// - Parameters:
+    ///   - data: date of upload file
+    ///   - name: name of upload file
     func uploadFile(data: Data, name: String) throws {
                 
         var localPath = Utils.uploadPath.appendingPathComponent(name)
@@ -111,7 +118,9 @@ class VultViewModel: NSObject, ObservableObject {
                                                            statusCb: self)
     }
     
-
+    
+    /// Download image of file
+    /// - Parameter file: file of download 
     func downloadImage(file: File) {
         do {
             try VultViewModel.zboxAllocationHandle?.downloadFile(file.path,

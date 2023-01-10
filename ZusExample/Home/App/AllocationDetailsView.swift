@@ -18,7 +18,7 @@ struct AllocationDetailsView: View {
                     ListRow(title: "Expiration Date:", body: allocation.expirationDate?.formattedUNIX)
                     ListRow(title: "Size:", body: allocation.size?.formattedByteCount)
                     ListRow(title: "Used Size:", body: allocation.usedSize?.formattedByteCount)
-                }
+                } //Section
                 
                 Section("shards and challenges") {
                     ListRow(title: "Data Shards:", body: allocation.dataShards?.stringValue)
@@ -27,7 +27,7 @@ struct AllocationDetailsView: View {
                     ListRow(title: "Number Of Reads:", body: allocation.id)
                     ListRow(title: "Number Of Failed challenges:", body: allocation.numFailedChallenges?.stringValue)
                     ListRow(title: "Latest Closed Challenge:", body: allocation.latestClosedChallenge)
-                }
+                } //Section
             } //list
             .navigationTitle(Text("Allocation Details"))
         } //NavigationStack

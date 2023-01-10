@@ -23,7 +23,7 @@ struct VultHome: View {
                 NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
 ,isActive: $vultVM.openFile) {
                     EmptyView()
-                }
+                } //NavigationLink
             } //VStack
             .padding(22)
         } //GR

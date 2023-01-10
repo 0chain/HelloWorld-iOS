@@ -19,13 +19,13 @@ struct AllocationActionStack: View {
                 matching: .images,
                 photoLibrary: .shared()) {
                     WalletActionBlock(icon: "photo",title: "Upload Image")
-                }
+                } //PhotosPicker
             
             WalletActionBlock(icon: "document",title: "Upload Document")
                 .onTapGesture {
                     vultVM.presentDocumentPicker = true
                 }
-        }
+        } //HStack
         .aspectRatio(3.2, contentMode: .fit)
         .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.95), radius: 100, x: 0, y: 0)
     }
@@ -52,7 +52,7 @@ struct WalletActionBlock: View {
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: gr.size.width/2)
                 Text(title)
-            }
+            } //VStack
             .frame(maxWidth: .infinity,maxHeight: .infinity)
             .font(.system(size: 13, weight: .semibold))
             .foregroundColor(.primary)

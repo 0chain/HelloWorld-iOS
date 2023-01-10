@@ -18,19 +18,19 @@ struct TransactionDetails: View {
                 ListRow(title: "Client ID:", value: transaction.clientID)
                 ListRow(title: "To Client ID:", value: transaction.toClientID)
                 ListRow(title: "Signature:", value: transaction.signature)
-            }
+            } //Section
             
             Section("Amount Details") {
                 ListRow(title: "Status:", value: transaction.status.stringValue)
                 ListRow(title: "Value:", value: transaction.value?.stringValue)
                 ListRow(title: "Fee:", value: transaction.fee?.stringValue)
                 ListRow(title: "Date:", value: transaction.fomattedDate)
-            }
+            } //Section
             
             Section("Explorer") {
                 Link(destination: URL(string: "https://staging-atlus-beta.testnet-0chain.net/transaction-details/\(transaction.hash)")!,label: { Text("View On Explorer").foregroundColor(.teal) })
-            }
-        }
+            } //Section
+        } //List
             .navigationTitle(Text("Transaction Details"))
     }
     
@@ -39,8 +39,8 @@ struct TransactionDetails: View {
         Section(title) {
             ForEach(Array(dict.keys).sorted(),id:\.self) { key in
                 ListRow(title: key, value: String(describing: dict[key]))
-            }
-        }
+            } //ForEach
+        } //Section
     }
 }
 
@@ -60,7 +60,7 @@ struct ListRow: View {
             Text(title)
             Text(value ?? "~")
                 .lineLimit(opened ? 10 : 1)
-        }
+        } //HStack
         .onTapGesture {
             withAnimation {
                 self.opened.toggle()

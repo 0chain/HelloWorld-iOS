@@ -36,11 +36,11 @@ struct CreateWalletView: View {
                                     .padding(.trailing,50)
                                     .tint(.white)
                             }
-                        }
+                        } //ZStack
                     }
                     Spacer()
                 }
-            }
+            } //VStack
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     withAnimation(.easeOut(duration: 1)) {
@@ -51,7 +51,7 @@ struct CreateWalletView: View {
             .padding(appear ? 20 : 0)
             .frame(maxWidth: .infinity)
             .edgesIgnoringSafeArea(.all)
-        }
+        }//GR
     }
 }
 
