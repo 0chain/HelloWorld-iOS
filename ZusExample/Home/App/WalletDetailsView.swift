@@ -19,7 +19,6 @@ struct WalletDetailsView: View {
             List {
                 Section("details") {
                     ListRow(title: "Client ID:", body: wallet?.client_id)
-                    ListRow(title: "Client Key:", body: wallet?.client_key)
                     ListRow(title: "Private Key:", body: wallet?.keys.first?.private_key ?? "")
                     ListRow(title: "Public Key:", body: wallet?.keys.first?.public_key ?? "")
                     ListRow(title: "Mnemonics:", body: wallet?.mnemonics)
