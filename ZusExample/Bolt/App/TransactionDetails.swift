@@ -59,7 +59,7 @@ struct ListRow: View {
         HStack {
             Text(title)
             Text(value ?? "~")
-                .lineLimit(opened ? 10 : 1)
+                .lineLimit(10)
         }
         .onTapGesture {
             withAnimation {
