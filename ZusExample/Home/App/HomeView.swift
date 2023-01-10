@@ -57,7 +57,7 @@ struct HomeView: View {
                 .sheet(isPresented: $homeVM.pushNetworkDetails) { NetworkDetails() }
                 .onAppear { vultVM.getAllocation() }
             }
-            .navigationTitle("ZusExample")
+            .navigationTitle("Hello World!")
         }
     }
     
