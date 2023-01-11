@@ -12,12 +12,12 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
 
-    private static var network: NetworkConfig = Network.demoZus.config
+    private static var network: NetworkConfig = Network.demo.config
     static var zboxStorageSDKHandle : SdkStorageSDK? = nil
     
     @Published var processing: Bool = false
-    @Published var processTitle: String = "Create Wallet"
-    
+    @Published var toast: ZCNToast.ZCNToastType = .progress("Creating Wallet...")
+
     func initialize() {
         do {
             if let networkScheme = Utils.get(key: .network) as? String, let network = Network(rawValue: networkScheme) {
@@ -55,7 +55,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     }
     
     func createWallet() {
-        self.processTitle = "Creating Wallet"
+        self.toast = .progress("Creating Wallet ...")
         self.processing = true
         
         var error: NSError? = nil
@@ -72,17 +72,25 @@ class ZcncoreManager: NSObject, ObservableObject {
                 let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation("Allocation", datashards: 2, parityshards: 2, size: 214748364, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
                // VultViewModel.zboxAllocationHandle = allocation
                 DispatchQueue.main.async {
-                    self.processTitle = "Success"
-                    self.processing = false
+                    self.toast = .success("Allocation Created Successfully")
                 }
-                if let allocationId = allocation?.id_ {
-                    Utils.set(allocationId, for: .allocationID)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    if let allocationId = allocation?.id_ {
+                        Utils.set(allocationId, for: .allocationID)
+                    }
                 }
             } catch let error {
                 print(error)
+                DispatchQueue.main.async {
+                    self.toast = .error("Error creating allocation")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.processing = false
+                    }
+                }
             }
         }
     }
+    
     
     func setWalletInfo() {
         var error: NSError? = nil
@@ -96,7 +104,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     func onWalletCreateComplete(wallet: Wallet) {
         DispatchQueue.main.async {
-            self.processTitle = "Creating Allocation"
+            self.toast = .progress("Creating Allocation ...")
         }
         BoltViewModel().receiveFaucet()
         self.createAllocation()

@@ -14,8 +14,8 @@ struct FilesTable: View {
         VStack(alignment: .leading) {
             Text("All Files").bold()
             
-         //   ScrollView(showsIndicators: false) {
-                List(vultVM.files,id:\.id) { file in
+           ScrollView(showsIndicators: false) {
+                ForEach(vultVM.files,id:\.id) { file in
                    FileRow(file: file)
                     .id(file.id)
                     .onTapGesture {
@@ -27,7 +27,7 @@ struct FilesTable: View {
                         }
                     }
                 }
-       //     }
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             GeometryReader { gr in
-                VStack(alignment: .center,spacing: 20) {
+                VStack(alignment: .center,spacing: 50) {
                     HStack(spacing: 15) {
                         WalletActionBlock(icon: "wallet", title: "Wallet Details")
                             .onTapGesture {
@@ -35,29 +35,30 @@ struct HomeView: View {
                                 homeVM.presentNetworkDetails()
                             }
                     }
+                    .aspectRatio(2.5, contentMode: .fit)
                     .shadow(color:Color(white: 0.9),radius: 25)
                 
-                    Spacer()
-                    AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
-                        .destination(destination: BoltHome().environmentObject(boltVM))
+
+                    HStack {
+                        AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
+                            .destination(destination: BoltHome().environmentObject(boltVM))
+                        
+                        AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
+                            .destination(destination: VultHome().environmentObject(vultVM))
+                    }
                     
                     Spacer()
                     
-                    AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
-                        .destination(destination: VultHome().environmentObject(vultVM))
-                    
-                    Spacer()
-                                       
-                    Text("v 1.0 (21) ")
+                    Text(Bundle.main.applicationVersion)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(gr.size.width/15)
                 .sheet(isPresented: $homeVM.pushAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
                 .sheet(isPresented: $homeVM.pushWalletDetails) { WalletDetailsView() }
                 .sheet(isPresented: $homeVM.pushNetworkDetails) { NetworkDetails() }
-                .onAppear { vultVM.getAllocation() }
+                .onAppear(perform: vultVM.getAllocation)
             }
-            .navigationTitle("ZusExample")
+            .navigationTitle("Hello World!")
         }
     }
     

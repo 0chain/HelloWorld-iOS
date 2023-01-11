@@ -18,6 +18,6 @@ extension Bundle {
     }
     
     var applicationVersion: String {
-        return "v\(releaseVersionNumber ?? "") ( \(buildVersionNumber ?? "") )"
+        return "v \(releaseVersionNumber ?? "") ( \(buildVersionNumber ?? "") )"
     }
 }
