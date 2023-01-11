@@ -49,7 +49,7 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    Text("v 1.0 (21) ")
+                    Text(Bundle.main.applicationVersion)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(gr.size.width/15)
