@@ -10,6 +10,7 @@ import SwiftUI
 struct ZCNToast: View {
     var type: ZCNToastType = .success("Successfully recieved token")
     @Binding var presented: Bool
+    @State var autoDismiss = true
     var body: some View {
         GeometryReader { gr in
             VStack(alignment: .center,spacing: 0) {
@@ -32,8 +33,10 @@ struct ZCNToast: View {
         .background(Color(type.backgroundColor))
         .cornerRadius(12)
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                self.presented = false
+            if autoDismiss {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    self.presented = false
+                }
             }
         }
     }
