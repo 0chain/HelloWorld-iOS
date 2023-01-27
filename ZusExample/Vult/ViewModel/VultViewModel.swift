@@ -37,6 +37,7 @@ class VultViewModel: NSObject, ObservableObject {
                 guard let zboxAllocationHandle = VultViewModel.zboxAllocationHandle else { return }
                 
                 var allocation = Allocation()
+                allocation.id = zboxAllocationHandle.id_
                 allocation.size = Int(zboxAllocationHandle.size)
                 allocation.dataShards = zboxAllocationHandle.dataShards
                 allocation.parityShards = zboxAllocationHandle.parityShards
