@@ -43,6 +43,7 @@ struct NetworkConfig: Codable {
 
 enum Network: String,CaseIterable {
     case demoZus = "demo.zus.network"
+    case devZus = "dev.zus.network"
     case bcv1 = "bcv1.devnet-0chain.net"
     case demo = "demo.0chain.net"
     case potato = "potato.devnet-0chain.net"

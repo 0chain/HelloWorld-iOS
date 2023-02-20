@@ -114,22 +114,6 @@
  */
 - (BOOL)downloadThumbnailFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status error:(NSError* _Nullable* _Nullable)error;
 /**
- * EncryptAndUpdateFile - update file from local path to remote path from encrypted folder
- */
-- (BOOL)encryptAndUpdateFile:(NSString* _Nullable)tmpPath localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
-/**
- * EncryptAndUpdateFileWithThumbnail - update file from local path to remote path from encrypted folder with Thumbnail
- */
-- (BOOL)encryptAndUpdateFileWithThumbnail:(NSString* _Nullable)tmpPath localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs thumbnailpath:(NSString* _Nullable)thumbnailpath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
-/**
- * EncryptAndUploadFile - start upload encrypted file
- */
-- (BOOL)encryptAndUploadFile:(NSString* _Nullable)tmpPath localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
-/**
- * EncryptAndUploadFileWithThumbnail - start upload encrypted file with thumbnail
- */
-- (BOOL)encryptAndUploadFileWithThumbnail:(NSString* _Nullable)tmpPath localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs thumbnailpath:(NSString* _Nullable)thumbnailpath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
-/**
  * GetStatistics - get allocation stats
  */
 - (NSString* _Nonnull)getAllocationStats:(NSError* _Nullable* _Nullable)error;
@@ -201,9 +185,16 @@
  */
 - (BOOL)renameObject:(NSString* _Nullable)remotePath destName:(NSString* _Nullable)destName error:(NSError* _Nullable* _Nullable)error;
 /**
- * RepairFile - repairing file if it's exist in remote path
+ * RepairFile - repair file if it exists in remote path
+## Inputs
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - localPath: the local full path of file. eg /usr/local/files/zcn.png
+  - remotePath:
+  - thumbnailPath: the local full path of thumbnail
+  - encrypt: the file should be ecnrypted or not on uploading
+  - statusCb: callback of status
  */
-- (BOOL)repairFile:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)repairFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
 /**
  * SaveRemoteSnapshot - saving remote snapshot
  */
@@ -214,21 +205,27 @@
 - (BOOL)startRepair:(NSString* _Nullable)localRootPath pathToRepair:(NSString* _Nullable)pathToRepair statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)stopStreaming:(NSError* _Nullable* _Nullable)error;
 /**
- * UpdateFile - update file from local path to remote path
+ * UploadFile - update file/thumbnail from local path to remote path
+## Inputs
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - localPath: the local full path of file. eg /usr/local/files/zcn.png
+  - remotePath:
+  - thumbnailPath: the local full path of thumbnail
+  - encrypt: the file should be ecnrypted or not on uploading
+  - statusCb: callback of status
  */
-- (BOOL)updateFile:(NSString* _Nullable)workDir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
 /**
- * UpdateFileWithThumbnail - update file from local path to remote path with Thumbnail
+ * UploadFile - upload file/thumbnail from local path to remote path
+## Inputs
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - localPath: the local full path of file. eg /usr/local/files/zcn.png
+  - remotePath:
+  - thumbnailPath: the local full path of thumbnail
+  - encrypt: the file should be ecnrypted or not on uploading
+  - statusCb: callback of status
  */
-- (BOOL)updateFileWithThumbnail:(NSString* _Nullable)workDir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs thumbnailpath:(NSString* _Nullable)thumbnailpath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
-/**
- * UploadFile - start upload file thumbnail from localpath to remote path
- */
-- (BOOL)uploadFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
-/**
- * UploadFileWithThumbnail - start upload file with thumbnail
- */
-- (BOOL)uploadFileWithThumbnail:(NSString* _Nullable)tmpPath localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath fileAttrs:(NSString* _Nullable)fileAttrs thumbnailpath:(NSString* _Nullable)thumbnailpath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)uploadFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
 @end
 
 /**
@@ -389,9 +386,53 @@
 @end
 
 /**
+ * CancelDownload - cancel file download
+
+	## Inputs
+	- allocationID
+	- remotePath
+ */
+FOUNDATION_EXPORT BOOL ZboxCancelDownload(NSString* _Nullable allocationID, NSString* _Nullable remotepath, NSError* _Nullable* _Nullable error);
+
+/**
+ * CancelRepair - cancel repair files from path
+
+	## Inputs
+	- allocationID
+ */
+FOUNDATION_EXPORT BOOL ZboxCancelRepair(NSString* _Nullable allocationID, NSError* _Nullable* _Nullable error);
+
+/**
+ * CancelUpload - cancel file upload
+
+	## Inputs
+	- allocationID
+	- localPath
+ */
+FOUNDATION_EXPORT BOOL ZboxCancelUpload(NSString* _Nullable allocationID, NSString* _Nullable localpath, NSError* _Nullable* _Nullable error);
+
+/**
  * ConvertZcnTokenToETH - converting Zcn tokens to Eth
  */
 FOUNDATION_EXPORT NSString* _Nonnull ZboxConvertZcnTokenToETH(double token, NSError* _Nullable* _Nullable error);
+
+/**
+ * CopyObject - copy object from path to dest
+## Inputs
+  - allocationID
+  - path
+  - destPath
+ */
+FOUNDATION_EXPORT BOOL ZboxCopyObject(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable destPath, NSError* _Nullable* _Nullable error);
+
+/**
+ * CreateDir create empty directoy on remote blobbers
+
+	## Inputs
+	- allocationID
+	- dirName
+ */
+FOUNDATION_EXPORT BOOL ZboxCreateDir(NSString* _Nullable allocationID, NSString* _Nullable dirName, NSError* _Nullable* _Nullable error);
 
 /**
  * CreateStreamingService - creating streaming service instance
@@ -404,11 +445,145 @@ FOUNDATION_EXPORT id<ZboxStreamingImpl> _Nullable ZboxCreateStreamingService(Zbo
 FOUNDATION_EXPORT NSString* _Nonnull ZboxDecrypt(NSString* _Nullable key, NSString* _Nullable text, NSError* _Nullable* _Nullable error);
 
 /**
+ * DeleteFile - delete file from remote path
+## Inputs
+  - allocationID
+  - remotePath
+
+## Outputs
+ */
+FOUNDATION_EXPORT BOOL ZboxDeleteFile(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSError* _Nullable* _Nullable error);
+
+/**
+ * DownloadFile - start download file from remote path to localpath
+## Inputs
+  - allocationID
+  - remotePath
+  - localPath: the full local path of file
+  - statusCb: callback of status
+
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxDownloadFile(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+/**
+ * DownloadFileByBlock - start download file from remote path to localpath by blocks number
+## Inputs
+
+  - allocationID
+  - remotePath
+  - localPath
+  - startBlock
+  - endBlock
+  - numBlocks
+  - statusCb: callback of status
+
+## Outputs
+
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxDownloadFileByBlock(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, int64_t startBlock, int64_t endBlock, long numBlocks, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+/**
+ * DownloadFromAuthTicket - download file from Auth ticket
+
+	## Inputs
+	- allocationID
+	- localPath
+	- authTicket
+	- remoteLookupHash
+	- remoteFilename
+	- status: callback of status
+ */
+FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+
+/**
+ * DownloadFromAuthTicketByBlocks - download file from Auth ticket by blocks number
+## Inputs
+  - allocationID
+  - localPath
+  - authTicket: the base64 string of *marker.AuthTicket
+  - startBlock:
+  - endBlock
+  - numBlocks
+  - remoteLookupHash
+  - remoteFilename
+  - status: callback of status
+ */
+FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicketByBlocks(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, int64_t startBlock, int64_t endBlock, long numBlocks, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+
+/**
+ * DownloadThumbnail - start download file thumbnail from remote path to localpath
+## Inputs
+  - allocationID
+  - remotePath
+  - localPath
+  - statusCb: callback of status
+
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxDownloadThumbnail(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+/**
+ * DownloadThumbnailFromAuthTicket - downloadThumbnail from Auth ticket
+## Inputs
+  - allocationID
+  - localPath
+  - authTicket: the base64 string of *marker.AuthTicket
+  - remoteLookupHash
+  - remoteFilename
+  - status: callback of status
+ */
+FOUNDATION_EXPORT BOOL ZboxDownloadThumbnailFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+
+/**
  * Encrypt - encrypting text with key
  */
 FOUNDATION_EXPORT NSString* _Nonnull ZboxEncrypt(NSString* _Nullable key, NSString* _Nullable text, NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT NSString* _Nonnull ZboxGEthToTokens(int64_t tokens);
+
+/**
+ * GetStatistics - get allocation stats
+## Inputs
+  - allocationID
+
+## Outputs
+- the json string of sdk.AllocationStats
+- error
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetAllocationStats(NSString* _Nullable allocationID, NSError* _Nullable* _Nullable error);
+
+/**
+ * GetAuthToken - get auth token from refereeClientID
+## Inputs
+  - allocationID
+  - path
+  - fileName
+  - referenceType: f: file, d: directory
+  - refereeClientID
+  - refereeEncryptionPublicKey
+  - expiration:  seconds in unix time
+  - availableAfter: seconds in unix time
+
+## Outputs
+  - the json string of *marker.AuthTicket
+  - error
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetAuthToken(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable filename, NSString* _Nullable referenceType, NSString* _Nullable refereeClientID, NSString* _Nullable refereeEncryptionPublicKey, int64_t expiration, int64_t availableAfter, NSError* _Nullable* _Nullable error);
+
+/**
+ * GetBlobberStats - get blobbers stats
+## Inputs
+  - allocationID
+
+## Outputs
+  - the json string of map[string]*sdk.BlobberAllocationStats
+  - error
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetBlobberStats(NSString* _Nullable allocationID, NSError* _Nullable* _Nullable error);
 
 /**
  * GetBlobbers - get list of blobbers
@@ -419,6 +594,43 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxGetBlobbers(NSError* _Nullable* _Nullab
  * GetClientEncryptedPublicKey - getting client encrypted pub key
  */
 FOUNDATION_EXPORT NSString* _Nonnull ZboxGetClientEncryptedPublicKey(NSError* _Nullable* _Nullable error);
+
+/**
+ * GetFileMeta - getting file meta details from file path
+## Inputs
+  - allocationID
+  - remotePath
+
+## Outputs
+
+  - the json string of sdk.ConsolidatedFileMeta
+  - error
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetFileMeta(NSString* _Nullable allocationID, NSString* _Nullable path, NSError* _Nullable* _Nullable error);
+
+/**
+ * GetFileMetaFromAuthTicket - getting file meta details from file path and auth ticket
+## Inputs
+  - allocationID
+  - authTicket
+  - lookupHash
+
+## Outpus
+  - the json string of sdk.ConsolidatedFileMeta
+  - error
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetFileMetaFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable authTicket, NSString* _Nullable lookupHash, NSError* _Nullable* _Nullable error);
+
+/**
+ * GetFileStats - get file stats from path
+## Inputs
+  - allocationID
+  - path
+
+## Outputs
+  - the json string of map[string]*sdk.FileStats
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetFileStats(NSString* _Nullable allocationID, NSString* _Nullable path, NSError* _Nullable* _Nullable error);
 
 /**
  * GetNetwork - get current network
@@ -433,14 +645,87 @@ FOUNDATION_EXPORT long ZboxGetNumber(NSString* _Nullable value);
 FOUNDATION_EXPORT ZboxAuthTicket* _Nullable ZboxInitAuthTicket(NSString* _Nullable authTicket);
 
 /**
+ * ListDir - listing files from path
+## Inputs
+  - allocatonID
+  - remotePath
+
+## Outputs
+  - the json string of sdk.ListResult
+  - error
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxListDir(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSError* _Nullable* _Nullable error);
+
+/**
+ * ListDirFromAuthTicket - listing files from path with auth ticket
+## Inputs
+  - allocatonID
+  - authTicket
+  - lookupHash
+
+## Outputs
+  - the json string of sdk.ListResult
+  - error
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxListDirFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable authTicket, NSString* _Nullable lookupHash, NSError* _Nullable* _Nullable error);
+
+/**
+ * MoveObject - move object from path to dest
+## Inputs
+  - allocationID
+  - path
+  - destPath
+ */
+FOUNDATION_EXPORT BOOL ZboxMoveObject(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable destPath, NSError* _Nullable* _Nullable error);
+
+/**
  * NewMediaPlaylist create media playlist(.m3u8)
  */
 FOUNDATION_EXPORT ZboxMediaPlaylist* _Nullable ZboxNewMediaPlaylist(long delay, id<ZboxM3u8Writer> _Nullable writer);
 
 /**
+ * RenameObject - rename or move file
+## Inputs
+  - allocationID
+  - remotePath
+  - destName
+
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxRenameObject(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable destName, NSError* _Nullable* _Nullable error);
+
+/**
+ * RepairFile - repair file if it exists in remote path
+## Inputs
+  - allocationID
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - localPath: the local full path of file. eg /usr/local/files/zcn.png
+  - remotePath:
+  - thumbnailPath: the local full path of thumbnail
+  - encrypt: the file should be ecnrypted or not on uploading
+  - statusCb: callback of status
+
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxRepairFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+/**
  * Sign - sign hash
  */
 FOUNDATION_EXPORT NSString* _Nonnull ZboxSign(NSString* _Nullable hash, NSError* _Nullable* _Nullable error);
+
+/**
+ * StartRepair - start repair files from path
+
+	## Inputs
+	- allocationID
+	- localRootPath
+	- pathToRepair
+	- status: callback of status
+ */
+FOUNDATION_EXPORT BOOL ZboxStartRepair(NSString* _Nullable allocationID, NSString* _Nullable localRootPath, NSString* _Nullable pathToRepair, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * SuggestEthGasPrice - return back suggested price for gas
@@ -451,6 +736,37 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxSuggestEthGasPrice(NSError* _Nullable* 
 
 
 FOUNDATION_EXPORT NSString* _Nonnull ZboxTokensToEth(int64_t tokens);
+
+/**
+ * UploadFile - update file/thumbnail from local path to remote path
+## Inputs
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - localPath: the local full path of file. eg /usr/local/files/zcn.png
+  - remotePath:
+  - thumbnailPath: the local full path of thumbnail
+  - encrypt: the file should be ecnrypted or not on uploading
+  - statusCb: callback of status
+
+## Ouputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxUpdateFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+/**
+ * UploadFile - upload file/thumbnail from local path to remote path
+## Inputs
+  - allocationID
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - localPath: the local full path of file. eg /usr/local/files/zcn.png
+  - remotePath:
+  - thumbnailPath: the local full path of thumbnail
+  - encrypt: the file should be ecnrypted or not on uploading
+  - statusCb: callback of status
+
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxUploadFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * VerifySignatxure - verify message with signature

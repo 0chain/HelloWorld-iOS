@@ -5,6 +5,7 @@ framework module "Zcncore" {
     header "Sdk.objc.h"
     header "Zbox.objc.h"
     header "Zboxapi.objc.h"
+    header "Zcn.objc.h"
     header "Universe.objc.h"
     header "Zcncore.h"
 

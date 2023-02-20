@@ -101,11 +101,11 @@ class VultViewModel: NSObject, ObservableObject {
             try data.write(to: localPath,options: .atomic)
         }
         
-        try VultViewModel.zboxAllocationHandle?.uploadFile(withThumbnail: Utils.tempPath(),
+        try VultViewModel.zboxAllocationHandle?.uploadFile(Utils.tempPath(),
                                                            localPath: localPath.path,
                                                            remotePath: "/\(name)",
-                                                           fileAttrs: nil,
-                                                           thumbnailpath: thumbnailPath.path,
+                                                           thumbnailPath: thumbnailPath.path,
+                                                           encrypt: false,
                                                            statusCb: self)
     }
     

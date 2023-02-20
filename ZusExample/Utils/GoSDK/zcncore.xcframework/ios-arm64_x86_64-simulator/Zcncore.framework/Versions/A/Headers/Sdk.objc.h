@@ -57,14 +57,13 @@
 /**
  * CreateAllocation - creating new allocation
 ## Inputs
-  - name: allocation name
   - datashards: number of data shards, effects upload and download speeds
   - parityshards: number of parity shards, effects availability
   - size: size of space reserved on blobbers
   - expiration: duration to allocation expiration
   - lock: lock write pool with given number of tokens
  */
-- (ZboxAllocation* _Nullable)createAllocation:(NSString* _Nullable)name datashards:(long)datashards parityshards:(long)parityshards size:(int64_t)size expiration:(int64_t)expiration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (ZboxAllocation* _Nullable)createAllocation:(long)datashards parityshards:(long)parityshards size:(int64_t)size expiration:(int64_t)expiration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * CreateAllocationWithBlobbers - creating new allocation with list of blobbers
 
@@ -100,7 +99,7 @@
  */
 - (NSString* _Nonnull)getAllocations:(NSError* _Nullable* _Nullable)error;
 /**
- * GetBlobbersList get list of blobbers in string
+ * GetBlobbersList get list of active blobbers, and format them as array json string
  */
 - (NSString* _Nonnull)getBlobbersList:(NSError* _Nullable* _Nullable)error;
 /**
@@ -128,6 +127,17 @@
 Extracted from main method, bcz of class fields
  */
 FOUNDATION_EXPORT NSString* _Nonnull SdkGetAllocations(NSError* _Nullable* _Nullable error);
+
+/**
+ * GetLookupHash get lookup hash with allocation id and path
+## Inputs
+  - allocationID
+  - remotePath
+
+## Outputs
+  - lookup_hash
+ */
+FOUNDATION_EXPORT NSString* _Nonnull SdkGetLookupHash(NSString* _Nullable allocationID, NSString* _Nullable remotePath);
 
 FOUNDATION_EXPORT BOOL SdkInit(NSString* _Nullable chainConfigJson, NSError* _Nullable* _Nullable error);
 
@@ -169,6 +179,10 @@ FOUNDATION_EXPORT BOOL SdkRegisterToMiners(NSString* _Nullable clientId, NSStrin
 
 /**
  * SetLogFile - setting up log level for core libraries
+
+	# Inputs
+	- logFile: the output file of logs
+	- verbose: output detail logs
  */
 FOUNDATION_EXPORT void SdkSetLogFile(NSString* _Nullable logFile, BOOL verbose);
 

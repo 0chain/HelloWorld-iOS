@@ -12,7 +12,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
 
-    private static var network: NetworkConfig = Network.demo.config
+    private static var network: NetworkConfig = Network.devZus.config
     static var zboxStorageSDKHandle : SdkStorageSDK? = nil
     
     @Published var processing: Bool = false
@@ -69,7 +69,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     func createAllocation() {
         DispatchQueue.global().async {
             do {
-                let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation("Allocation", datashards: 2, parityshards: 2, size: 214748364, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
+                let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation(2, parityshards: 2, size: 214748364, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
                // VultViewModel.zboxAllocationHandle = allocation
                 DispatchQueue.main.async {
                     self.toast = .success("Allocation Created Successfully")
