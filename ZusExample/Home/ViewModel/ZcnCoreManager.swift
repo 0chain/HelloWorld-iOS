@@ -12,7 +12,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
 
-    private static var network: NetworkConfig = Network.devZus.config
+    private static var network: NetworkConfig = Network.demoZus.config
     static var zboxStorageSDKHandle : SdkStorageSDK? = nil
     
     @Published var processing: Bool = false
@@ -111,7 +111,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     }
     
     func onWalletCreateFailed(error: String) {
-        
+        self.toast = .error(error)
     }
     
 }
