@@ -35,6 +35,7 @@
 		4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */; };
 		4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */; };
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
+		4B9A3A4029D29FB5001369A4 /* CopyableTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */; };
 		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
 		4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
 		4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E329646F3000B00B5C /* PreviewController.swift */; };
@@ -79,6 +80,7 @@
 		4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsBlock.swift; sourceTree = "<group>"; };
 		4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNProgressStyle.swift; sourceTree = "<group>"; };
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
+		4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableTextModifier.swift; sourceTree = "<group>"; };
 		4BA115D229645B3C00951E8B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4BB813E02964687A00B00B5C /* FilesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTable.swift; sourceTree = "<group>"; };
 		4BB813E329646F3000B00B5C /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				4B5789BA296BC95E00E8FCFF /* ZCNToast */,
+				4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,
 				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
+				4B9A3A4029D29FB5001369A4 /* CopyableTextModifier.swift in Sources */,
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */,
 				4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */,

@@ -120,6 +120,7 @@ extension Utils {
         case balance
         case allocationID
         case network
+        case publicEncKey
     }
     
     public static func set(_ value: Any, for key: UserDefaultsKey) {
@@ -132,6 +133,13 @@ extension Utils {
     
     public static func delete(key: UserDefaultsKey) {
         defaults.set(nil, forKey: key.rawValue)
+    }
+    
+    public static func getPublicEncryptionKey(mnemonic: String) -> String {
+        var error: NSError?
+        let key = ZcncoreGetPublicEncryptionKey(mnemonic, &error)
+        self.set(key, for: UserDefaultsKey.publicEncKey)
+        return key
     }
     
     public static var wallet: Wallet? {
