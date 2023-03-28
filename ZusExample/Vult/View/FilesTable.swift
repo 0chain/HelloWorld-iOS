@@ -17,6 +17,11 @@ struct FilesTable: View {
            ScrollView(showsIndicators: false) {
                 ForEach(vultVM.files,id:\.id) { file in
                    FileRow(file: file)
+                        .contextMenu(menuItems: {
+                            Button("Copy Auth Ticket") {
+                                UIPasteboard.general.string = vultVM.getAuthTicket(file: file)
+                            }
+                        })
                     .id(file.id)
                     .onTapGesture {
                         if file.isDownloaded {

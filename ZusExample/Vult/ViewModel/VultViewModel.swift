@@ -143,6 +143,16 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
+    func getAuthTicket(file: File) -> String {
+        
+        guard let allocation = VultViewModel.zboxAllocationHandle else { return "" }
+
+        var error: NSError?
+        let auth = allocation.getAuthToken(file.path, filename: file.name, referenceType: "f", refereeClientID: "", refereeEncryptionPublicKey: "", expiration: 0, availableAfter: "", error: &error)
+        
+        return auth
+    }
+    
 }
 
 extension VultViewModel: ZboxStatusCallbackMockedProtocol {
