@@ -13,9 +13,11 @@
 #include "Common.objc.h"
 
 @class ZcncoreAuthorizerConfig;
+@class ZcncoreAuthorizerHealthCheckPayload;
 @class ZcncoreAuthorizerStakePoolSettings;
 @class ZcncoreBlock;
 @class ZcncoreBlockHeader;
+@class ZcncoreBurnTicket;
 @class ZcncoreChainConfig;
 @class ZcncoreCreateAllocationRequest;
 @class ZcncoreGetClientResponse;
@@ -322,6 +324,15 @@ used to call after the transaction or verification is completed
 @property (nonatomic) int64_t fee;
 @end
 
+@interface ZcncoreAuthorizerHealthCheckPayload : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull id_;
+@end
+
 @interface ZcncoreAuthorizerStakePoolSettings : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -375,6 +386,19 @@ used to call after the transaction or verification is completed
 @property (nonatomic) NSString* _Nonnull stateHash;
 @property (nonatomic) NSString* _Nonnull receiptMerkleTreeRoot;
 @property (nonatomic) int64_t numTxns;
+@end
+
+/**
+ * BurnTicket model used for deserialization of the response received from sharders
+ */
+@interface ZcncoreBurnTicket : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull hash;
+@property (nonatomic) int64_t nonce;
 @end
 
 @interface ZcncoreChainConfig : NSObject <goSeqRefInterface> {
@@ -764,6 +788,7 @@ allocation->blobber only.
  */
 - (BOOL)writePoolUnlock:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscAddAuthorizer:(id<ZcncoreAddAuthorizerPayload> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)zcnscAuthorizerHealthCheck:(ZcncoreAuthorizerHealthCheckPayload* _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateAuthorizerConfig:(id<ZcncoreAuthorizerNode> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateGlobalConfig:(id<ZcncoreInputMap> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 @end
@@ -817,6 +842,8 @@ FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_MINERSC_NODE;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_MINERSC_POOL;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_MINERSC_SHARDERS;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_MINERSC_USER;
+FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_MINT_NONCE;
+FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_NOT_PROCESSED_BURN_TICKETS;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_VESTING_CLIENT_POOLS;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_VESTING_CONFIG;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_VESTING_POOL_INFO;
@@ -827,6 +854,8 @@ FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreMultiSigSmartContractAddress;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreMultiSigVoteFuncName;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreNETWORK_ENDPOINT;
 FOUNDATION_EXPORT const long ZcncoreOpGetLockedTokens;
+FOUNDATION_EXPORT const long ZcncoreOpGetMintNonce;
+FOUNDATION_EXPORT const long ZcncoreOpGetNotProcessedBurnTickets;
 FOUNDATION_EXPORT const long ZcncoreOpGetTokenLockConfig;
 FOUNDATION_EXPORT const long ZcncoreOpGetUserPoolDetail;
 FOUNDATION_EXPORT const long ZcncoreOpGetUserPools;
@@ -881,7 +910,6 @@ FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGE_GET_BLOBBER_SNAPSHOT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGE_GET_MINER_SNAPSHOT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGE_GET_SHARDER_SNAPSHOT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGE_GET_SNAPSHOT;
-FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGE_GET_TOTAL_STORED_DATA;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGE_GET_USER_SNAPSHOT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGE_GET_VALIDATOR_SNAPSHOT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSharderEndpointHealthCheck;
@@ -905,6 +933,10 @@ FOUNDATION_EXPORT const long ZcncoreUndefined;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreVESTINGSC_PFX;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreVestingSmartContractAddress;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreZCNSCSmartContractAddress;
+/**
+ * zcn sc
+ */
+FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreZCNSC_PFX;
 
 @interface Zcncore : NSObject
 + (NSError* _Nullable) errInvalidConsensus;
@@ -1031,7 +1063,7 @@ FOUNDATION_EXPORT BOOL ZcncoreGetAllocations(NSString* _Nullable clientID, id<Zc
 /**
  * GetAuthorizerSnapshots obtains list of allocations of an authorizer.
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetAuthorizerSnapshots(int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetAuthorizerSnapshots(int64_t round, int64_t limit, int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetBalance retrieve wallet balance from sharders
@@ -1054,7 +1086,7 @@ FOUNDATION_EXPORT BOOL ZcncoreGetBlobber(NSString* _Nullable blobberID, id<Zcnco
 /**
  * GetBlobberSnapshots obtains list of allocations of a blobber.
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetBlobberSnapshots(int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetBlobberSnapshots(int64_t round, int64_t limit, int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetBlobbers obtains list of all active blobbers.
@@ -1128,15 +1160,23 @@ FOUNDATION_EXPORT BOOL ZcncoreGetMinerSCUserInfo(NSString* _Nullable clientID, i
 /**
  * GetMinerSnapshots obtains list of allocations of a miner.
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetMinerSnapshots(int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetMinerSnapshots(int64_t round, int64_t limit, int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetMiners obtains list of all active miners.
 
-	# Inputs
-		-	cb: callback for checking result
+		# Inputs
+	  - cb: callback for checking result
+	  - limit: how many miners should be fetched
+	  - offset: how many miners should be skipped
+	  - active: only fetch active miners
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetMiners(id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT void ZcncoreGetMiners(id<ZcncoreGetInfoCallback> _Nullable cb, long limit, long offset, BOOL active);
+
+/**
+ * GetMintNonce retrieve mint nonce from sharders
+ */
+FOUNDATION_EXPORT BOOL ZcncoreGetMintNonce(id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetMultisigPayload given a multisig wallet as a string, makes a multisig wallet payload to register
@@ -1159,6 +1199,11 @@ FOUNDATION_EXPORT NSString* _Nonnull ZcncoreGetNetworkJSON(void);
  */
 FOUNDATION_EXPORT BOOL ZcncoreGetNonce(id<ZcncoreGetNonceCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
+/**
+ * GetNotProcessedZCNBurnTickets retrieve wallet burn tickets from sharders
+ */
+FOUNDATION_EXPORT BOOL ZcncoreGetNotProcessedZCNBurnTickets(NSString* _Nullable ethereumAddress, NSString* _Nullable startNonce, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+
 FOUNDATION_EXPORT NSString* _Nonnull ZcncoreGetPublicEncryptionKey(NSString* _Nullable mnemonic, NSError* _Nullable* _Nullable error);
 
 /**
@@ -1169,19 +1214,22 @@ FOUNDATION_EXPORT BOOL ZcncoreGetReadPoolInfo(NSString* _Nullable clientID, id<Z
 /**
  * GetSharderSnapshots obtains list of allocations of a sharder.
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetSharderSnapshots(int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetSharderSnapshots(int64_t round, int64_t limit, int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetSharders obtains list of all active sharders.
 # Inputs
   - cb: callback for checking result
+  - limit: how many sharders should be fetched
+  - offset: how many sharders should be skipped
+  - active: only fetch active sharders
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetSharders(id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT void ZcncoreGetSharders(id<ZcncoreGetInfoCallback> _Nullable cb, long limit, long offset, BOOL active);
 
 /**
  * GetSnapshots obtains list of allocations of a user.
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetSnapshots(int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetSnapshots(int64_t round, int64_t limit, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetStakePoolInfo obtains information about stake pool of a blobber and
@@ -1195,7 +1243,7 @@ FOUNDATION_EXPORT BOOL ZcncoreGetStakePoolInfo(NSString* _Nullable blobberID, id
   - clientID: the id of wallet
   - cb: callback for checking result
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetStakePoolUserInfo(NSString* _Nullable clientID, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetStakePoolUserInfo(NSString* _Nullable clientID, long offset, long limit, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetStorageSCConfig obtains Storage SC configurations.
@@ -1216,14 +1264,21 @@ FOUNDATION_EXPORT BOOL ZcncoreGetStorageSCConfig(id<ZcncoreGetInfoCallback> _Nul
 FOUNDATION_EXPORT BOOL ZcncoreGetTransactions(NSString* _Nullable toClient, NSString* _Nullable fromClient, NSString* _Nullable block_hash, NSString* _Nullable sort, long limit, long offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
+ * GetUserLockedTotal get total token user locked
+# Inputs
+  - clientID wallet id
+ */
+FOUNDATION_EXPORT BOOL ZcncoreGetUserLockedTotal(NSString* _Nullable clientID, int64_t* _Nullable ret0_, NSError* _Nullable* _Nullable error);
+
+/**
  * GetUserSnapshots replicates user aggregates from events_db.
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetUserSnapshots(int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetUserSnapshots(int64_t round, int64_t limit, int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetValidatorSnapshots obtains list of allocations of a validator.
  */
-FOUNDATION_EXPORT BOOL ZcncoreGetValidatorSnapshots(int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZcncoreGetValidatorSnapshots(int64_t round, int64_t limit, int64_t offset, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 /**
  * GetVersion - returns version string
