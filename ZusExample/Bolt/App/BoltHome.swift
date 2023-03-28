@@ -58,9 +58,10 @@ struct BoltHome: View {
         HStack(spacing: 15) {
             Text("\(index+1). \(txn.hash)")
             Spacer()
-            Text(Date(timeIntervalSince1970: txn.creationDate/1e9).formatted()).layoutPriority(1)
+            Text(Date(timeIntervalSince1970: txn.creationDate/1e9).formatted(date: .omitted, time: .shortened)).layoutPriority(1)
             Image(systemName: "chevron.right")
         }
+        .copyableText(txn.hash)
         .foregroundColor(txn.status == 1 ? .primary : .pink)
         .lineLimit(1)
         .padding(.vertical,10)

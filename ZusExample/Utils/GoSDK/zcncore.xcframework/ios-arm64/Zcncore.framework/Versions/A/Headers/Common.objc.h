@@ -19,22 +19,56 @@
 
 // skipped const ZCN with unsupported type: github.com/0chain/gosdk/core/common.BalanceUnit
 
+FOUNDATION_EXPORT const int64_t CommonZCNExponent;
 
 @interface Common : NSObject
 + (NSError* _Nullable) errInvalidTime;
 + (void) setErrInvalidTime:(NSError* _Nullable)v;
 
+/**
+ * ErrNegativeValue is returned if a float value is a negative number
+ */
++ (NSError* _Nullable) errNegativeValue;
++ (void) setErrNegativeValue:(NSError* _Nullable)v;
+
+/**
+ * ErrTooLarge is returned if a value is greater than math.MaxInt64
+ */
++ (NSError* _Nullable) errTooLarge;
++ (void) setErrTooLarge:(NSError* _Nullable)v;
+
+/**
+ * ErrTooManyDecimals is returned if a value has more than 10 decimal places
+ */
++ (NSError* _Nullable) errTooManyDecimals;
++ (void) setErrTooManyDecimals:(NSError* _Nullable)v;
+
+/**
+ * ErrUint64AddOverflow is returned if when adding uint64 values overflow uint64
+ */
++ (NSError* _Nullable) errUint64AddOverflow;
++ (void) setErrUint64AddOverflow:(NSError* _Nullable)v;
+
+/**
+ * ErrUint64OverflowsFloat64 is returned if when converting a uint64 to a float64 overflow float64
+ */
++ (NSError* _Nullable) errUint64OverflowsFloat64;
++ (void) setErrUint64OverflowsFloat64:(NSError* _Nullable)v;
+
 @end
+
+// skipped function AddBalance with unsupported parameter or return types
+
 
 // skipped function AutoFormatBalance with unsupported parameter or return types
 
 
-FOUNDATION_EXPORT NSString* _Nonnull CommonAutoFormatStatic(int64_t amount);
+FOUNDATION_EXPORT NSString* _Nonnull CommonAutoFormatStatic(int64_t amount, NSError* _Nullable* _Nullable error);
 
 // skipped function FormatBalance with unsupported parameter or return types
 
 
-FOUNDATION_EXPORT NSString* _Nonnull CommonFormatStatic(int64_t amount, NSString* _Nullable unit);
+FOUNDATION_EXPORT NSString* _Nonnull CommonFormatStatic(int64_t amount, NSString* _Nullable unit, NSError* _Nullable* _Nullable error);
 
 // skipped function GetPathFields with unsupported parameter or return types
 

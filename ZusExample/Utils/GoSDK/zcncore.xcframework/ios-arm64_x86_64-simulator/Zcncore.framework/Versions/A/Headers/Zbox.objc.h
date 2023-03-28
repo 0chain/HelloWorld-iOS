@@ -10,6 +10,7 @@
 #include "ref.h"
 #include "Universe.objc.h"
 
+#include "Common.objc.h"
 #include "Zcncore.objc.h"
 
 @class ZboxAllocation;
@@ -77,10 +78,6 @@
  */
 - (BOOL)cancelRepair:(NSError* _Nullable* _Nullable)error;
 /**
- * CancelUpload - cancel file upload
- */
-- (BOOL)cancelUpload:(NSString* _Nullable)localpath error:(NSError* _Nullable* _Nullable)error;
-/**
  * CopyObject - copy object from path to dest
  */
 - (BOOL)copyObject:(NSString* _Nullable)path destPath:(NSString* _Nullable)destPath error:(NSError* _Nullable* _Nullable)error;
@@ -120,7 +117,7 @@
 /**
  * GetAuthToken - get auth token from refereeClientID
  */
-- (NSString* _Nonnull)getAuthToken:(NSString* _Nullable)path filename:(NSString* _Nullable)filename referenceType:(NSString* _Nullable)referenceType refereeClientID:(NSString* _Nullable)refereeClientID refereeEncryptionPublicKey:(NSString* _Nullable)refereeEncryptionPublicKey expiration:(int64_t)expiration error:(NSError* _Nullable* _Nullable)error;
+- (NSString* _Nonnull)getAuthToken:(NSString* _Nullable)path filename:(NSString* _Nullable)filename referenceType:(NSString* _Nullable)referenceType refereeClientID:(NSString* _Nullable)refereeClientID refereeEncryptionPublicKey:(NSString* _Nullable)refereeEncryptionPublicKey expiration:(int64_t)expiration availableAfter:(NSString* _Nullable)availableAfter error:(NSError* _Nullable* _Nullable)error;
 /**
  * GetBlobberStats - get blobbers stats
  */
@@ -195,6 +192,10 @@
   - statusCb: callback of status
  */
 - (BOOL)repairFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+/**
+ * RevokeShare - revokes authTicket from refereeClientID
+ */
+- (BOOL)revokeShare:(NSString* _Nullable)path refereeClientID:(NSString* _Nullable)refereeClientID error:(NSError* _Nullable* _Nullable)error;
 /**
  * SaveRemoteSnapshot - saving remote snapshot
  */

@@ -130,7 +130,7 @@ extension ZcncoreManager: ZcncoreWalletCallbackProtocol {
             print(w.debugDescription())
             Utils.set(walletJSON, for: .walletJSON)
             Utils.wallet = w
-            
+            Utils.getPublicEncryptionKey(mnemonic: w.mnemonics)
             self.setWalletInfo()
             try? self.initialiseSDK()
             self.onWalletCreateComplete(wallet: w)

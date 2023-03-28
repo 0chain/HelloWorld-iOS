@@ -20,6 +20,13 @@ FOUNDATION_EXPORT NSString* _Nonnull ZcnExecuteSmartContract(NSString* _Nullable
 FOUNDATION_EXPORT NSString* _Nonnull ZcnFaucet(NSString* _Nullable methodName, NSString* _Nullable jsonInput, double zcnToken, NSError* _Nullable* _Nullable error);
 
 /**
+ * GetUserLockedTotal get total token user locked
+# Inputs
+  - clientID wallet id
+ */
+FOUNDATION_EXPORT BOOL ZcnGetUserLockedTotal(NSString* _Nullable clientID, int64_t* _Nullable ret0_, NSError* _Nullable* _Nullable error);
+
+/**
  * ReadPoolLock locks given number of tokes for given duration in read pool.
 ## Inputs
   - tokens:  sas tokens
