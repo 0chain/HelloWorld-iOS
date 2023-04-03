@@ -31,7 +31,7 @@ extension Int {
     }
     
     var formattedUNIX: String {
-        return Date(timeIntervalSince1970: Double(self)).formatted()
+        return Date(timeIntervalSince1970: Double(self)).formatted(date: .abbreviated, time: .omitted)
     }
 }
 
