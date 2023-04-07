@@ -79,7 +79,8 @@ public struct Allocation: Codable, Equatable {
     }
     
     var allocationPercentage: Int {
-        return ((stats.usedSize ?? 0)/(size ?? 1)) * 100
+        let divisor = size == 0 ? 1 : size
+        return ((stats.usedSize ?? 0)/(divisor)) * 100
     }
     
     var defaultName: String {
