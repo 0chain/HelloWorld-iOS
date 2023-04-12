@@ -20,7 +20,10 @@ struct WalletActionStack: View {
             }
         }
         .frame(height:width/4)
-        .background(Color.tertiarySystemBackground)
+        .background(LinearGradient(colors: [
+            Color(red: 0.013, green: 0.758, blue: 0.492),
+            Color(red: 0.592, green: 0.91, blue: 0.11)
+          ], startPoint: .leading, endPoint: .trailing))
         .cornerRadius(12)
         .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.75), radius: 75, x: 0, y: 0)
         .padding(.bottom,10)
@@ -46,6 +49,7 @@ struct WalletActionButton: View {
                 .frame(width: width/13)
             Text(button.title)
                 .font(.system(size: 13, weight: .semibold))
+                .foregroundColor(.white)
         }
         .frame(width: width/3)
         .onTapGesture{ self.action(button) }

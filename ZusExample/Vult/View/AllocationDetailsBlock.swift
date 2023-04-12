@@ -16,7 +16,7 @@ struct AllocationDetailsBlock: View {
                 VStack(alignment: .leading) {
                     Text(vultVM.allocation.defaultName)
                         .font(.system(size: 14, weight: .semibold))
-                    Text(vultVM.allocation.expirationDate?.formattedUNIX ?? "")
+                    Text(vultVM.allocation.expirationDate.formattedUNIX)
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.gray)
                 }
@@ -26,7 +26,7 @@ struct AllocationDetailsBlock: View {
                         .progressViewStyle(ZCNProgressStyle())
                         .frame(height: 10)
                     
-                    Text("\(vultVM.allocation.usedSize?.formattedByteCount ?? "") used of \(vultVM.allocation.size?.formattedByteCount ?? "") (\(vultVM.allocation.allocationPercentage)%)")
+                    Text("\(vultVM.allocation.stats.usedSize.formattedByteCount) used of \(vultVM.allocation.size.formattedByteCount) (\(vultVM.allocation.allocationPercentage)%)")
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.gray)
                         .lineLimit(1)

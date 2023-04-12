@@ -13,7 +13,8 @@ import _PhotosUI_SwiftUI
 class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
     
-    @Published var allocation: Allocation = Allocation()
+    @Published var allocation: Allocation = Allocation(id: "", tx: "", dataShards: 0, parityShards: 0, size: 0, expirationDate: 0, ownerID: "", ownerPublicKey: "", payerID: "", blobbers: [], stats: Stats(usedSize: 0, numOfWrites: 0, numOfReads: 0, totalChallenges: 0, numOpenChallenges: 0, numSuccessChallenges: 0, numFailedChallenges: 0, latestClosedChallenge: ""), timeUnit: 0, writePool: 0, blobberDetails: [], readPriceRange: PriceRange(min: 0, max: 0), writePriceRange: PriceRange(min: 0, max: 0), challengeCompletionTime: 0, startTime: 0, movedToChallenge: 0, movedToValidators: 0, fileOptions: 0, thirdPartyExtendable: false)
+    
     @Published var presentAllocationDetails: Bool = false
     @Published var presentDocumentPicker: Bool = false
 
@@ -31,31 +32,19 @@ class VultViewModel: NSObject, ObservableObject {
     
     func getAllocation()  {
         DispatchQueue.global().async {
-            do {
                 let decoder = JSONDecoder()
                 
                 guard let zboxAllocationHandle = VultViewModel.zboxAllocationHandle else { return }
                 
-                var allocation = Allocation()
-                allocation.id = zboxAllocationHandle.id_
-                allocation.size = Int(zboxAllocationHandle.size)
-                allocation.dataShards = zboxAllocationHandle.dataShards
-                allocation.parityShards = zboxAllocationHandle.parityShards
-                allocation.name = zboxAllocationHandle.name
-                allocation.expirationDate = Int(zboxAllocationHandle.expiration)
+                var error: NSError?
+                let jsonStr = SdkGetAllocations(&error)
                 
-                let allocationStats = zboxAllocationHandle.stats
-                let allocationStatsData = Data(allocationStats.utf8)
-                let allocationStatsModel = try decoder.decode(Allocation.self, from: allocationStatsData)
-
-                allocation.addStats(allocationStatsModel)
-                
+            if let data = jsonStr.data(using: .utf8), let allocations = try? JSONDecoder().decode([Allocation].self, from: data), let allocation = allocations.first {
                 DispatchQueue.main.async {
                     self.allocation = allocation
                 }
-                
-            } catch let error {
-                print(error)
+            } else {
+                print(error?.localizedDescription)
             }
         }
     }
