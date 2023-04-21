@@ -7,6 +7,7 @@
 
 import Foundation
 import Zcncore
+import Photos
 
 class ZcncoreManager: NSObject, ObservableObject {
     
@@ -77,6 +78,7 @@ class ZcncoreManager: NSObject, ObservableObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     if let allocationId = allocation?.id_ {
                         Utils.set(allocationId, for: .allocationID)
+                        self.requestPhotoAuth()
                     }
                 }
             } catch let error {
@@ -112,6 +114,10 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     func onWalletCreateFailed(error: String) {
         self.toast = .error(error)
+    }
+    
+    func requestPhotoAuth() {
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in }
     }
     
 }

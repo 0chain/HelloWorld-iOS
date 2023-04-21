@@ -15,7 +15,9 @@ typealias Files = [File]
 
 struct File: Codable, Identifiable, Equatable  {
     
-    var id = UUID()
+    var id: String {
+        return status.rawValue + completedBytes.stringValue
+    }
     
     var name : String = ""
     var mimetype: String = ""
@@ -82,7 +84,7 @@ struct File: Codable, Identifiable, Equatable  {
     
      var completedBytes: Int = 0
     
-    enum FileStatus {
+    enum FileStatus: String {
         case error
         case progress
         case completed
