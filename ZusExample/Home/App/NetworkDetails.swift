@@ -28,20 +28,11 @@ struct NetworkDetails: View {
                 Section("Details") {
                     ListRow(title: "Name: ", value: String(describing: network) + " Network")
                     ListRow(title: "Url: ",value: config.host)
-                    ListRow(title: "0Box Url:",value: config.zboxURL)
                 }
                 
                 Section {
                     Link(destination: URL(string: config.blockWorker)!) {
                         Text(config.blockWorker)
-                    }
-                }
-                
-                Section("Change Network") {
-                    Picker("Change Network", selection: $changeNetwork) {
-                        ForEach(Network.allCases,id:\.rawValue) {
-                            Text(String(describing: $0)).tag($0).layoutPriority(1)
-                        }
                     }
                 }
             }
