@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "Vector2.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "Vector2@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "Vector2@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "Group 1160443991.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

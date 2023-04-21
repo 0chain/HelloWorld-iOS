@@ -20,10 +20,7 @@ struct WalletActionStack: View {
             }
         }
         .frame(height:width/4)
-        .background(LinearGradient(colors: [
-            Color(red: 0.013, green: 0.758, blue: 0.492),
-            Color(red: 0.592, green: 0.91, blue: 0.11)
-          ], startPoint: .leading, endPoint: .trailing))
+        .background(Color(uiColor: UIColor.secondarySystemBackground))
         .cornerRadius(12)
         .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.75), radius: 75, x: 0, y: 0)
         .padding(.bottom,10)
@@ -49,7 +46,7 @@ struct WalletActionButton: View {
                 .frame(width: width/13)
             Text(button.title)
                 .font(.system(size: 13, weight: .semibold))
-                .foregroundColor(.white)
+                .foregroundColor(Color(uiColor: UIColor.label))
         }
         .frame(width: width/3)
         .onTapGesture{ self.action(button) }
@@ -81,6 +78,8 @@ enum WalletActionType: CaseIterable {
 struct WalletActionStack_Previews: PreviewProvider {
     static var previews: some View {
         WalletActionStack(width: 345)
+            .padding(50)
+            .background()
             .environmentObject(BoltViewModel())
             .previewLayout(.sizeThatFits)
     }

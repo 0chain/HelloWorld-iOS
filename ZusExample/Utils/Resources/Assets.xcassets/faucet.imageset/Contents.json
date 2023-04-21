@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "Isolation_Mode.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "Isolation_Mode@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "Isolation_Mode@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "Group 1160443992.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
