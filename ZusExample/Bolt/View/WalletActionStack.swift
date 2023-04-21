@@ -20,7 +20,7 @@ struct WalletActionStack: View {
             }
         }
         .frame(height:width/4)
-        .background(Color(uiColor: UIColor.secondarySystemBackground))
+        .background(Color.tertiarySystemBackground)
         .cornerRadius(12)
         .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.75), radius: 75, x: 0, y: 0)
         .padding(.bottom,10)
