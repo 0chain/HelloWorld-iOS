@@ -93,6 +93,7 @@
 @end
 
 @protocol ZcncoreBlobber <NSObject>
+- (void)setAvailable:(BOOL)p0;
 - (void)setStakePoolSettings:(NSString* _Nullable)delegateWallet minStake:(int64_t)minStake maxStake:(int64_t)maxStake numDelegates:(long)numDelegates serviceCharge:(double)serviceCharge;
 - (void)setTerms:(int64_t)readPrice writePrice:(int64_t)writePrice minLockDemand:(double)minLockDemand maxOfferDuration:(int64_t)maxOfferDuration;
 @end
@@ -156,15 +157,15 @@ is status != StatusSuccess then err will give the reason
 @end
 
 @protocol ZcncoreTransactionCommon <NSObject>
-- (BOOL)cancelAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createReadPool:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)cancelAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteSmartContract implements wrapper for smart contract function
  */
 - (BOOL)executeSmartContract:(NSString* _Nullable)address methodName:(NSString* _Nullable)methodName input:(NSString* _Nullable)input val:(NSString* _Nullable)val error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)faucetUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (long)getVerifyConfirmationStatus;
 - (BOOL)minerSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)minerSCDeleteMiner:(id<ZcncoreMinerSCMinerInfo> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
@@ -175,8 +176,8 @@ is status != StatusSuccess then err will give the reason
 - (BOOL)minerSCUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)minerScUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)minerScUpdateGlobals:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)readPoolUnlock:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolUnlock:(NSError* _Nullable* _Nullable)error;
 /**
  * Send implements sending token to a given clientid
  */
@@ -185,16 +186,16 @@ is status != StatusSuccess then err will give the reason
  * SetTransactionFee implements method to set the transaction fee
  */
 - (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageScUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingAdd:(id<ZcncoreVestingAddRequest> _Nullable)ar value:(NSString* _Nullable)value error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 /**
  * ZCNSCAddAuthorizer adds authorizer
  */
@@ -207,16 +208,16 @@ is status != StatusSuccess then err will give the reason
 @end
 
 @protocol ZcncoreTransactionScheme <NSObject>
-- (BOOL)cancelAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createReadPool:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)cancelAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteFaucetSCWallet implements the `Faucet Smart contract` for a given wallet
  */
 - (BOOL)executeFaucetSCWallet:(NSString* _Nullable)walletStr methodName:(NSString* _Nullable)methodName input:(NSData* _Nullable)input error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)executeSmartContract:(NSString* _Nullable)address methodName:(NSString* _Nullable)methodName input:(NSString* _Nullable)input val:(NSString* _Nullable)val error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)faucetUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 /**
  * GetTransactionError implements error string in case of transaction failure
  */
@@ -255,8 +256,8 @@ is status != StatusSuccess then err will give the reason
  * Output of transaction.
  */
 - (NSData* _Nullable)output;
-- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)readPoolUnlock:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolUnlock:(NSError* _Nullable* _Nullable)error;
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
 /**
  * SetTransactionCallback implements storing the callback
@@ -272,16 +273,16 @@ used to call after the transaction or verification is completed
  * SetTransactionNonce implements method to set the transaction nonce
  */
 - (BOOL)setTransactionNonce:(int64_t)txnNonce error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageScUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 /**
  * StoreData implements store the data to blockchain
  */
 - (BOOL)storeData:(NSString* _Nullable)data error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber error:(NSError* _Nullable* _Nullable)error;
 /**
  * Verify implements verify the transaction
  */
@@ -292,8 +293,8 @@ used to call after the transaction or verification is completed
 - (BOOL)vestingTrigger:(NSString* _Nullable)poolID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingUnlock:(NSString* _Nullable)poolID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscAddAuthorizer:(id<ZcncoreAddAuthorizerPayload> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateAuthorizerConfig:(id<ZcncoreAuthorizerNode> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateGlobalConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
@@ -561,15 +562,15 @@ used to call after the transaction or verification is completed
 /**
  * CancelAllocation transaction.
  */
-- (BOOL)cancelAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)cancelAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 /**
  * CreateAllocation transaction.
  */
-- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * CreateReadPool for current user.
  */
-- (BOOL)createReadPool:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteFaucetSCWallet implements the Faucet Smart contract for a given wallet
  */
@@ -579,7 +580,7 @@ used to call after the transaction or verification is completed
 /**
  * FinalizeAllocation transaction.
  */
-- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (NSString* _Nonnull)getTransactionError;
 - (NSString* _Nonnull)getTransactionHash;
 /**
@@ -605,11 +606,11 @@ used to call after the transaction or verification is completed
 duration. If blobberID is not empty, then tokens will be locked for given
 allocation->blobber only.
  */
-- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * ReadPoolUnlock for current user and given pool.
  */
-- (BOOL)readPoolUnlock:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolUnlock:(NSError* _Nullable* _Nullable)error;
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)sendWithSignatureHash:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc sig:(NSString* _Nullable)sig CreationDate:(int64_t)CreationDate hash:(NSString* _Nullable)hash error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionCallback:(id<ZcncoreTransactionCallback> _Nullable)cb error:(NSError* _Nullable* _Nullable)error;
@@ -619,22 +620,22 @@ allocation->blobber only.
 /**
  * StakePoolLock used to lock tokens in a stake pool of a blobber.
  */
-- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * StakePoolUnlock by blobberID
  */
-- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageScUpdateConfig:(id<ZcncoreInputMap> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storeData:(NSString* _Nullable)data error:(NSError* _Nullable* _Nullable)error;
 /**
  * UpdateAllocation transaction.
  */
-- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * UpdateBlobberSettings update settings of a blobber.
  */
-- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)b fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)b error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)verify:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingAdd:(id<ZcncoreVestingAddRequest> _Nullable)ar value:(NSString* _Nullable)value error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingDelete:(NSString* _Nullable)poolID error:(NSError* _Nullable* _Nullable)error;
@@ -647,11 +648,11 @@ allocation->blobber only.
 duration. If blobberID is not empty, then tokens will be locked for given
 allocation->blobber only.
  */
-- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * WritePoolUnlock for current user and given pool.
  */
-- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscAddAuthorizer:(id<ZcncoreAddAuthorizerPayload> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateAuthorizerConfig:(id<ZcncoreAuthorizerNode> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateGlobalConfig:(id<ZcncoreInputMap> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
@@ -690,18 +691,19 @@ allocation->blobber only.
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
+@property (nonatomic) ZcncoreTransaction* _Nullable transaction;
 /**
  * CancelAllocation transaction.
  */
-- (BOOL)cancelAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)cancelAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 /**
  * CreateAllocation transaction.
  */
-- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * CreateReadPool for current user.
  */
-- (BOOL)createReadPool:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteFaucetSCWallet impements the Faucet Smart contract for a given wallet
  */
@@ -711,7 +713,7 @@ allocation->blobber only.
 /**
  * FinalizeAllocation transaction.
  */
-- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (NSString* _Nonnull)getTransactionError;
 - (NSString* _Nonnull)getTransactionHash;
 /**
@@ -737,16 +739,17 @@ allocation->blobber only.
 duration. If blobberID is not empty, then tokens will be locked for given
 allocation->blobber only.
  */
-- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * ReadPoolUnlock for current user and given pool.
  */
-- (BOOL)readPoolUnlock:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolUnlock:(NSError* _Nullable* _Nullable)error;
 /**
  * RegisterMultiSig register a multisig wallet with the SC.
  */
 - (BOOL)registerMultiSig:(NSString* _Nullable)walletstr mswallet:(NSString* _Nullable)mswallet error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)sendWithSignatureHash:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc sig:(NSString* _Nullable)sig CreationDate:(int64_t)CreationDate hash:(NSString* _Nullable)hash error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionCallback:(id<ZcncoreTransactionCallback> _Nullable)cb error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionHash:(NSString* _Nullable)hash error:(NSError* _Nullable* _Nullable)error;
@@ -754,22 +757,22 @@ allocation->blobber only.
 /**
  * StakePoolLock used to lock tokens in a stake pool of a blobber.
  */
-- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * StakePoolUnlock by blobberID
  */
-- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageScUpdateConfig:(id<ZcncoreInputMap> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storeData:(NSString* _Nullable)data error:(NSError* _Nullable* _Nullable)error;
 /**
  * UpdateAllocation transaction.
  */
-- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * UpdateBlobberSettings update settings of a blobber.
  */
-- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blob fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blob error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)verify:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingAdd:(id<ZcncoreVestingAddRequest> _Nullable)ar value:(NSString* _Nullable)value error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingDelete:(NSString* _Nullable)poolID error:(NSError* _Nullable* _Nullable)error;
@@ -782,11 +785,11 @@ allocation->blobber only.
 duration. If blobberID is not empty, then tokens will be locked for given
 allocation->blobber only.
  */
-- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 /**
  * WritePoolUnlock for current user and given pool.
  */
-- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscAddAuthorizer:(id<ZcncoreAddAuthorizerPayload> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscAuthorizerHealthCheck:(ZcncoreAuthorizerHealthCheckPayload* _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateAuthorizerConfig:(id<ZcncoreAuthorizerNode> _Nullable)ip error:(NSError* _Nullable* _Nullable)error;
@@ -831,6 +834,7 @@ FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_BLOCK_INFO;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_CHAIN_STATS;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_CLIENT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_FAUCETSC_CONFIG;
+FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_FEE_STATS;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_LATEST_FINALIZED;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_LATEST_FINALIZED_MAGIC_BLOCK;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreGET_MAGIC_BLOCK_INFO;
@@ -1117,6 +1121,8 @@ FOUNDATION_EXPORT ZcncoreGetClientResponse* _Nullable ZcncoreGetClientDetails(NS
  * GetEthBalance - getting back balance for ETH wallet
  */
 FOUNDATION_EXPORT BOOL ZcncoreGetEthBalance(NSString* _Nullable ethAddr, id<ZcncoreGetBalanceCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
+
+FOUNDATION_EXPORT NSData* _Nullable ZcncoreGetFeeStats(id<ZcncoreRequestTimeout> _Nullable timeout, NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT NSString* _Nonnull ZcncoreGetIdForUrl(NSString* _Nullable url);
 
@@ -1480,6 +1486,9 @@ FOUNDATION_EXPORT BOOL ZcncoreUpdateRequired(ZcncoreNetwork* _Nullable networkDe
 
 FOUNDATION_EXPORT BOOL ZcncoreVerifyContentHash(NSString* _Nullable metaTxnDataJSON, BOOL* _Nullable ret0_, NSError* _Nullable* _Nullable error);
 
+// skipped function WithNoEstimateFee with unsupported parameter or return types
+
+
 @class ZcncoreAddAuthorizerPayload;
 
 @class ZcncoreAuthCallback;
@@ -1555,6 +1564,7 @@ FOUNDATION_EXPORT BOOL ZcncoreVerifyContentHash(NSString* _Nullable metaTxnDataJ
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (void)setAvailable:(BOOL)p0;
 - (void)setStakePoolSettings:(NSString* _Nullable)delegateWallet minStake:(int64_t)minStake maxStake:(int64_t)maxStake numDelegates:(long)numDelegates serviceCharge:(double)serviceCharge;
 - (void)setTerms:(int64_t)readPrice writePrice:(int64_t)writePrice minLockDemand:(double)minLockDemand maxOfferDuration:(int64_t)maxOfferDuration;
 @end
@@ -1680,15 +1690,15 @@ is status != StatusSuccess then err will give the reason
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (BOOL)cancelAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createReadPool:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)cancelAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteSmartContract implements wrapper for smart contract function
  */
 - (BOOL)executeSmartContract:(NSString* _Nullable)address methodName:(NSString* _Nullable)methodName input:(NSString* _Nullable)input val:(NSString* _Nullable)val error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)faucetUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (long)getVerifyConfirmationStatus;
 - (BOOL)minerSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)minerSCDeleteMiner:(id<ZcncoreMinerSCMinerInfo> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
@@ -1699,8 +1709,8 @@ is status != StatusSuccess then err will give the reason
 - (BOOL)minerSCUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)minerScUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)minerScUpdateGlobals:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)readPoolUnlock:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolUnlock:(NSError* _Nullable* _Nullable)error;
 /**
  * Send implements sending token to a given clientid
  */
@@ -1709,16 +1719,16 @@ is status != StatusSuccess then err will give the reason
  * SetTransactionFee implements method to set the transaction fee
  */
 - (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageScUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingAdd:(id<ZcncoreVestingAddRequest> _Nullable)ar value:(NSString* _Nullable)value error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 /**
  * ZCNSCAddAuthorizer adds authorizer
  */
@@ -1740,16 +1750,16 @@ Note: to be buildable on MacOSX all arguments should have names.
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (BOOL)cancelAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)createReadPool:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)cancelAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createAllocation:(ZcncoreCreateAllocationRequest* _Nullable)car lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteFaucetSCWallet implements the `Faucet Smart contract` for a given wallet
  */
 - (BOOL)executeFaucetSCWallet:(NSString* _Nullable)walletStr methodName:(NSString* _Nullable)methodName input:(NSData* _Nullable)input error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)executeSmartContract:(NSString* _Nullable)address methodName:(NSString* _Nullable)methodName input:(NSString* _Nullable)input val:(NSString* _Nullable)val error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)faucetUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)finalizeAllocation:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 /**
  * GetTransactionError implements error string in case of transaction failure
  */
@@ -1788,8 +1798,8 @@ Note: to be buildable on MacOSX all arguments should have names.
  * Output of transaction.
  */
 - (NSData* _Nullable)output;
-- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)readPoolUnlock:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolLock:(NSString* _Nullable)allocID blobberID:(NSString* _Nullable)blobberID duration:(int64_t)duration lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)readPoolUnlock:(NSError* _Nullable* _Nullable)error;
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
 /**
  * SetTransactionCallback implements storing the callback
@@ -1805,16 +1815,16 @@ used to call after the transaction or verification is completed
  * SetTransactionNonce implements method to set the transaction nonce
  */
 - (BOOL)setTransactionNonce:(int64_t)txnNonce error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageScUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 /**
  * StoreData implements store the data to blockchain
  */
 - (BOOL)storeData:(NSString* _Nullable)data error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateAllocation:(NSString* _Nullable)allocID sizeDiff:(int64_t)sizeDiff expirationDiff:(int64_t)expirationDiff lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateBlobberSettings:(id<ZcncoreBlobber> _Nullable)blobber error:(NSError* _Nullable* _Nullable)error;
 /**
  * Verify implements verify the transaction
  */
@@ -1825,8 +1835,8 @@ used to call after the transaction or verification is completed
 - (BOOL)vestingTrigger:(NSString* _Nullable)poolID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingUnlock:(NSString* _Nullable)poolID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)vestingUpdateConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID fee:(NSString* _Nullable)fee error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolLock:(NSString* _Nullable)allocID lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)writePoolUnlock:(NSString* _Nullable)allocID error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscAddAuthorizer:(id<ZcncoreAddAuthorizerPayload> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateAuthorizerConfig:(id<ZcncoreAuthorizerNode> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)zcnscUpdateGlobalConfig:(id<ZcncoreInputMap> _Nullable)p0 error:(NSError* _Nullable* _Nullable)error;

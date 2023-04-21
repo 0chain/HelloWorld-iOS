@@ -15,6 +15,10 @@
 
 // skipped const SAS with unsupported type: github.com/0chain/gosdk/core/common.BalanceUnit
 
+/**
+ * TokenUnit represents the minimum token unit (sas)
+ */
+FOUNDATION_EXPORT const double CommonTokenUnit;
 // skipped const UZCN with unsupported type: github.com/0chain/gosdk/core/common.BalanceUnit
 
 // skipped const ZCN with unsupported type: github.com/0chain/gosdk/core/common.BalanceUnit
