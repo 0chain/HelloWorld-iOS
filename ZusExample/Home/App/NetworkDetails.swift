@@ -44,17 +44,6 @@ struct NetworkDetails: View {
                         }
                     }
                 }
-                
-                Section {
-                    
-                    if changeNetwork != network {
-                        Button("Change") {
-                            self.presentAlert = true
-                        }
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(.teal)
-                    }
-                }
             }
             .alert("Are you sure?", isPresented: $presentAlert) {
                 Button {
