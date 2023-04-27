@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct BoltHome: View {
     @EnvironmentObject var boltVM: BoltViewModel
-    @State private var sortOrder = [KeyPathComparator(\Transaction.creationDate)]
+
     var body: some View {
         GeometryReader { gr in
             ZStack(alignment: .bottom) {
@@ -54,7 +55,7 @@ struct BoltHome: View {
         }
     }
     
-    @ViewBuilder func TransactionRow(index:Int,txn:Transaction) -> some View {
+    @ViewBuilder func TransactionRow(index:Int,txn: ZCNSwift.Transaction) -> some View {
         HStack(spacing: 15) {
             Text("\(index+1). \(txn.hash)")
             Spacer()

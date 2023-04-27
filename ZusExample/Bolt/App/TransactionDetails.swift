@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct TransactionDetails: View {
-    var transaction: Transaction
+    var transaction: ZCNSwift.Transaction
+    
     var body: some View {
         List {
             Section("Signatur and Hashes") {

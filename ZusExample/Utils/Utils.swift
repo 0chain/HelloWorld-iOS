@@ -121,6 +121,7 @@ extension Utils {
         case allocationID
         case network
         case publicEncKey
+        case usd
     }
     
     public static func set(_ value: Any, for key: UserDefaultsKey) {

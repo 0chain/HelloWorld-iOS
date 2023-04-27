@@ -13,7 +13,7 @@ import _PhotosUI_SwiftUI
 class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
     
-    @Published var allocation: Allocation = Allocation(id: "", tx: "", dataShards: 0, parityShards: 0, size: 0, expirationDate: 0, ownerID: "", ownerPublicKey: "", payerID: "", blobbers: [], stats: Stats(usedSize: 0, numOfWrites: 0, numOfReads: 0, totalChallenges: 0, numOpenChallenges: 0, numSuccessChallenges: 0, numFailedChallenges: 0, latestClosedChallenge: ""), timeUnit: 0, writePool: 0, blobberDetails: [], readPriceRange: PriceRange(min: 0, max: 0), writePriceRange: PriceRange(min: 0, max: 0), challengeCompletionTime: 0, startTime: 0, movedToChallenge: 0, movedToValidators: 0, fileOptions: 0, thirdPartyExtendable: false)
+    @Published var allocation: Allocation = Allocation.default
     
     @Published var presentAllocationDetails: Bool = false
     @Published var presentDocumentPicker: Bool = false

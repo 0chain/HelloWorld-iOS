@@ -23,6 +23,10 @@ extension Int {
         return amount
     }
     
+    var usdString: String {
+        return "$ \(usd)"
+    }
+    
     var formattedByteCount: String {
         let formatter = ByteCountFormatter()
         formatter.countStyle = .file
@@ -42,5 +46,9 @@ extension Double {
     func rounded(toPlaces places:Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
+    }
+    
+    var value: Int {
+        return Int(ZcncoreConvertToValue(self)) ?? 0
     }
 }
