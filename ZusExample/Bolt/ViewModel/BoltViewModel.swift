@@ -6,15 +6,14 @@
 //
 
 import Foundation
-import Zcncore
 import Combine
 import SwiftUI
+import ZCNSwift
 
 class BoltViewModel:NSObject, ObservableObject {
     
-    @Published var balance: Double = 0.0
-    @Published var balanceUSD: String = "$ 0.00"
-
+    @Published var balance: Int = 0
+    
     @Published var presentReceiveView: Bool = false
     @Published var presentErrorAlert: Bool = false
     @Published var presentSendView: Bool = false
@@ -23,10 +22,13 @@ class BoltViewModel:NSObject, ObservableObject {
     @Published var clientID: String = ""
     @Published var amount: String = ""
 
-    @Published var transactions: Transactions = []
+    @Published var transactions: ZCNSwift.Transactions = []
     
     @Published var presentPopup: Bool = false
     @Published var popup = ZCNToast.ZCNToastType.success("YES")
+    
+    let manager: TransactionManager = .init()
+    @Published var userDefaultManager: UserdefaultManager = .init()
     
     var cancellable = Set<AnyCancellable>()
     
@@ -38,9 +40,12 @@ class BoltViewModel:NSObject, ObservableObject {
             .sink(receiveValue: getBalance)
             .store(in: &cancellable)
         
-        if let balance = Utils.get(key: .balance) as? Int {
-            self.balance = balance.tokens
-        }
+        
+        userDefaultManager.$balance
+            .receive(on: RunLoop.main)
+            .removeDuplicates()
+            .assign(to: &$balance)
+        
     }
     
     deinit {
@@ -49,9 +54,16 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func getBalance() {
-        var error: NSError? = nil
-        ZcncoreGetBalance(self, &error)
-        if let error = error { print(error.localizedDescription) }
+        Task {
+            do {
+                let balance = try await self.manager.getBalance()
+                DispatchQueue.main.async {
+                    self.userDefaultManager.balance = balance
+                }
+            } catch {
+                print("ERROR")
+            }
+        }
     }
     
     func walletAction(_ action: WalletActionType) {
@@ -67,24 +79,17 @@ class BoltViewModel:NSObject, ObservableObject {
     
     func receiveFaucet() {
         self.presentSendView = false
-        DispatchQueue.global().async {
-            var error: NSError?
-            
+        Task {
             do {
-                
                 DispatchQueue.main.async {
                     self.popup = .progress("Recieving ZCN from faucet")
                     self.presentPopup = true
                 }
+                let txn = try await self.manager.faucet()
+                self.transactions.append(txn)
                 
-                let txObj =  ZcncoreNewTransaction(self,"0",0,&error)
-                
-                if let error = error { throw error }
+                self.onTransactionComplete(t: txn)
 
-                try txObj?.executeSmartContract("6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3",
-                                               methodName: "pour",
-                                               input: "{}",
-                                               val: "10000000000")
             } catch let error {
                 self.onTransactionFailed(error: error.localizedDescription)
             }
@@ -92,7 +97,7 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func sendZCN() {
-        DispatchQueue.global(qos: .default).async {
+        Task {
             do {
                 guard let amount = Double(self.amount) else {
                     self.onTransactionFailed(error: "invalid amount")
@@ -109,7 +114,7 @@ class BoltViewModel:NSObject, ObservableObject {
                     return
                 }
                 
-                guard amount <= self.balance else {
+                guard amount <= self.balance.tokens else {
                     self.onTransactionFailed(error: "amount cannot be greater than balance")
                     return
                 }
@@ -124,12 +129,7 @@ class BoltViewModel:NSObject, ObservableObject {
                     self.presentPopup = true
                 }
                 
-                var error: NSError? = nil
-                let txObj =  ZcncoreNewTransaction(self,"0",0,&error)
-                
-                if let error = error { throw error }
-                
-                try txObj?.send(self.clientID, val: ZcncoreConvertToValue(amount), desc: "")
+                _ = try await self.manager.send(toClientID: self.clientID, value: amount.value, desc: "")
                 
                 DispatchQueue.main.async {
                     self.clientID = ""
@@ -146,26 +146,27 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func getTransactions() {
-        DispatchQueue.global().async {
-            var error: NSError? = nil
-            let clientId = Utils.wallet?.client_id
-            
-            ZcncoreGetTransactions(clientId, nil, nil, "desc", 20, 0, self , &error)
-            ZcncoreGetTransactions(nil, clientId, nil, "desc", 20, 0, self , &error)
-            
-            if let error = error { print(error.localizedDescription) }
+        Task {
+            do {
+                let clientId = Utils.wallet?.client_id
+                let txns1 = (try? await manager.getTransactions(toClient: clientId, fromClient: nil)) ?? []
+                let txns2 = (try? await manager.getTransactions(toClient: nil, fromClient: clientId)) ?? []
+
+                DispatchQueue.main.async {
+                    self.transactions = txns1 + txns2
+                }
+                
+            } catch {
+                print("ERROR")
+            }
         }
     }
     
-    func onTransactionComplete(t: ZcncoreTransaction) {
+    func onTransactionComplete(t: ZCNSwift.Transaction) {
         DispatchQueue.main.async {
             self.popup = .success("Success")
             self.presentPopup = true
         }
-    }
-    
-    func onVerifyComplete(t: ZcncoreTransaction) {
-       
     }
     
     func onTransactionFailed(error: String) {
@@ -175,69 +176,4 @@ class BoltViewModel:NSObject, ObservableObject {
         }
     }
     
-}
-
-extension BoltViewModel: ZcncoreGetBalanceCallbackProtocol {
-    func onBalanceAvailable(_ status: Int, value: Int64, info: String?) {
-        guard let response = info,
-              let data = response.data(using: .utf8),
-              let balance = try? JSONDecoder().decode(Balance.self, from: data) else {
-                  return
-              }
-        Utils.set(value, for: .balance)
-        DispatchQueue.main.async {
-            self.balance = balance.balanceToken
-            self.balanceUSD = balance.usd
-        }
-    }
-}
-
-extension BoltViewModel: ZcncoreTransactionCallbackProtocol {
-    func onAuthComplete(_ t: ZcncoreTransaction?, status: Int) { }
-    
-    func onTransactionComplete(_ t: ZcncoreTransaction?, status: Int) {
-        
-        DispatchQueue.main.async {
-            let transaction = Transaction(hash: t?.getTransactionHash() ?? "", creationDate: Date().timeIntervalSince1970 * 1e9, status: status == 0 ? 1 : 2)
-            self.transactions.append(transaction)
-            self.objectWillChange.send()
-        }
-        
-        guard status == ZcncoreStatusSuccess,
-              let txObj = t else {
-            self.onTransactionFailed(error: t?.getTransactionError() ?? "error: \(status)")
-            return
-        }
-        try? txObj.verify()
-        
-        self.onTransactionComplete(t: txObj)
-    }
-    
-    func onVerifyComplete(_ t: ZcncoreTransaction?, status: Int) {
-        self.getBalance()
-    }
-}
-
-extension BoltViewModel: ZcncoreGetInfoCallbackProtocol {
-    func onInfoAvailable(_ op: Int, status: Int, info: String?, err: String?) {
-        guard status == ZcncoreStatusSuccess,
-              let response = info,
-              let data = response.data(using: .utf8,allowLossyConversion: true) else {
-            print(err ?? "onInfoAvailable Error")
-            return
-        }
-        
-        do {
-            if op == ZcncoreOpStorageSCGetTransactions {
-                let txns = try JSONDecoder().decode(Transactions.self, from: data)
-                var transactions = self.transactions
-                transactions.append(contentsOf: txns)
-                DispatchQueue.main.async {
-                    self.transactions = Array(Set(transactions))
-                }
-            }
-        } catch let error {
-            print(error)
-        }
-    }
 }

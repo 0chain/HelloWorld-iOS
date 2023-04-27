@@ -20,13 +20,11 @@
 		4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578D8295C7DA900724F32 /* BoltViewModel.swift */; };
 		4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DA295C7DDE00724F32 /* VultViewModel.swift */; };
 		4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DE295C7E5600724F32 /* NetworkConfig.swift */; };
-		4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578E1295C7F5A00724F32 /* zcncore.xcframework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */; };
 		4B7578E8295C82D900724F32 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E7295C82D900724F32 /* Utils.swift */; };
 		4B7578ED295C896500724F32 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EC295C896500724F32 /* Wallet.swift */; };
 		4B7578F2295CAD9100724F32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Number.swift */; };
 		4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F5295CB9B100724F32 /* HomeView.swift */; };
-		4B7578FA295CC70200724F32 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7578F9295CC70200724F32 /* libbls.xcframework */; };
 		4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578FD295D3E9000724F32 /* BoltHome.swift */; };
 		4B757903295D3F0300724F32 /* AvailableBalanceBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */; };
 		4B757905295D412A00724F32 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B757904295D412A00724F32 /* Balance.swift */; };
@@ -37,6 +35,20 @@
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
 		4B9A3A4029D29FB5001369A4 /* CopyableTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */; };
 		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
+		4BA409E629FAA50200696845 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA409E529FAA50200696845 /* LinearGradient.swift */; };
+		4BA409E829FAA53F00696845 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA409E729FAA53F00696845 /* Colors.xcassets */; };
+		4BA409F129FAAADB00696845 /* ZCNSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BA409F029FAAADB00696845 /* ZCNSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BA409F429FAAADB00696845 /* ZCNSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409EE29FAAADB00696845 /* ZCNSwift.framework */; };
+		4BA409F529FAAADB00696845 /* ZCNSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409EE29FAAADB00696845 /* ZCNSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4BA409FD29FAAB0400696845 /* InfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA409FC29FAAB0400696845 /* InfoManager.swift */; };
+		4BA40A0129FAAB1C00696845 /* zcncore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409FF29FAAB1C00696845 /* zcncore.xcframework */; };
+		4BA40A0229FAAB1C00696845 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA40A0029FAAB1C00696845 /* libbls.xcframework */; };
+		4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0329FAAB4400696845 /* UploadManager.swift */; };
+		4BA40A0729FAAB6700696845 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0629FAAB6700696845 /* TransactionManager.swift */; };
+		4BA40A0929FAAB9000696845 /* ZCNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0829FAAB9000696845 /* ZCNError.swift */; };
+		4BA40A0C29FAAC9300696845 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0B29FAAC9300696845 /* Transaction.swift */; };
+		4BA40A0E29FAADF600696845 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0D29FAADF600696845 /* Balance.swift */; };
+		4BA40A1129FAB45D00696845 /* UserdefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A1029FAB45D00696845 /* UserdefaultManager.swift */; };
 		4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
 		4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E329646F3000B00B5C /* PreviewController.swift */; };
 		4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */; };
@@ -46,8 +58,31 @@
 		4BEEDB99296324B600A154E0 /* Allocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB952963190E00A154E0 /* Allocation.swift */; };
 		4BEEDB9A296324B800A154E0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9729631CE000A154E0 /* File.swift */; };
 		4BEEDB9C29632FE900A154E0 /* VultHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9B29632FE900A154E0 /* VultHome.swift */; };
-		4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF739A5295DBB22006E44D8 /* Transaction.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4BA409F229FAAADB00696845 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7578B7295C7D0B00724F32 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BA409ED29FAAADB00696845;
+			remoteInfo = ZCNSwift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4BA409F929FAAADC00696845 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4BA409F529FAAADB00696845 /* ZCNSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4B5789B129692C8A00E8FCFF /* TransactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetails.swift; sourceTree = "<group>"; };
@@ -82,6 +117,19 @@
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
 		4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableTextModifier.swift; sourceTree = "<group>"; };
 		4BA115D229645B3C00951E8B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		4BA409E529FAA50200696845 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
+		4BA409E729FAA53F00696845 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		4BA409EE29FAAADB00696845 /* ZCNSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZCNSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BA409F029FAAADB00696845 /* ZCNSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCNSwift.h; sourceTree = "<group>"; };
+		4BA409FC29FAAB0400696845 /* InfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoManager.swift; sourceTree = "<group>"; };
+		4BA409FF29FAAB1C00696845 /* zcncore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = zcncore.xcframework; sourceTree = "<group>"; };
+		4BA40A0029FAAB1C00696845 /* libbls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libbls.xcframework; sourceTree = "<group>"; };
+		4BA40A0329FAAB4400696845 /* UploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
+		4BA40A0629FAAB6700696845 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
+		4BA40A0829FAAB9000696845 /* ZCNError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNError.swift; sourceTree = "<group>"; };
+		4BA40A0B29FAAC9300696845 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		4BA40A0D29FAADF600696845 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		4BA40A1029FAB45D00696845 /* UserdefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserdefaultManager.swift; sourceTree = "<group>"; };
 		4BB813E02964687A00B00B5C /* FilesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTable.swift; sourceTree = "<group>"; };
 		4BB813E329646F3000B00B5C /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsView.swift; sourceTree = "<group>"; };
@@ -92,7 +140,6 @@
 		4BEEDB952963190E00A154E0 /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
 		4BEEDB9729631CE000A154E0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		4BEEDB9B29632FE900A154E0 /* VultHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VultHome.swift; sourceTree = "<group>"; };
-		4BF739A5295DBB22006E44D8 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +147,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B7578E3295C7F5A00724F32 /* zcncore.xcframework in Frameworks */,
-				4B7578FA295CC70200724F32 /* libbls.xcframework in Frameworks */,
+				4BA409F429FAAADB00696845 /* ZCNSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BA409EB29FAAADB00696845 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BA40A0129FAAB1C00696845 /* zcncore.xcframework in Frameworks */,
+				4BA40A0229FAAB1C00696845 /* libbls.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7578C1295C7D0B00724F32 /* ZusExample */,
+				4BA409EF29FAAADB00696845 /* ZCNSwift */,
 				4B7578C0295C7D0B00724F32 /* Products */,
 				4BB813FD296704E900B00B5C /* Frameworks */,
 			);
@@ -138,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7578BF295C7D0B00724F32 /* ZusExample.app */,
+				4BA409EE29FAAADB00696845 /* ZCNSwift.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,6 +247,7 @@
 		4B7578D6295C7D5900724F32 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4BA40A0F29FAB45400696845 /* Manager */,
 				4BB813E229646F2900B00B5C /* SwiftUI */,
 				4B7578F0295CAD8700724F32 /* Extension */,
 				4B7578E0295C7F5A00724F32 /* GoSDK */,
@@ -204,6 +262,7 @@
 			children = (
 				4B7578C6295C7D0D00724F32 /* Assets.xcassets */,
 				4B7578C8295C7D0D00724F32 /* ZusExample.entitlements */,
+				4BA409E729FAA53F00696845 /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -226,8 +285,65 @@
 				4BA115D229645B3C00951E8B /* Image.swift */,
 				4BB813F72965BA1200B00B5C /* Bundle.swift */,
 				4B5789B329692D9B00E8FCFF /* Codable.swift */,
+				4BA409E529FAA50200696845 /* LinearGradient.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		4BA409EF29FAAADB00696845 /* ZCNSwift */ = {
+			isa = PBXGroup;
+			children = (
+				4BA409FB29FAAAF200696845 /* Sources */,
+				4BA409FA29FAAAE100696845 /* Artifcacts */,
+				4BA409F029FAAADB00696845 /* ZCNSwift.h */,
+			);
+			path = ZCNSwift;
+			sourceTree = "<group>";
+		};
+		4BA409FA29FAAAE100696845 /* Artifcacts */ = {
+			isa = PBXGroup;
+			children = (
+				4BA409FE29FAAB1C00696845 /* GoSDK */,
+			);
+			path = Artifcacts;
+			sourceTree = "<group>";
+		};
+		4BA409FB29FAAAF200696845 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4BA40A0A29FAAC8E00696845 /* Models */,
+				4BA409FC29FAAB0400696845 /* InfoManager.swift */,
+				4BA40A0329FAAB4400696845 /* UploadManager.swift */,
+				4BA40A0629FAAB6700696845 /* TransactionManager.swift */,
+				4BA40A0829FAAB9000696845 /* ZCNError.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		4BA409FE29FAAB1C00696845 /* GoSDK */ = {
+			isa = PBXGroup;
+			children = (
+				4BA409FF29FAAB1C00696845 /* zcncore.xcframework */,
+				4BA40A0029FAAB1C00696845 /* libbls.xcframework */,
+			);
+			path = GoSDK;
+			sourceTree = "<group>";
+		};
+		4BA40A0A29FAAC8E00696845 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4BA40A0B29FAAC9300696845 /* Transaction.swift */,
+				4BA40A0D29FAADF600696845 /* Balance.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4BA40A0F29FAB45400696845 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				4BA40A1029FAB45D00696845 /* UserdefaultManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		4BB813E229646F2900B00B5C /* SwiftUI */ = {
@@ -293,7 +409,6 @@
 			children = (
 				4B7578EC295C896500724F32 /* Wallet.swift */,
 				4B757904295D412A00724F32 /* Balance.swift */,
-				4BF739A5295DBB22006E44D8 /* Transaction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,6 +474,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		4BA409E929FAAADB00696845 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BA409F129FAAADB00696845 /* ZCNSwift.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		4B7578BE295C7D0B00724F32 /* ZusExample */ = {
 			isa = PBXNativeTarget;
@@ -367,15 +493,35 @@
 				4B7578BB295C7D0B00724F32 /* Sources */,
 				4B7578BC295C7D0B00724F32 /* Frameworks */,
 				4B7578BD295C7D0B00724F32 /* Resources */,
+				4BA409F929FAAADC00696845 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4BA409F329FAAADB00696845 /* PBXTargetDependency */,
 			);
 			name = ZusExample;
 			productName = ZusExample;
 			productReference = 4B7578BF295C7D0B00724F32 /* ZusExample.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4BA409ED29FAAADB00696845 /* ZCNSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BA409F629FAAADC00696845 /* Build configuration list for PBXNativeTarget "ZCNSwift" */;
+			buildPhases = (
+				4BA409E929FAAADB00696845 /* Headers */,
+				4BA409EA29FAAADB00696845 /* Sources */,
+				4BA409EB29FAAADB00696845 /* Frameworks */,
+				4BA409EC29FAAADB00696845 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZCNSwift;
+			productName = ZCNSwift;
+			productReference = 4BA409EE29FAAADB00696845 /* ZCNSwift.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -389,6 +535,10 @@
 				TargetAttributes = {
 					4B7578BE295C7D0B00724F32 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					4BA409ED29FAAADB00696845 = {
+						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -408,6 +558,7 @@
 			projectRoot = "";
 			targets = (
 				4B7578BE295C7D0B00724F32 /* ZusExample */,
+				4BA409ED29FAAADB00696845 /* ZCNSwift */,
 			);
 		};
 /* End PBXProject section */
@@ -418,8 +569,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7578CB295C7D0D00724F32 /* Preview Assets.xcassets in Resources */,
+				4BA409E829FAA53F00696845 /* Colors.xcassets in Resources */,
 				4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */,
 				4BB813FA2966F7E300B00B5C /* Launch.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BA409EC29FAAADB00696845 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,12 +599,12 @@
 				4B5789BC296BC96E00E8FCFF /* ZCNToast.swift in Sources */,
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
 				4B5789BE296BE7BA00E8FCFF /* NetworkDetails.swift in Sources */,
+				4BA40A1129FAB45D00696845 /* UserdefaultManager.swift in Sources */,
 				4B5789B429692D9B00E8FCFF /* Codable.swift in Sources */,
 				4BEEDB9C29632FE900A154E0 /* VultHome.swift in Sources */,
 				4B5789B229692C8A00E8FCFF /* TransactionDetails.swift in Sources */,
 				4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */,
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
-				4BF739A6295DBB22006E44D8 /* Transaction.swift in Sources */,
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
@@ -458,6 +617,7 @@
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */,
 				4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */,
+				4BA409E629FAA50200696845 /* LinearGradient.swift in Sources */,
 				4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */,
 				4BEEDB9A296324B800A154E0 /* File.swift in Sources */,
 				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,
@@ -468,7 +628,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BA409EA29FAAADB00696845 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */,
+				4BA409FD29FAAB0400696845 /* InfoManager.swift in Sources */,
+				4BA40A0929FAAB9000696845 /* ZCNError.swift in Sources */,
+				4BA40A0729FAAB6700696845 /* TransactionManager.swift in Sources */,
+				4BA40A0E29FAADF600696845 /* Balance.swift in Sources */,
+				4BA40A0C29FAAC9300696845 /* Transaction.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4BA409F329FAAADB00696845 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BA409ED29FAAADB00696845 /* ZCNSwift */;
+			targetProxy = 4BA409F229FAAADB00696845 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4B7578CC295C7D0D00724F32 /* Debug */ = {
@@ -589,6 +770,7 @@
 		4B7578CF295C7D0D00724F32 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ZusExample/Utils/Resources/ZusExample.entitlements;
@@ -637,6 +819,7 @@
 		4B7578D0295C7D0D00724F32 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ZusExample/Utils/Resources/ZusExample.entitlements;
@@ -682,6 +865,80 @@
 			};
 			name = Release;
 		};
+		4BA409F729FAAADC00696845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P3Y4H5M6VB;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = network.zus.ZCNSwift;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4BA409F829FAAADC00696845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P3Y4H5M6VB;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = network.zus.ZCNSwift;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -699,6 +956,15 @@
 			buildConfigurations = (
 				4B7578CF295C7D0D00724F32 /* Debug */,
 				4B7578D0295C7D0D00724F32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BA409F629FAAADC00696845 /* Build configuration list for PBXNativeTarget "ZCNSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BA409F729FAAADC00696845 /* Debug */,
+				4BA409F829FAAADC00696845 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -22,12 +22,12 @@ struct CreateWalletView: View {
                     Button(action: zcncoreVM.createWallet) {
                         ZStack(alignment: .trailing) {
                             Text("Create Wallet")
-                                .padding()
+                                .font(.system(size: 18, weight: .bold))
                                 .frame(maxWidth: .infinity)
-                                .background(.blue)
+                                .padding(20)
+                                .background(LinearGradient.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(12)
-                                .bold()
                                 .disabled(zcncoreVM.processing)
                                 .opacity(zcncoreVM.processing ? 0.5 : 1)
                         }
@@ -45,6 +45,7 @@ struct CreateWalletView: View {
             .frame(maxWidth: .infinity,maxHeight: .infinity)
             .edgesIgnoringSafeArea(.all)
         }
+        .background(Color.background)
     }
 }
 

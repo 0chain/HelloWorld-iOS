@@ -57,7 +57,7 @@ struct WalletActionBlock: View {
             .font(.system(size: 13, weight: .semibold))
             .foregroundColor(.primary)
             .padding()
-            .background(Color.tertiarySystemBackground)
+            .background(Color.background.opacity(0.9))
             .cornerRadius(12)
         }
     }

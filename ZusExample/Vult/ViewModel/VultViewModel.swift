@@ -13,7 +13,7 @@ import _PhotosUI_SwiftUI
 class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
     
-    @Published var allocation: Allocation = Allocation(id: "", tx: "", dataShards: 0, parityShards: 0, size: 0, expirationDate: 0, ownerID: "", ownerPublicKey: "", payerID: "", blobbers: [], stats: Stats(usedSize: 0, numOfWrites: 0, numOfReads: 0, totalChallenges: 0, numOpenChallenges: 0, numSuccessChallenges: 0, numFailedChallenges: 0, latestClosedChallenge: ""), timeUnit: 0, writePool: 0, blobberDetails: [], readPriceRange: PriceRange(min: 0, max: 0), writePriceRange: PriceRange(min: 0, max: 0), challengeCompletionTime: 0, startTime: 0, movedToChallenge: 0, movedToValidators: 0, fileOptions: 0, thirdPartyExtendable: false)
+    @Published var allocation: Allocation = Allocation.default
     
     @Published var presentAllocationDetails: Bool = false
     @Published var presentDocumentPicker: Bool = false
@@ -78,22 +78,23 @@ class VultViewModel: NSObject, ObservableObject {
     func uploadFile(data: Data, name: String) throws {
                 
         var localPath = Utils.uploadPath.appendingPathComponent(name)
-        var thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
+        var thumbnailPath: URL? =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
         
         if let image = ZCNImage(data: data) {
             let pngData = image.pngData()
             try pngData?.write(to: localPath,options: .atomic)
             
             let thumbnailData = image.jpegData(compressionQuality: 0.1)
-            try thumbnailData?.write(to: thumbnailPath)
+            try thumbnailData?.write(to: thumbnailPath!)
         } else {
             try data.write(to: localPath,options: .atomic)
+            thumbnailPath = nil
         }
         
         try VultViewModel.zboxAllocationHandle?.uploadFile(Utils.tempPath(),
                                                            localPath: localPath.path,
                                                            remotePath: "/\(name)",
-                                                           thumbnailPath: thumbnailPath.path,
+                                                           thumbnailPath: thumbnailPath?.path,
                                                            encrypt: false,
                                                            statusCb: self)
     }

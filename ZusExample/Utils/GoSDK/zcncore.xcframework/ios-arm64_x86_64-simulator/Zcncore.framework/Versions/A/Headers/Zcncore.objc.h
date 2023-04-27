@@ -399,6 +399,7 @@ used to call after the transaction or verification is completed
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
 @property (nonatomic) NSString* _Nonnull hash;
+@property (nonatomic) int64_t amount;
 @property (nonatomic) int64_t nonce;
 @end
 
