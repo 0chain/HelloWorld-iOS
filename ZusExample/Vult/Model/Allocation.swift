@@ -90,6 +90,8 @@ public struct Allocation: Codable, Equatable {
     public static func == (lhs: Allocation, rhs: Allocation) -> Bool {
         return lhs.id == rhs.id
     }
+    
+    static let `default` = Allocation(id: "28628268", tx: "3973879", dataShards: 2, parityShards: 2, size: 10293937, expirationDate: 3973893793, ownerID: "37637863876383", ownerPublicKey: "38368376783638", payerID: "45634563456", blobbers: [], stats: Stats(usedSize: 345678, numOfWrites: 120, numOfReads: 450, totalChallenges: 80, numOpenChallenges: 10, numSuccessChallenges: 60, numFailedChallenges: 10, latestClosedChallenge: "2023-04-25 12:30:00"), timeUnit: 3600, writePool: 100000, blobberDetails: [], readPriceRange: PriceRange(min: 1, max: 10), writePriceRange: PriceRange(min: 10, max: 100), challengeCompletionTime: 1800, startTime: 1620000000, movedToChallenge: 0, movedToValidators: 0, fileOptions: 0, thirdPartyExtendable: false)
 }
 
 // MARK: - BlobberDetail

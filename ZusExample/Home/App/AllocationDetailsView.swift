@@ -39,3 +39,9 @@ struct AllocationDetailsView: View {
         }
     }
 }
+
+struct AllocationDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        AllocationDetailsView(allocation: Allocation.default)
+    }
+}

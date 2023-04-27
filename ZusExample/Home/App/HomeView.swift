@@ -36,7 +36,7 @@ struct HomeView: View {
                             }
                     }
                     .aspectRatio(2.5, contentMode: .fit)
-                    .shadow(color:Color(white: 0.9),radius: 25)
+                    .shadow(color: Color(white: 0.9),radius: colorScheme == .light ? 25 : 0)
                 
 
                     HStack {
@@ -58,6 +58,7 @@ struct HomeView: View {
                 .sheet(isPresented: $homeVM.pushNetworkDetails) { NetworkDetails() }
                 .onAppear(perform: vultVM.getAllocation)
             }
+            .background(Color.background)
             .navigationTitle("Hello World!")
         }
     }
@@ -68,41 +69,8 @@ struct HomeView: View {
             .aspectRatio(contentMode: .fit)
             .padding(width/10)
             .frame(maxWidth: .infinity)
-            .background(Color.tertiarySystemBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(color:Color(white: 0.9),radius: 25)
-    }
-    
-    
-    @ViewBuilder func WalletDetailsBlock(wallet: Wallet,width:CGFloat) -> some View  {
-        
-        VStack(alignment: .leading,spacing: 20) {
-            HStack {
-                Text("Wallet Details")
-                    .font(.title)
-                    .bold()
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .rotationEffect(.degrees(presentWalletDetails ? 90.0 : 0.0))
-            }
-            if presentWalletDetails {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    VStack(alignment: .leading,spacing: 10) {
-                        self.row(title: "Client ID: ", text: wallet.client_id)
-                        self.row(title: "Client Key: ", text: wallet.client_key)
-                        self.row(title: "Private Key: ", text: wallet.keys.first?.private_key ?? "")
-                        self.row(title: "Public Key: ", text: wallet.keys.first?.public_key ?? "")
-                        self.row(title: "Mnemonics: ", text: wallet.mnemonics)
-                    }
-                }
-            }
-        }
-        .padding(width/10)
-        .background(RoundedRectangle(cornerRadius: 16).fill(.background).shadow(radius: 5))
-        .onTapGesture {
-            withAnimation {
-                self.presentWalletDetails.toggle()
-            }
-        }
+            .background(Color.background.opacity(0.9))
+            .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(color:Color(white: 0.9),radius: colorScheme == .light ? 25 : 0)
     }
     
     @ViewBuilder func row(title:String,text:String) -> some View {

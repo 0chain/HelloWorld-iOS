@@ -78,22 +78,23 @@ class VultViewModel: NSObject, ObservableObject {
     func uploadFile(data: Data, name: String) throws {
                 
         var localPath = Utils.uploadPath.appendingPathComponent(name)
-        var thumbnailPath =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
+        var thumbnailPath: URL? =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
         
         if let image = ZCNImage(data: data) {
             let pngData = image.pngData()
             try pngData?.write(to: localPath,options: .atomic)
             
             let thumbnailData = image.jpegData(compressionQuality: 0.1)
-            try thumbnailData?.write(to: thumbnailPath)
+            try thumbnailData?.write(to: thumbnailPath!)
         } else {
             try data.write(to: localPath,options: .atomic)
+            thumbnailPath = nil
         }
         
         try VultViewModel.zboxAllocationHandle?.uploadFile(Utils.tempPath(),
                                                            localPath: localPath.path,
                                                            remotePath: "/\(name)",
-                                                           thumbnailPath: thumbnailPath.path,
+                                                           thumbnailPath: thumbnailPath?.path,
                                                            encrypt: false,
                                                            statusCb: self)
     }
