@@ -37,6 +37,8 @@
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
 		4B9A3A4029D29FB5001369A4 /* CopyableTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */; };
 		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
+		4BA409E629FAA50200696845 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA409E529FAA50200696845 /* LinearGradient.swift */; };
+		4BA409E829FAA53F00696845 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA409E729FAA53F00696845 /* Colors.xcassets */; };
 		4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E02964687A00B00B5C /* FilesTable.swift */; };
 		4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E329646F3000B00B5C /* PreviewController.swift */; };
 		4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */; };
@@ -82,6 +84,8 @@
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
 		4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableTextModifier.swift; sourceTree = "<group>"; };
 		4BA115D229645B3C00951E8B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		4BA409E529FAA50200696845 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
+		4BA409E729FAA53F00696845 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4BB813E02964687A00B00B5C /* FilesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTable.swift; sourceTree = "<group>"; };
 		4BB813E329646F3000B00B5C /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsView.swift; sourceTree = "<group>"; };
@@ -204,6 +208,7 @@
 			children = (
 				4B7578C6295C7D0D00724F32 /* Assets.xcassets */,
 				4B7578C8295C7D0D00724F32 /* ZusExample.entitlements */,
+				4BA409E729FAA53F00696845 /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				4BA115D229645B3C00951E8B /* Image.swift */,
 				4BB813F72965BA1200B00B5C /* Bundle.swift */,
 				4B5789B329692D9B00E8FCFF /* Codable.swift */,
+				4BA409E529FAA50200696845 /* LinearGradient.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7578CB295C7D0D00724F32 /* Preview Assets.xcassets in Resources */,
+				4BA409E829FAA53F00696845 /* Colors.xcassets in Resources */,
 				4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */,
 				4BB813FA2966F7E300B00B5C /* Launch.storyboard in Resources */,
 			);
@@ -458,6 +465,7 @@
 				4B757905295D412A00724F32 /* Balance.swift in Sources */,
 				4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */,
 				4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */,
+				4BA409E629FAA50200696845 /* LinearGradient.swift in Sources */,
 				4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */,
 				4BEEDB9A296324B800A154E0 /* File.swift in Sources */,
 				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,
