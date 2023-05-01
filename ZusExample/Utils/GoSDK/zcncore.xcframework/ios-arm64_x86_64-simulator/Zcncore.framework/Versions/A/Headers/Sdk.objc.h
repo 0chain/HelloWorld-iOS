@@ -175,8 +175,6 @@ FOUNDATION_EXPORT BOOL SdkInit(NSString* _Nullable chainConfigJson, NSError* _Nu
  */
 FOUNDATION_EXPORT SdkStorageSDK* _Nullable SdkInitStorageSDK(NSString* _Nullable clientJson, NSString* _Nullable configJson, NSError* _Nullable* _Nullable error);
 
-FOUNDATION_EXPORT BOOL SdkRegisterToMiners(NSString* _Nullable clientId, NSString* _Nullable pubKey, id<ZcncoreWalletCallback> _Nullable callback, NSError* _Nullable* _Nullable error);
-
 /**
  * SetLogFile - setting up log level for core libraries
 
