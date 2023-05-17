@@ -191,7 +191,7 @@
   - encrypt: the file should be ecnrypted or not on uploading
   - statusCb: callback of status
  */
-- (BOOL)repairFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)repairFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt webStreaming:(BOOL)webStreaming statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
 /**
  * RevokeShare - revokes authTicket from refereeClientID
  */
@@ -215,7 +215,7 @@
   - encrypt: the file should be ecnrypted or not on uploading
   - statusCb: callback of status
  */
-- (BOOL)updateFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)updateFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt webStreaming:(BOOL)webStreaming statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
 /**
  * UploadFile - upload file/thumbnail from local path to remote path
 ## Inputs
@@ -226,7 +226,7 @@
   - encrypt: the file should be ecnrypted or not on uploading
   - statusCb: callback of status
  */
-- (BOOL)uploadFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)uploadFile:(NSString* _Nullable)workdir localPath:(NSString* _Nullable)localPath remotePath:(NSString* _Nullable)remotePath thumbnailPath:(NSString* _Nullable)thumbnailPath encrypt:(BOOL)encrypt webStreaming:(BOOL)webStreaming statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
 @end
 
 /**
@@ -679,6 +679,9 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxListDirFromAuthTicket(NSString* _Nullab
  */
 FOUNDATION_EXPORT BOOL ZboxMoveObject(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable destPath, NSError* _Nullable* _Nullable error);
 
+// skipped function MultiOperation with unsupported parameter or return types
+
+
 /**
  * NewMediaPlaylist create media playlist(.m3u8)
  */
@@ -710,7 +713,17 @@ FOUNDATION_EXPORT BOOL ZboxRenameObject(NSString* _Nullable allocationID, NSStri
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxRepairFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxRepairFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, BOOL webStreaming, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+/**
+ * RevokeShare revoke authTicket
+
+ ## Inputs
+ - allocationID
+ - path
+ - refereeClientID
+ */
+FOUNDATION_EXPORT BOOL ZboxRevokeShare(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable refereeClientID, NSError* _Nullable* _Nullable error);
 
 /**
  * Sign - sign hash
@@ -751,7 +764,7 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxTokensToEth(int64_t tokens);
 ## Ouputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxUpdateFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxUpdateFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, BOOL webStreaming, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * UploadFile - upload file/thumbnail from local path to remote path
@@ -767,7 +780,7 @@ FOUNDATION_EXPORT BOOL ZboxUpdateFile(NSString* _Nullable allocationID, NSString
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxUploadFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxUploadFile(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable localPath, NSString* _Nullable remotePath, NSString* _Nullable thumbnailPath, BOOL encrypt, BOOL webStreaming, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * VerifySignatxure - verify message with signature

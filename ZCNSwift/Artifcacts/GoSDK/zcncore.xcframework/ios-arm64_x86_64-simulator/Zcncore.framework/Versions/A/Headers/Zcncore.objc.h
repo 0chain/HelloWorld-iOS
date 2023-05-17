@@ -399,6 +399,7 @@ used to call after the transaction or verification is completed
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
 @property (nonatomic) NSString* _Nonnull hash;
+@property (nonatomic) int64_t amount;
 @property (nonatomic) int64_t nonce;
 @end
 
@@ -572,6 +573,10 @@ used to call after the transaction or verification is completed
  */
 - (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
 /**
+ * EstimateFee estimates transaction fee
+ */
+- (BOOL)estimateFee:(float)reqPercent ret0_:(int64_t* _Nullable)ret0_ error:(NSError* _Nullable* _Nullable)error;
+/**
  * ExecuteFaucetSCWallet implements the Faucet Smart contract for a given wallet
  */
 - (BOOL)executeFaucetSCWallet:(NSString* _Nullable)walletStr methodName:(NSString* _Nullable)methodName input:(NSData* _Nullable)input error:(NSError* _Nullable* _Nullable)error;
@@ -704,6 +709,7 @@ allocation->blobber only.
  * CreateReadPool for current user.
  */
 - (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
+- (BOOL)estimateFee:(float)reqPercent ret0_:(int64_t* _Nullable)ret0_ error:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteFaucetSCWallet impements the Faucet Smart contract for a given wallet
  */
@@ -896,7 +902,6 @@ FOUNDATION_EXPORT NSString* _Nonnull const ZcncorePUT_TRANSACTION;
 
 // skipped const ProviderValidator with unsupported type: github.com/0chain/gosdk/zcncore.Provider
 
-FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreREGISTER_CLIENT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGESC_GET_ALLOCATION;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGESC_GET_ALLOCATIONS;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGESC_GET_BLOBBER;
@@ -1022,12 +1027,6 @@ FOUNDATION_EXPORT BOOL ZcncoreConvertZcnTokenToETH(double f, double* _Nullable r
 FOUNDATION_EXPORT NSString* _Nonnull ZcncoreCreateMSVote(NSString* _Nullable proposal, NSString* _Nullable grpClientID, NSString* _Nullable signerWalletstr, NSString* _Nullable toClientID, NSString* _Nullable tokenStr, NSError* _Nullable* _Nullable error);
 
 /**
- * CreateWallet creates the wallet for to configure signature scheme.
-It also registers the wallet again to blockchain.
- */
-FOUNDATION_EXPORT BOOL ZcncoreCreateWallet(id<ZcncoreWalletCallback> _Nullable statusCb, NSError* _Nullable* _Nullable error);
-
-/**
  * CreateWalletFromEthMnemonic - creating new wallet from Eth mnemonics
  */
 FOUNDATION_EXPORT BOOL ZcncoreCreateWalletFromEthMnemonic(NSString* _Nullable mnemonic, NSString* _Nullable password, id<ZcncoreWalletCallback> _Nullable statusCb, NSError* _Nullable* _Nullable error);
@@ -1123,6 +1122,11 @@ FOUNDATION_EXPORT ZcncoreGetClientResponse* _Nullable ZcncoreGetClientDetails(NS
 FOUNDATION_EXPORT BOOL ZcncoreGetEthBalance(NSString* _Nullable ethAddr, id<ZcncoreGetBalanceCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT NSData* _Nullable ZcncoreGetFeeStats(id<ZcncoreRequestTimeout> _Nullable timeout, NSError* _Nullable* _Nullable error);
+
+/**
+ * GetFeesTable get fee tables
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZcncoreGetFeesTable(float reqPercent, NSError* _Nullable* _Nullable error);
 
 FOUNDATION_EXPORT NSString* _Nonnull ZcncoreGetIdForUrl(NSString* _Nullable url);
 
@@ -1403,8 +1407,6 @@ FOUNDATION_EXPORT NSString* _Nonnull ZcncoreRecoverOfflineWallet(NSString* _Null
 It also registers the wallet again to block chain.
  */
 FOUNDATION_EXPORT BOOL ZcncoreRecoverWallet(NSString* _Nullable mnemonic, id<ZcncoreWalletCallback> _Nullable statusCb, NSError* _Nullable* _Nullable error);
-
-FOUNDATION_EXPORT BOOL ZcncoreRegisterToMiners(NSString* _Nullable clientId, NSString* _Nullable pubKey, id<ZcncoreWalletCallback> _Nullable callback, NSError* _Nullable* _Nullable error);
 
 /**
  * SetAuthUrl will be called by app to set zauth URL to SDK.
