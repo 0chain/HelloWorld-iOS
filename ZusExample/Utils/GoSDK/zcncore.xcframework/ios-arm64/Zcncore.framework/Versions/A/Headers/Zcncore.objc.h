@@ -897,7 +897,6 @@ FOUNDATION_EXPORT NSString* _Nonnull const ZcncorePUT_TRANSACTION;
 
 // skipped const ProviderValidator with unsupported type: github.com/0chain/gosdk/zcncore.Provider
 
-FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreREGISTER_CLIENT;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGESC_GET_ALLOCATION;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGESC_GET_ALLOCATIONS;
 FOUNDATION_EXPORT NSString* _Nonnull const ZcncoreSTORAGESC_GET_BLOBBER;
@@ -1021,12 +1020,6 @@ FOUNDATION_EXPORT BOOL ZcncoreConvertZcnTokenToETH(double f, double* _Nullable r
  * CreateMSVote create a vote for multisig
  */
 FOUNDATION_EXPORT NSString* _Nonnull ZcncoreCreateMSVote(NSString* _Nullable proposal, NSString* _Nullable grpClientID, NSString* _Nullable signerWalletstr, NSString* _Nullable toClientID, NSString* _Nullable tokenStr, NSError* _Nullable* _Nullable error);
-
-/**
- * CreateWallet creates the wallet for to configure signature scheme.
-It also registers the wallet again to blockchain.
- */
-FOUNDATION_EXPORT BOOL ZcncoreCreateWallet(id<ZcncoreWalletCallback> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * CreateWalletFromEthMnemonic - creating new wallet from Eth mnemonics
@@ -1404,8 +1397,6 @@ FOUNDATION_EXPORT NSString* _Nonnull ZcncoreRecoverOfflineWallet(NSString* _Null
 It also registers the wallet again to block chain.
  */
 FOUNDATION_EXPORT BOOL ZcncoreRecoverWallet(NSString* _Nullable mnemonic, id<ZcncoreWalletCallback> _Nullable statusCb, NSError* _Nullable* _Nullable error);
-
-FOUNDATION_EXPORT BOOL ZcncoreRegisterToMiners(NSString* _Nullable clientId, NSString* _Nullable pubKey, id<ZcncoreWalletCallback> _Nullable callback, NSError* _Nullable* _Nullable error);
 
 /**
  * SetAuthUrl will be called by app to set zauth URL to SDK.

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct NetworkDetails: View {
-    @State var config : NetworkConfig = Network.demoZus.config
-    @State var network: Network = Network.demoZus
-    @State var changeNetwork: Network = Network.demoZus
+    @State var config : NetworkConfig = Network.devZus.config
+    @State var network: Network = Network.devZus
+    @State var changeNetwork: Network = Network.devZus
     @State var presentAlert: Bool = false
 
     init() {

@@ -13,7 +13,7 @@ class ZcncoreManager: NSObject, ObservableObject {
     
     static let shared = ZcncoreManager()
 
-    private static var network: NetworkConfig = Network.demoZus.config
+    private static var network: NetworkConfig = Network.devZus.config
     static var zboxStorageSDKHandle : SdkStorageSDK? = nil
     
     @Published var processing: Bool = false
@@ -60,7 +60,17 @@ class ZcncoreManager: NSObject, ObservableObject {
         self.processing = true
         
         var error: NSError? = nil
-        ZcncoreCreateWallet(self, &error)
+        var walletJSON = ZcncoreCreateWalletOffline(&error)
+        
+        if let w = try? JSONDecoder().decode(Wallet.self, from: Data(walletJSON.utf8)) {
+            print(w.debugDescription())
+            Utils.set(walletJSON, for: .walletJSON)
+            Utils.wallet = w
+            Utils.getPublicEncryptionKey(mnemonic: w.mnemonics)
+            self.setWalletInfo()
+            try? self.initialiseSDK()
+            self.onWalletCreateComplete(wallet: w)
+        }
         
         if let error = error {
             self.onWalletCreateFailed(error: error.localizedDescription)
