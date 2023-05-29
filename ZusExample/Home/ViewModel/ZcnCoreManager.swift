@@ -78,9 +78,9 @@ class ZcncoreManager: NSObject, ObservableObject {
     }
     
     func createAllocation() {
-        DispatchQueue.global().async {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
             do {
-                let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation(2, parityshards: 2, size: 214748364, expiration: Int64(Date().timeIntervalSince1970 + 2592000), lock: "10000000000")
+                let allocation = try ZcncoreManager.zboxStorageSDKHandle?.createAllocation(2, parityshards: 2, size: 214748364, expiration: Int64(Date().timeIntervalSince1970 + 2630000), lock: "4500000000")
                // VultViewModel.zboxAllocationHandle = allocation
                 DispatchQueue.main.async {
                     self.toast = .success("Allocation Created Successfully")
