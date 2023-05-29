@@ -96,6 +96,7 @@ class VultViewModel: NSObject, ObservableObject {
                                                            remotePath: "/\(name)",
                                                            thumbnailPath: thumbnailPath?.path,
                                                            encrypt: false,
+                                                           webStreaming: false,
                                                            statusCb: self)
     }
     
