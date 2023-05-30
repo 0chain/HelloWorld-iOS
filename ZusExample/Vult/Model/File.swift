@@ -16,7 +16,7 @@ typealias Files = [File]
 struct File: Codable, Identifiable, Equatable  {
     
     var id: String {
-        return status.rawValue + completedBytes.stringValue
+        return status.rawValue + completedBytes.stringValue + name
     }
     
     var name : String = ""

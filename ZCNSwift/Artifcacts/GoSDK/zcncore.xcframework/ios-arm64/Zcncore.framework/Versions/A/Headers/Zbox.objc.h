@@ -641,6 +641,14 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxGetNetwork(NSError* _Nullable* _Nullabl
 FOUNDATION_EXPORT long ZboxGetNumber(NSString* _Nullable value);
 
 /**
+ * GetRemoteFileMap returns the remote
+
+	## Inputs
+	- allocationID
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetRemoteFileMap(NSString* _Nullable allocationID, NSError* _Nullable* _Nullable error);
+
+/**
  * InitAuthTicket - init auth ticket from ID
  */
 FOUNDATION_EXPORT ZboxAuthTicket* _Nullable ZboxInitAuthTicket(NSString* _Nullable authTicket);
@@ -718,10 +726,10 @@ FOUNDATION_EXPORT BOOL ZboxRepairFile(NSString* _Nullable allocationID, NSString
 /**
  * RevokeShare revoke authTicket
 
- ## Inputs
- - allocationID
- - path
- - refereeClientID
+	## Inputs
+	- allocationID
+	- path
+	- refereeClientID
  */
 FOUNDATION_EXPORT BOOL ZboxRevokeShare(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable refereeClientID, NSError* _Nullable* _Nullable error);
 
