@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QuickLook
 
 struct Directory: Codable {
     let list: [File]
