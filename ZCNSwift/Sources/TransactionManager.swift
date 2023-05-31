@@ -65,7 +65,7 @@ public class TransactionManager {
             
             var error: NSError?
             
-            guard let transaction = ZcncoreNewTransaction(callback, "0", 0, &error) else {
+            guard let transaction = ZcncoreNewTransaction(callback, "1000000", 0, &error) else {
                 continuation.resume(throwing: error!)
                 return
             }

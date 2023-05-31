@@ -51,7 +51,7 @@ struct FilesTable_Previews: PreviewProvider {
 }
 
 struct FileRow: View {
-    @State var file: File
+    var file: File
     var body: some View {
         HStack(spacing: 20) {
             if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {

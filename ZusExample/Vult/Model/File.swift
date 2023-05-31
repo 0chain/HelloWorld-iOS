@@ -93,7 +93,10 @@ struct File: Codable, Identifiable, Equatable  {
     var fileSize: String {
         switch status {
         case .completed: return size.formattedByteCount
-        case .progress: return "\(completedBytes/size) %"
+        case .progress:
+            let progress = Double(completedBytes) / Double(size) * 100
+            let roundedProgress = String(format: "%.2f %%", progress)
+            return roundedProgress
         case .error: return "failed"
         }
     }
