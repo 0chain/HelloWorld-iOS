@@ -13,7 +13,7 @@ struct TransactionDetails: View {
     
     var body: some View {
         List {
-            Section("Signatur and Hashes") {
+            Section("Signature and Hashes") {
                 ListRow(title: "Transaction Hash:", value: transaction.hash)
                 ListRow(title: "Block Hash:", value: transaction.blockHash)
                 ListRow(title: "Output Hash:", value: transaction.outputHash)
@@ -30,7 +30,7 @@ struct TransactionDetails: View {
             }
             
             Section("Explorer") {
-                Link(destination: URL(string: "https://staging-atlus-beta.testnet-0chain.net/transaction-details/\(transaction.hash)")!,label: { Text("View On Explorer").foregroundColor(.teal) })
+                Link(destination: URL(string: "https://dev.atlus.cloud/transaction-details/\(transaction.hash)")!,label: { Text("View On Explorer").foregroundColor(.teal) })
             }
         }
             .navigationTitle(Text("Transaction Details"))

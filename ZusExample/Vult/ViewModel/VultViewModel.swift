@@ -24,6 +24,9 @@ class VultViewModel: NSObject, ObservableObject {
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
 
+    @Published var presentPopup: Bool = false
+    @Published var popup = ZCNToast.ZCNToastType.success("YES")
+
     override init() {
         super.init()
         VultViewModel.zboxAllocationHandle = try? ZcncoreManager.zboxStorageSDKHandle?.getAllocation(Utils.get(key: .allocationID) as? String)
@@ -105,6 +108,10 @@ class VultViewModel: NSObject, ObservableObject {
             try VultViewModel.zboxAllocationHandle?.downloadFile(file.path,
                                                                  localPath: file.localFilePath.path,
                                                                  statusCb: self)
+            DispatchQueue.main.async {
+                self.popup = .progress("Downloading \(file.name)")
+                self.presentPopup = true
+            }
         } catch let error {
             print(error.localizedDescription)
         }
@@ -164,6 +171,9 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
         }
         DispatchQueue.main.async {
             self.allocation.addSize(size)
+            let action = op == 0 ? "Uploaded" : "Downloaded"
+            self.popup = .success("\(action) \(filename ?? "")")
+            self.presentPopup = true
         }
     }
     
@@ -173,6 +183,8 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
             if let index = self.files.firstIndex(where: {$0.path == filePath}) {
                 self.files[index].status = .error
             }
+            self.popup = .error(err?.localizedDescription ?? "Error")
+            self.presentPopup = true
         }
     }
     

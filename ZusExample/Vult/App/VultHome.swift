@@ -13,16 +13,21 @@ struct VultHome: View {
     
     var body: some View {
         GeometryReader { gr in
-            VStack(alignment: .leading) {
-                AllocationDetailsBlock()
-                
-                AllocationActionStack()
-                
-                FilesTable()
-                                
-                NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
-,isActive: $vultVM.openFile) {
-                    EmptyView()
+            ZStack(alignment: .bottom) {
+                VStack(alignment: .leading) {
+                    AllocationDetailsBlock()
+                    
+                    AllocationActionStack()
+                    
+                    FilesTable()
+                    
+                    NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
+                                   ,isActive: $vultVM.openFile) {
+                        EmptyView()
+                    }
+                }
+                if vultVM.presentPopup {
+                    ZCNToast(type: vultVM.popup,presented: $vultVM.presentPopup)
                 }
             }
             .padding(22)
@@ -45,7 +50,7 @@ struct VultHome_Previews: PreviewProvider {
             vm.files = [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)]
             return vm
         }()
-
+        
         VultHome()
             .environmentObject(vm)
     }
