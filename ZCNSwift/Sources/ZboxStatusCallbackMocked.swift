@@ -14,9 +14,9 @@ public class ZboxStatusCallback: NSObject, ZboxStatusCallbackMockedProtocol {
     public typealias CommitMetaCompletionHandler = (String?, String?, Error?) -> Void
     public typealias CompletedHandler = (String?, String?, String?, Int, FileOperation) -> Void
     public typealias ErrorHandler = (String?, FileOperation, Error?) -> Void
-    public typealias InProgressHandler = (String?, FileOperation, Int, Data?) -> Void
+    public typealias InProgressHandler = (File, FileOperation) -> Void
     public typealias RepairCompletedHandler = (Int) -> Void
-    public typealias StartedHandler = (String?, FileOperation, Int) -> Void
+    public typealias StartedHandler = (File, FileOperation) -> Void
   
   var commitMetaCompletionHandler: CommitMetaCompletionHandler?
   var completedHandler: CompletedHandler?
@@ -61,7 +61,12 @@ public class ZboxStatusCallback: NSObject, ZboxStatusCallbackMockedProtocol {
   
   public func inProgress(_ allocationId: String?, filePath: String?, op: Int, completedBytes: Int, data: Data?) {
     DispatchQueue.main.async { [weak self] in
-      self?.inProgressHandler?(filePath, FileOperation(rawValue: op)!, completedBytes, data)
+        var file = File()
+        file.path = filePath ?? ""
+        file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
+        file.completedBytes = completedBytes
+        file.status = .progress
+      self?.inProgressHandler?(file, FileOperation(rawValue: op)!)
       print("\(Date().debugDescription) 🚜 progress \(String(describing: FileOperation(rawValue: op)!)) at \(filePath ?? "") \(completedBytes) bytes")
     }
   }
@@ -74,7 +79,13 @@ public class ZboxStatusCallback: NSObject, ZboxStatusCallbackMockedProtocol {
   
   public func started(_ allocationId: String?, filePath: String?, op: Int, totalBytes: Int) {
     DispatchQueue.main.async { [weak self] in
-      self?.startedHandler?(filePath, FileOperation(rawValue: op)!, totalBytes)
+            var file = File()
+            file.path = filePath ?? ""
+            file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
+            file.size = totalBytes
+            file.completedBytes = 0
+            file.status = .progress
+      self?.startedHandler?(file, FileOperation(rawValue: op)!)
       print("\(Date().debugDescription) 🚜 started \(String(describing: FileOperation(rawValue: op)!)) at \(filePath ?? "")")
     }
   }

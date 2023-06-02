@@ -15,7 +15,7 @@ struct AllocationActionStack: View {
         HStack(spacing:10) {
             
             PhotosPicker(
-                selection: $vultVM.selectedPhoto,
+                selection: $vultVM.selectedPhotos,
                 matching: .images,
                 photoLibrary: .shared()) {
                     WalletActionBlock(icon: "photo",title: "Upload Image")

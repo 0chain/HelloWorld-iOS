@@ -20,7 +20,7 @@ class VultViewModel: NSObject, ObservableObject {
     @Published var presentDocumentPicker: Bool = false
 
     @Published var files: Files = []
-    @Published var selectedPhoto: PhotosPickerItem? = nil
+    @Published var selectedPhotos: [PhotosPickerItem] = []
 
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
@@ -30,6 +30,7 @@ class VultViewModel: NSObject, ObservableObject {
 
     override init() {
         super.init()
+        ZCNFileManager.setAllocationID(id: Utils.get(key: .allocationID) as? String ?? "")
         VultViewModel.zboxAllocationHandle = try? ZcncoreManager.zboxStorageSDKHandle?.getAllocation(Utils.get(key: .allocationID) as? String)
         self.getAllocation()
     }
@@ -53,14 +54,26 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func uploadImage(selectedPhoto: PhotosPickerItem?) {
+    func uploadImage(selectedPhotos: [PhotosPickerItem]) {
         Task {
+            var files: Files = []
+            
             do {
-                guard let newItem = selectedPhoto else { return }
-                let name = PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
-                if let data = try await newItem.loadTransferable(type: Data.self) {
-                    try uploadFile(data: data, name: name)
+                for newItem in selectedPhotos {
+                    let name = PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
+                    if let data = try await newItem.loadTransferable(type: Data.self) {
+                        //try uploadFile(data: data, name: name)
+                        var file = File()
+                        file.name = name
+                        file.path = "/\(name)"
+                        try file.saveFile(data: data)
+                        try await file.generateThumbnail()
+                        files.append(file)
+                    }
                 }
+                
+                try self.uploadFiles(files: files)
+                
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -68,51 +81,44 @@ class VultViewModel: NSObject, ObservableObject {
     }
     
     func uploadDocument(result: Result<URL, Error>) {
-        do {
-            let url = try result.get()
-            guard url.startAccessingSecurityScopedResource() else { return }
-            let name = url.lastPathComponent
-            let data = try Data(contentsOf: url)
-            try uploadFile(data: data, name: name)
-        } catch let error {
-            print(error.localizedDescription)
+        Task {
+            var files = [File]()
+            do {
+                let url = try result.get()
+                guard url.startAccessingSecurityScopedResource() else { return }
+                let name = url.lastPathComponent
+                let data = try Data(contentsOf: url)
+                var file = File()
+                file.name = name
+                file.path = "/\(name)"
+                try file.saveFile(data: data)
+                try await file.generateThumbnail()
+                files.append(file)
+                try self.uploadFiles(files: files)
+            } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     
-    func uploadFile(data: Data, name: String) throws {
-                
-        var localPath = Utils.uploadPath.appendingPathComponent(name)
-        var thumbnailPath: URL? =  Utils.downloadedThumbnailPath.appendingPathComponent(name)
-        
-        if let image = ZCNImage(data: data) {
-            let pngData = image.pngData()
-            try pngData?.write(to: localPath,options: .atomic)
-            
-            let thumbnailData = image.jpegData(compressionQuality: 0.1)
-            try thumbnailData?.write(to: thumbnailPath!)
-        } else {
-            try data.write(to: localPath,options: .atomic)
-            thumbnailPath = nil
-        }
-        
-        try VultViewModel.zboxAllocationHandle?.uploadFile(Utils.tempPath(),
-                                                           localPath: localPath.path,
-                                                           remotePath: "/\(name)",
-                                                           thumbnailPath: thumbnailPath?.path,
-                                                           encrypt: false,
-                                                           webStreaming: false,
-                                                           statusCb: self)
-    }
-    
-    func uploadFiles() {
-        
+    func uploadFiles(files: [File]) throws {
+        let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
+        try ZCNFileManager.multiUploadFiles(workdir: Utils.tempPath(),
+                                        localPaths: files.map(\.localUploadPath.path),
+                                        thumbnails: files.map(\.localThumbnailPath.path),
+                                        names: files.map(\.name),
+                                        remotePath: "/",
+                                        statusCb: callback)
     }
     
     func downloadImage(file: File) {
         do {
+            let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
+
+            
             try VultViewModel.zboxAllocationHandle?.downloadFile(file.path,
                                                                  localPath: file.localFilePath.path,
-                                                                 statusCb: self)
+                                                                 statusCb: callback)
             DispatchQueue.main.async {
                 self.popup = .progress("Downloading \(file.name)")
                 self.presentPopup = true
@@ -145,32 +151,25 @@ class VultViewModel: NSObject, ObservableObject {
     
 }
 
-extension VultViewModel: ZboxStatusCallbackMockedProtocol {
-    func commitMetaCompleted(_ request: String?, response: String?, err: Error?) {
-        
-    }
-    
-    func completed(_ allocationId: String?, filePath: String?, filename: String?, mimetype: String?, size: Int, op: Int) {
-        print("completed \(filePath) \(size.formattedByteCount)")
+extension VultViewModel {
+
+    func completed( filePath: String?, filename: String?, mimetype: String?, size: Int, op: FileOperation) {
         DispatchQueue.main.async {
             if let index = self.files.firstIndex(where: {$0.path == filePath}) {
                 self.files[index].completedBytes = size
                 self.files[index].status = .completed
-                if op == 0 {
+                if op == .upload {
                     self.files[index].isUploaded = true
                 }
             }
-        }
-        DispatchQueue.main.async {
             self.allocation.addSize(size)
-            let action = op == 0 ? "Uploaded" : "Downloaded"
+            let action = op == .upload ? "Uploaded" : "Downloaded"
             self.popup = .success("\(action) \(filename ?? "")")
             self.presentPopup = true
         }
     }
     
-    func error(_ allocationID: String?, filePath: String?, op: Int, err: Error?) {
-        print("error \(filePath) \(err?.localizedDescription)")
+    func error(filePath: String?, op: FileOperation, err: Error?) {
         DispatchQueue.main.async {
             if let index = self.files.firstIndex(where: {$0.path == filePath}) {
                 self.files[index].status = .error
@@ -180,41 +179,20 @@ extension VultViewModel: ZboxStatusCallbackMockedProtocol {
         }
     }
     
-    func inProgress(_ allocationId: String?, filePath: String?, op: Int, completedBytes: Int, data: Data?) {
-        print("inProgress \(filePath) \(completedBytes.formattedByteCount)")
+    func inProgress(file: File, op: FileOperation) {
         DispatchQueue.main.async {
-            if let index = self.files.firstIndex(where: {$0.path == filePath}) {
-                self.files[index].completedBytes = completedBytes
-                self.files[index].status = .progress
-                self.objectWillChange.send()
-            } else {
-                var file = File()
-                file.path = filePath ?? ""
-                file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
-                file.completedBytes = completedBytes
-                file.status = .progress
-                file.isUploaded = false
-                DispatchQueue.main.async {
+            if op == .upload {
+                if let index = self.files.firstIndex(where: {$0.path == file.path}) {
+                    self.files[index].completedBytes = file.completedBytes
+                } else {
                     self.files.append(file)
                 }
             }
         }
     }
     
-    func repairCompleted(_ filesRepaired: Int) {
-        
-    }
-    
-    func started(_ allocationId: String?, filePath: String?, op: Int, totalBytes: Int) {
-        print("started \(filePath) \(totalBytes.formattedByteCount)")
-        if op == 0 {
-            var file = File()
-            file.path = filePath ?? ""
-            file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
-            file.size = totalBytes
-            file.completedBytes = 0
-            file.status = .progress
-            file.isUploaded = false
+    func started(file: File, op: FileOperation) {
+        if op == .upload {
             DispatchQueue.main.async {
                 self.files.insert(file, at: 0)
             }

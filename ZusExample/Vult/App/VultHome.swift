@@ -39,7 +39,7 @@ struct VultHome: View {
         .background(Color.gray.opacity(0.1))
         .sheet(isPresented: $vultVM.presentAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
         .fileImporter(isPresented: $vultVM.presentDocumentPicker, allowedContentTypes: [.image,.pdf,.audio],onCompletion: vultVM.uploadDocument)
-        .onChange(of: vultVM.selectedPhoto, perform: vultVM.uploadImage)
+        .onChange(of: vultVM.selectedPhotos, perform: vultVM.uploadImage)
         .environmentObject(vultVM)
     }
 }
