@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct FilesTable: View {
     @EnvironmentObject var vultVM: VultViewModel

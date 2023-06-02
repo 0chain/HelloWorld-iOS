@@ -9,6 +9,7 @@ import Foundation
 import Zcncore
 import Combine
 import _PhotosUI_SwiftUI
+import ZCNSwift
 
 class VultViewModel: NSObject, ObservableObject {
     static var zboxAllocationHandle : ZboxAllocation? = nil
@@ -103,6 +104,10 @@ class VultViewModel: NSObject, ObservableObject {
                                                            statusCb: self)
     }
     
+    func uploadFiles() {
+        
+    }
+    
     func downloadImage(file: File) {
         do {
             try VultViewModel.zboxAllocationHandle?.downloadFile(file.path,
@@ -117,27 +122,14 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func listDir() {
-        DispatchQueue.global().async {
-            do {
-                guard let allocation = VultViewModel.zboxAllocationHandle else { return }
-                
-                var error: NSError? = nil
-                let jsonStr = allocation.listDir("/", error: &error)
-                
-                if let error = error { throw error }
-                
-                guard let data = jsonStr.data(using: .utf8) else { return }
-                
-                let files = try JSONDecoder().decode(Directory.self, from: data).list
-                
-                DispatchQueue.main.async {
-                    self.files = files
-                }
-                
-            } catch let error {
-                print(error.localizedDescription)
+    func listDir() async {
+        do {
+            let files = try await ZCNFileManager.listDir(remotePath: "/")
+            DispatchQueue.main.async {
+                self.files = files.list
             }
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

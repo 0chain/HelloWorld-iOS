@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import ZCNSwift
 
 struct VultHome: View {
     @EnvironmentObject var vultVM: VultViewModel
@@ -32,7 +33,7 @@ struct VultHome: View {
             }
             .padding(22)
         }
-        .onAppear(perform: vultVM.listDir)
+        .task{ await vultVM.listDir() }
         .navigationTitle(Text("Vult"))
         .navigationBarTitleDisplayMode(.large)
         .background(Color.gray.opacity(0.1))
