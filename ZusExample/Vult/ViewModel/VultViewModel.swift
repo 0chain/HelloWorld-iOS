@@ -12,7 +12,6 @@ import _PhotosUI_SwiftUI
 import ZCNSwift
 
 class VultViewModel: NSObject, ObservableObject {
-    static var zboxAllocationHandle : ZboxAllocation? = nil
     
     @Published var allocation: Allocation = Allocation.default
     
@@ -28,28 +27,26 @@ class VultViewModel: NSObject, ObservableObject {
     @Published var presentPopup: Bool = false
     @Published var popup = ZCNToast.ZCNToastType.success("YES")
 
+    lazy var callback: ZboxStatusCallback = {
+        let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
+        return callback
+    }()
+    
     override init() {
         super.init()
         ZCNFileManager.setAllocationID(id: Utils.get(key: .allocationID) as? String ?? "")
-        VultViewModel.zboxAllocationHandle = try? ZcncoreManager.zboxStorageSDKHandle?.getAllocation(Utils.get(key: .allocationID) as? String)
         self.getAllocation()
     }
     
-    func getAllocation()  {
-        DispatchQueue.global().async {
-                let decoder = JSONDecoder()
-                
-                guard let zboxAllocationHandle = VultViewModel.zboxAllocationHandle else { return }
-                
-                var error: NSError?
-                let jsonStr = SdkGetAllocations(&error)
-                
-            if let data = jsonStr.data(using: .utf8), let allocations = try? JSONDecoder().decode([Allocation].self, from: data), let allocation = allocations.first {
+    func getAllocation() {
+        Task {
+            do {
+                let allocation = try await ZCNFileManager.getAllocation()
                 DispatchQueue.main.async {
                     self.allocation = allocation
                 }
-            } else {
-                print(error?.localizedDescription)
+            } catch {
+                
             }
         }
     }
@@ -102,7 +99,6 @@ class VultViewModel: NSObject, ObservableObject {
     }
     
     func uploadFiles(files: [File]) throws {
-        let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
         try ZCNFileManager.multiUploadFiles(workdir: Utils.tempPath(),
                                         localPaths: files.map(\.localUploadPath.path),
                                         thumbnails: files.map(\.localThumbnailPath.path),
@@ -113,12 +109,8 @@ class VultViewModel: NSObject, ObservableObject {
     
     func downloadImage(file: File) {
         do {
-            let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
-
+            try ZCNFileManager.downloadFile(remotePath: file.path, localPath: file.localFilePath.path, statusCb: self.callback)
             
-            try VultViewModel.zboxAllocationHandle?.downloadFile(file.path,
-                                                                 localPath: file.localFilePath.path,
-                                                                 statusCb: callback)
             DispatchQueue.main.async {
                 self.popup = .progress("Downloading \(file.name)")
                 self.presentPopup = true
@@ -139,14 +131,13 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func getAuthTicket(file: File) -> String {
-        
-        guard let allocation = VultViewModel.zboxAllocationHandle else { return "" }
-
-        var error: NSError?
-        let auth = allocation.getAuthToken(file.path, filename: file.name, referenceType: "f", refereeClientID: "", refereeEncryptionPublicKey: "", expiration: 0, availableAfter: "", error: &error)
-        
-        return auth
+    func copyAuthToken(file: File) {
+        do {
+            let token = try ZCNFileManager.getAuthTicket(file: file)
+            UIPasteboard.general.string = token
+        } catch {
+            
+        }
     }
     
 }

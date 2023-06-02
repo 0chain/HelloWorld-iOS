@@ -10,17 +10,17 @@ import Foundation
 typealias Allocations = [Allocation]
 
 public struct Allocation: Codable, Equatable {
-    var id, tx: String
-    var dataShards, parityShards, size, expirationDate: Int
-    var ownerID, ownerPublicKey, payerID: String
-    var blobbers: [Blobber]
-    var stats: Stats
-    var timeUnit, writePool: Int?
-    var blobberDetails: [BlobberDetail]
-    var readPriceRange, writePriceRange: PriceRange?
-    var challengeCompletionTime, startTime, movedToChallenge, movedToValidators: Int?
-    var fileOptions: Int?
-    var thirdPartyExtendable: Bool?
+    public var id, tx: String
+    public var dataShards, parityShards, size, expirationDate: Int
+    public var ownerID, ownerPublicKey, payerID: String
+    public var blobbers: [Blobber]
+    public var stats: Stats
+    public var timeUnit, writePool: Int?
+    public var blobberDetails: [BlobberDetail]
+    public var readPriceRange, writePriceRange: PriceRange?
+    public var challengeCompletionTime, startTime, movedToChallenge, movedToValidators: Int?
+    public var fileOptions: Int?
+    public var thirdPartyExtendable: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id, tx
@@ -70,20 +70,20 @@ public struct Allocation: Codable, Equatable {
         self.thirdPartyExtendable = thirdPartyExtendable
     }
     
-    mutating func addSize(_ size: Int) {
+    public mutating func addSize(_ size: Int) {
         self.stats.usedSize = (self.stats.usedSize ?? 0) + size
     }
     
-    var allocationFraction: Double {
+    public var allocationFraction: Double {
         return Double(stats.usedSize ?? 0)/Double(size ?? 1)
     }
     
-    var allocationPercentage: Int {
+    public var allocationPercentage: Int {
         let divisor = size == 0 ? 1 : size
         return ((stats.usedSize ?? 0)/(divisor)) * 100
     }
     
-    var defaultName: String {
+    public var defaultName: String {
         return "Allocation"
     }
     
@@ -91,7 +91,7 @@ public struct Allocation: Codable, Equatable {
         return lhs.id == rhs.id
     }
     
-    static let `default` = Allocation(id: "28628268", tx: "3973879", dataShards: 2, parityShards: 2, size: 10293937, expirationDate: 3973893793, ownerID: "37637863876383", ownerPublicKey: "38368376783638", payerID: "45634563456", blobbers: [], stats: Stats(usedSize: 345678, numOfWrites: 120, numOfReads: 450, totalChallenges: 80, numOpenChallenges: 10, numSuccessChallenges: 60, numFailedChallenges: 10, latestClosedChallenge: "2023-04-25 12:30:00"), timeUnit: 3600, writePool: 100000, blobberDetails: [], readPriceRange: PriceRange(min: 1, max: 10), writePriceRange: PriceRange(min: 10, max: 100), challengeCompletionTime: 1800, startTime: 1620000000, movedToChallenge: 0, movedToValidators: 0, fileOptions: 0, thirdPartyExtendable: false)
+    public static let `default` = Allocation(id: "28628268", tx: "3973879", dataShards: 2, parityShards: 2, size: 10293937, expirationDate: 3973893793, ownerID: "37637863876383", ownerPublicKey: "38368376783638", payerID: "45634563456", blobbers: [], stats: Stats(usedSize: 345678, numOfWrites: 120, numOfReads: 450, totalChallenges: 80, numOpenChallenges: 10, numSuccessChallenges: 60, numFailedChallenges: 10, latestClosedChallenge: "2023-04-25 12:30:00"), timeUnit: 3600, writePool: 100000, blobberDetails: [], readPriceRange: PriceRange(min: 1, max: 10), writePriceRange: PriceRange(min: 10, max: 100), challengeCompletionTime: 1800, startTime: 1620000000, movedToChallenge: 0, movedToValidators: 0, fileOptions: 0, thirdPartyExtendable: false)
 }
 
 // MARK: - BlobberDetail
@@ -186,9 +186,9 @@ public struct Stats: Codable {
         self.latestClosedChallenge = latestClosedChallenge
     }
     
-    var usedSize, numOfWrites, numOfReads, totalChallenges: Int
-    var numOpenChallenges, numSuccessChallenges, numFailedChallenges: Int
-    var latestClosedChallenge: String
+    public var usedSize, numOfWrites, numOfReads, totalChallenges: Int
+    public var numOpenChallenges, numSuccessChallenges, numFailedChallenges: Int
+    public var latestClosedChallenge: String
     
     enum CodingKeys: String, CodingKey {
         case usedSize = "used_size"

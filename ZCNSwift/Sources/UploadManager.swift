@@ -19,6 +19,24 @@ public class ZCNFileManager {
         ZCNFileManager.allocationID = id
     }
     
+    public static func getAllocation() async throws -> Allocation {
+        return try await withUnsafeThrowingContinuation { continuation in
+            DispatchQueue.global().async {
+                let decoder = JSONDecoder()
+                                
+                var error: NSError?
+                
+                let jsonStr = SdkGetAllocations(&error)
+
+                if let data = jsonStr.data(using: .utf8), let allocations = try? JSONDecoder().decode([Allocation].self, from: data), let allocation = allocations.first {
+                    continuation.resume(returning: allocation)
+                } else {
+                    continuation.resume(throwing: error ?? ZCNError.custom("failed to get allocation details"))
+                }
+            }
+        }
+    }
+    
     public static func listDir(remotePath: String) async throws -> Directory {
       return try await withUnsafeThrowingContinuation { continuation in
         DispatchQueue.global(qos: .userInitiated).async {
@@ -60,4 +78,20 @@ public class ZCNFileManager {
         throw error
       }
     }
+    
+    public static func downloadFile(remotePath: String, localPath: String, statusCb: ZboxStatusCallbackMockedProtocol? = nil) throws {
+      var error: NSError?
+      ZboxDownloadFile(allocationID, remotePath, localPath, statusCb, &error)
+      
+      if let error = error {
+        throw error
+      }
+    }
+    
+    public static func getAuthTicket(file: File) throws -> String {
+        var error: NSError?
+        let ticket = ZboxGetAuthToken(allocationID, file.path, file.name, "f", "", "", 0, 0, &error)
+        return ticket
+    }
+    
 }

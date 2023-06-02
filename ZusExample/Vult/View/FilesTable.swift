@@ -20,7 +20,7 @@ struct FilesTable: View {
                    FileRow(file: file)
                         .contextMenu(menuItems: {
                             Button("Copy Auth Ticket") {
-                                UIPasteboard.general.string = vultVM.getAuthTicket(file: file)
+                                vultVM.copyAuthToken(file: file)
                             }
                         })
                     .id(file.id)
