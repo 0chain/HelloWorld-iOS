@@ -76,5 +76,5 @@ public struct File: Codable, Identifiable, Equatable  {
 
     public var status: FileStatus = .completed
 
-    public var isUploaded: Bool = false
+    public var isUploaded: Bool = true
 }

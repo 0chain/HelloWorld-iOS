@@ -66,6 +66,7 @@ public class ZboxStatusCallback: NSObject, ZboxStatusCallbackMockedProtocol {
         file.name = filePath?.replacingOccurrences(of: "/", with: "") ?? ""
         file.completedBytes = completedBytes
         file.status = .progress
+        file.isUploaded = false
       self?.inProgressHandler?(file, FileOperation(rawValue: op)!)
       print("\(Date().debugDescription) 🚜 progress \(String(describing: FileOperation(rawValue: op)!)) at \(filePath ?? "") \(completedBytes) bytes")
     }
@@ -85,6 +86,7 @@ public class ZboxStatusCallback: NSObject, ZboxStatusCallbackMockedProtocol {
             file.size = totalBytes
             file.completedBytes = 0
             file.status = .progress
+        file.isUploaded = false
       self?.startedHandler?(file, FileOperation(rawValue: op)!)
       print("\(Date().debugDescription) 🚜 started \(String(describing: FileOperation(rawValue: op)!)) at \(filePath ?? "")")
     }
