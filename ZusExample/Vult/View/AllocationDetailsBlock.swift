@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct AllocationDetailsBlock: View {
     @EnvironmentObject var vultVM: VultViewModel

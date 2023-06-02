@@ -19,6 +19,7 @@
 @class ZboxMediaItem;
 @class ZboxMediaPlaylist;
 @class ZboxMinMaxCost;
+@class ZboxMultiOperationOption;
 @class ZboxStatusBarMocked;
 @class ZboxStatusCallbackWrapped;
 @class ZboxStreamingService;
@@ -327,6 +328,18 @@
 - (nonnull instancetype)init;
 @end
 
+@interface ZboxMultiOperationOption : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull operationType;
+@property (nonatomic) NSString* _Nonnull remotePath;
+@property (nonatomic) NSString* _Nonnull destName;
+@property (nonatomic) NSString* _Nonnull destPath;
+@end
+
 @interface ZboxStatusBarMocked : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -379,6 +392,8 @@
  */
 - (BOOL)stop:(NSError* _Nullable* _Nullable)error;
 @end
+
+FOUNDATION_EXPORT NSString* _Nonnull const ZboxSPACE;
 
 @interface Zbox : NSObject
 + (NSError* _Nullable) errInvalidAllocation;
@@ -641,6 +656,14 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxGetNetwork(NSError* _Nullable* _Nullabl
 FOUNDATION_EXPORT long ZboxGetNumber(NSString* _Nullable value);
 
 /**
+ * GetRemoteFileMap returns the remote
+
+	## Inputs
+	- allocationID
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZboxGetRemoteFileMap(NSString* _Nullable allocationID, NSError* _Nullable* _Nullable error);
+
+/**
  * InitAuthTicket - init auth ticket from ID
  */
 FOUNDATION_EXPORT ZboxAuthTicket* _Nullable ZboxInitAuthTicket(NSString* _Nullable authTicket);
@@ -679,8 +702,52 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxListDirFromAuthTicket(NSString* _Nullab
  */
 FOUNDATION_EXPORT BOOL ZboxMoveObject(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable destPath, NSError* _Nullable* _Nullable error);
 
-// skipped function MultiOperation with unsupported parameter or return types
+/**
+ * MultiOperation - do copy, move, delete and createdir operation together
+## Inputs
+  - allocationID
+  - jsonMultiUploadOpetions: Json Array of MultiOperationOption. eg: "[{"operationType":"move","remotePath":"/README.md","destPath":"/folder1/"},{"operationType":"delete","remotePath":"/t3.txt"}]"
 
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxMultiOperation(NSString* _Nullable allocationID, NSString* _Nullable jsonMultiUploadOptions, NSError* _Nullable* _Nullable error);
+
+/**
+ * MultiUpdateFile - update files from local path to remote path
+## Inputs
+  - allocationID
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - filePathsString: space seperated local full path of files. eg "/usr/local/files/f1.txt /usr/local/files/f2.txt"
+  - fileNamesString: space seperated name of files. eg "f1.txt f2.jpeg"
+  - thumbnailPathsString: space seperated path for thumbnails. eg "full_path1  full_path3", here there are two spaces
+    between path1 and path3 because file2 doesn't have thumbnail.
+  - encrypt: string of 0s and 1s denoting whether to encrypt or not. eg "00110": encrypt third and fourth file. Length of string
+    should be equal to number of files.
+  - remotePath: directory path of updated file. It should end with "/"
+
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxMultiUpdate(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable filePathsString, NSString* _Nullable fileNamesString, NSString* _Nullable encrypt, NSString* _Nullable thumbnailPathsString, NSString* _Nullable remotePath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+/**
+ * MultiUploadFile - upload files from local path to remote path
+## Inputs
+  - allocationID
+  - workdir: set a workdir as ~/.zcn on mobile apps
+  - filePathsString: space seperated local full path of files. eg "/usr/local/files/f1.txt /usr/local/files/f2.txt"
+  - fileNamesString: space seperated name of files. eg "f1.txt f2.jpeg"
+  - thumbnailPathsString: space seperated path for thumbnails. eg "full_path1  full_path3", here there are two spaces
+    between path1 and path3 because file2 doesn't have thumbnail.
+  - encrypt: string of 0s and 1s denoting whether to encrypt or not. eg "00110": encrypt third and fourth file. Length of string
+    should be equal to number of files.
+  - remotePath: Path of the remote directory where files will upload. It should end with "/"
+
+## Outputs
+  - error
+ */
+FOUNDATION_EXPORT BOOL ZboxMultiUpload(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable filePathsString, NSString* _Nullable fileNamesString, NSString* _Nullable encrypt, NSString* _Nullable thumbnailPathsString, NSString* _Nullable remotePath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * NewMediaPlaylist create media playlist(.m3u8)
@@ -718,10 +785,10 @@ FOUNDATION_EXPORT BOOL ZboxRepairFile(NSString* _Nullable allocationID, NSString
 /**
  * RevokeShare revoke authTicket
 
- ## Inputs
- - allocationID
- - path
- - refereeClientID
+	## Inputs
+	- allocationID
+	- path
+	- refereeClientID
  */
 FOUNDATION_EXPORT BOOL ZboxRevokeShare(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable refereeClientID, NSError* _Nullable* _Nullable error);
 

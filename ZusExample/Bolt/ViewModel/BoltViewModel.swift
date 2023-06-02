@@ -129,8 +129,11 @@ class BoltViewModel:NSObject, ObservableObject {
                     self.presentPopup = true
                 }
                 
-                _ = try await self.manager.send(toClientID: self.clientID, value: amount.value, desc: "")
-                
+                let txn = try await self.manager.send(toClientID: self.clientID, value: amount.value, desc: "")
+                self.transactions.append(txn)
+
+                self.onTransactionComplete(t: txn)
+
                 DispatchQueue.main.async {
                     self.clientID = ""
                     self.amount = ""
@@ -166,6 +169,7 @@ class BoltViewModel:NSObject, ObservableObject {
         DispatchQueue.main.async {
             self.popup = .success("Success")
             self.presentPopup = true
+            self.getBalance()
         }
     }
     

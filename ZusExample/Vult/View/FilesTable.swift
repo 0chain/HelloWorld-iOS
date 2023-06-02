@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct FilesTable: View {
     @EnvironmentObject var vultVM: VultViewModel
@@ -19,7 +20,7 @@ struct FilesTable: View {
                    FileRow(file: file)
                         .contextMenu(menuItems: {
                             Button("Copy Auth Ticket") {
-                                UIPasteboard.general.string = vultVM.getAuthTicket(file: file)
+                                vultVM.copyAuthToken(file: file)
                             }
                         })
                     .id(file.id)
@@ -51,7 +52,7 @@ struct FilesTable_Previews: PreviewProvider {
 }
 
 struct FileRow: View {
-    @State var file: File
+    var file: File
     var body: some View {
         HStack(spacing: 20) {
             if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {

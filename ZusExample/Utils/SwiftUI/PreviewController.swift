@@ -7,6 +7,7 @@
 
 import SwiftUI
 import QuickLook
+import ZCNSwift
 
 struct PreviewController: UIViewControllerRepresentable {
     var files: Files

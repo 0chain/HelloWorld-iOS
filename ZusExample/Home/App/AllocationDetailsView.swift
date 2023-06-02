@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct AllocationDetailsView: View {
     let allocation: Allocation
