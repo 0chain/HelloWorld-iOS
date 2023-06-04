@@ -7,6 +7,7 @@
 
 import Foundation
 import Zcncore
+import ZCNSwift
 
 final class Utils: NSObject {
     private let scope : String = "0chain"

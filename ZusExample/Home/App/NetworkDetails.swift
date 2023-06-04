@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct NetworkDetails: View {
     @State var config : NetworkConfig = Network.devZus.config

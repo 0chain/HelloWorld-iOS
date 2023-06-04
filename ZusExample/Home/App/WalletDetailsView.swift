@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct WalletDetailsView: View {
     let wallet: Wallet?
