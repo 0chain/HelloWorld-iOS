@@ -4,6 +4,11 @@ SDK.
 
 The app covers demo for two product lines of Zus i.e. bolt and vult.
 
+
+https://github.com/0chain/HelloWorld-iOS/assets/53724307/b3fd4830-f273-48b9-8b0f-e7820f2aa217
+
+
+
 ## Bolt
 
 It is a cryptocurrency wallet for exchange of zcn ERC 20 and ethereum tokens. Tokens can also be
