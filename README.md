@@ -4,21 +4,21 @@ SDK.
 
 The app covers demo for two product lines of Zus i.e. bolt and vult.
 
-https://github.com/0chain/HelloWorld-iOS/assets/53724307/3090ea44-e9b7-4bf4-9ff5-2f0f4f977ef7
+<!-- https://github.com/0chain/HelloWorld-iOS/assets/53724307/3090ea44-e9b7-4bf4-9ff5-2f0f4f977ef7 -->
 
 ## Bolt
 
 It is a cryptocurrency wallet for exchange of zcn ERC 20 and ethereum tokens. Tokens can also be
 staked and users get rewards for staking.
 
-https://github.com/0chain/HelloWorld-iOS/assets/53724307/af80af11-a1b0-47ae-9e32-cd2314f9b236
+<!-- https://github.com/0chain/HelloWorld-iOS/assets/53724307/af80af11-a1b0-47ae-9e32-cd2314f9b236 -->
 
 ## Vult
 
 Vult is a dencentralised anonymous file sharing platform. Users can upload files and share them with
 other users.
 
-https://github.com/0chain/HelloWorld-iOS/assets/53724307/22447aec-0768-48d0-a4ea-a1fcbfaf6355
+<!-- https://github.com/0chain/HelloWorld-iOS/assets/53724307/22447aec-0768-48d0-a4ea-a1fcbfaf6355 -->
 
 ## SDK
 
