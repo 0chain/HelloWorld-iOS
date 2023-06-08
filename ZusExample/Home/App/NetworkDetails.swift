@@ -22,7 +22,7 @@ struct NetworkDetails: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             
             List {
                 Section("Details") {

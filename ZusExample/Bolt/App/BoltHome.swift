@@ -26,7 +26,8 @@ struct BoltHome: View {
                         Text("Transaction Date").layoutPriority(1)
                         Image(systemName: "chevron.right").opacity(0)
                     }
-                    .bold()
+                    .font(.system(size: 16, weight: .bold, design: .default))
+                    //.bold()
                     ScrollView(showsIndicators: false) {
                         ForEach(Array(boltVM.transactions.sorted().enumerated()),id:\.offset) { index, txn in
                             NavigationLink(destination: TransactionDetails(transaction: txn)) {

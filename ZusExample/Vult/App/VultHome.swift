@@ -22,9 +22,17 @@ struct VultHome: View {
                     
                     FilesTable()
                     
-                    NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
-                                   ,isActive: $vultVM.openFile) {
-                        EmptyView()
+                    if #available(iOS 16.0, *) {
+                        NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline)
+                            .navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
+                                       ,isActive: $vultVM.openFile) {
+                            EmptyView()
+                        }
+                    } else {
+                        NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline)
+                                       ,isActive: $vultVM.openFile) {
+                            EmptyView()
+                        }
                     }
                 }
                 if vultVM.presentPopup {

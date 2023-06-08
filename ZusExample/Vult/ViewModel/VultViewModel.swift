@@ -10,6 +10,8 @@ import Zcncore
 import Combine
 import _PhotosUI_SwiftUI
 import ZCNSwift
+import Photos
+import AVKit
 
 class VultViewModel: NSObject, ObservableObject {
     
@@ -19,7 +21,7 @@ class VultViewModel: NSObject, ObservableObject {
     @Published var presentDocumentPicker: Bool = false
 
     @Published var files: Files = []
-    @Published var selectedPhotos: [PhotosPickerItem] = []
+    @Published var selectedPhotos: [PHPickerResult] = [] //[PhotosPickerItem] = []
 
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
@@ -51,14 +53,36 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func uploadImage(selectedPhotos: [PhotosPickerItem]) {
+    //func uploadImage(selectedPhotos: [PhotosPickerItem]) {
+    func uploadImage(selectedPhotos: [PHPickerResult]) {
         Task {
             var files: Files = []
-            
             do {
-                for newItem in selectedPhotos {
-                    let name = PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
-                    if let data = try await newItem.loadTransferable(type: Data.self) {
+                let identifiers = selectedPhotos.compactMap(\.assetIdentifier)
+                let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
+                for index in 0..<fetchResult.count {
+                  let asset = fetchResult.object(at: index)
+                    do {
+                    let image = try await asset.requestImage()
+                      if let data = image.pngData() {
+                          //try uploadFile(data: data, name: name)
+                          var file = File()
+                          file.name = asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description
+                          file.path = "/\(asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description)"
+                          try file.saveFile(data: data)
+                          try await file.generateThumbnail()
+                          files.append(file)
+                      }
+                    } catch let error {
+                      print(error)
+                    }
+                  }
+                  
+                try self.uploadFiles(files: files)
+                /*for newItem in selectedPhotos {
+                    let name = Date().timeIntervalSince1970.description //PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
+                   // if let data = try await newItem.loadTransferable(type: Data.self) {
+                    if let data = newItem.pngData() {
                         //try uploadFile(data: data, name: name)
                         var file = File()
                         file.name = name
@@ -68,8 +92,7 @@ class VultViewModel: NSObject, ObservableObject {
                         files.append(file)
                     }
                 }
-                
-                try self.uploadFiles(files: files)
+                try self.uploadFiles(files: files)*/
                 
             } catch let error {
                 print(error.localizedDescription)
