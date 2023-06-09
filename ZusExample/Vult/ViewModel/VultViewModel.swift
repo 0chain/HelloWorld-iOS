@@ -12,6 +12,7 @@ import _PhotosUI_SwiftUI
 import ZCNSwift
 import Photos
 import AVKit
+import SwiftUI
 
 class VultViewModel: NSObject, ObservableObject {
     
@@ -28,6 +29,7 @@ class VultViewModel: NSObject, ObservableObject {
 
     @Published var presentPopup: Bool = false
     @Published var popup = ZCNToast.ZCNToastType.success("YES")
+    @Published var isShowingPicker = false
 
     lazy var callback: ZboxStatusCallback = {
         let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
@@ -66,9 +68,10 @@ class VultViewModel: NSObject, ObservableObject {
                     let image = try await asset.requestImage()
                       if let data = image.pngData() {
                           //try uploadFile(data: data, name: name)
+                          let filename = asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description
                           var file = File()
-                          file.name = asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description
-                          file.path = "/\(asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description)"
+                          file.name = filename
+                          file.path = "/\(filename)"
                           try file.saveFile(data: data)
                           try await file.generateThumbnail()
                           files.append(file)
