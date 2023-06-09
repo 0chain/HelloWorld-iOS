@@ -17,6 +17,10 @@ class ZcncoreManager: ObservableObject {
     @Published var processing: Bool = false
     @Published var toast: ZCNToast.ZCNToastType = .progress("Creating Wallet...")
 
+    init() {
+        self.initialize()
+    }
+    
     func initialize() {
         do {
             if let networkScheme = Utils.get(key: .network) as? String, let network = Network(rawValue: networkScheme) {
@@ -45,7 +49,7 @@ class ZcncoreManager: ObservableObject {
 
             
             try ZCNSwift.ZcncoreManager.setWalletInfo(wallet: wallet)
-            try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: wallet, network: Network.devZus)
+            try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: wallet, network: ZCNSwift.Network.devZus)
             
             DispatchQueue.main.async {
                 self.toast = .progress("Creating Allocation ...")

@@ -51,6 +51,6 @@ struct CreateWalletView: View {
 
 struct CreateWalletView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateWalletView(zcncoreVM: .shared)
+        CreateWalletView(zcncoreVM: .init())
     }
 }

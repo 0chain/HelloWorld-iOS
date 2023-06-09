@@ -102,9 +102,7 @@ extension Utils {
       let filemgr = FileManager.default
       switch dirType {
       case .Temporary:
-        //contents are deleted after 3 days in Temp directory
         return URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-
       case .Document:
         return try! filemgr.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
       case .Cache:
@@ -129,19 +127,12 @@ extension Utils {
         defaults.set(value, forKey: key.rawValue)
     }
     
-    public static func get(key: UserDefaultsKey) -> Any {
+    public static func get(key: UserDefaultsKey) -> Any? {
         return defaults.value(forKey: key.rawValue)
     }
     
     public static func delete(key: UserDefaultsKey) {
         defaults.set(nil, forKey: key.rawValue)
-    }
-    
-    public static func getPublicEncryptionKey(mnemonic: String) -> String {
-        var error: NSError?
-        let key = ZcncoreGetPublicEncryptionKey(mnemonic, &error)
-        self.set(key, for: UserDefaultsKey.publicEncKey)
-        return key
     }
     
     public static var wallet: Wallet? {
