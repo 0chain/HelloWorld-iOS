@@ -67,7 +67,6 @@ class VultViewModel: NSObject, ObservableObject {
                     do {
                     let image = try await asset.requestImage()
                       if let data = image.pngData() {
-                          //try uploadFile(data: data, name: name)
                           let filename = asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description
                           var file = File()
                           file.name = filename
@@ -82,21 +81,6 @@ class VultViewModel: NSObject, ObservableObject {
                   }
                   
                 try self.uploadFiles(files: files)
-                /*for newItem in selectedPhotos {
-                    let name = Date().timeIntervalSince1970.description //PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
-                   // if let data = try await newItem.loadTransferable(type: Data.self) {
-                    if let data = newItem.pngData() {
-                        //try uploadFile(data: data, name: name)
-                        var file = File()
-                        file.name = name
-                        file.path = "/\(name)"
-                        try file.saveFile(data: data)
-                        try await file.generateThumbnail()
-                        files.append(file)
-                    }
-                }
-                try self.uploadFiles(files: files)*/
-                
             } catch let error {
                 print(error.localizedDescription)
             }
