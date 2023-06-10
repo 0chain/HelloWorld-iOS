@@ -171,11 +171,12 @@ extension VultViewModel {
                 self.files[index].completedBytes = size
                 self.files[index].status = .completed
                 if op == .upload {
+                    self.allocation.addSize(size)
                     self.files[index].isUploaded = true
+                } else if op == .download {
                     self.files[index]._isDownloaded = true
                 }
             }
-            self.allocation.addSize(size)
             let action = op == .upload ? "Uploaded" : "Downloaded"
             self.popup = .success("\(action) \(filename ?? "")")
             self.presentPopup = true
