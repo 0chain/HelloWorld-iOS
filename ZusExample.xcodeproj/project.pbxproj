@@ -34,6 +34,7 @@
 		4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */; };
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
 		4B89366C2A3428AD00C97863 /* MultiUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B89366B2A3428AD00C97863 /* MultiUpload.swift */; };
+		4B89366E2A3436DE00C97863 /* SendForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B89366D2A3436DE00C97863 /* SendForm.swift */; };
 		4B9A3A4029D29FB5001369A4 /* CopyableTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */; };
 		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
 		4BA409E629FAA50200696845 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA409E529FAA50200696845 /* LinearGradient.swift */; };
@@ -122,6 +123,7 @@
 		4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNProgressStyle.swift; sourceTree = "<group>"; };
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
 		4B89366B2A3428AD00C97863 /* MultiUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiUpload.swift; sourceTree = "<group>"; };
+		4B89366D2A3436DE00C97863 /* SendForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendForm.swift; sourceTree = "<group>"; };
 		4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableTextModifier.swift; sourceTree = "<group>"; };
 		4BA115D229645B3C00951E8B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4BA409E529FAA50200696845 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 			children = (
 				4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */,
 				4B757908295D4AA100724F32 /* WalletActionStack.swift */,
+				4B89366D2A3436DE00C97863 /* SendForm.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
 				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
+				4B89366E2A3436DE00C97863 /* SendForm.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
 				4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */,
 				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,

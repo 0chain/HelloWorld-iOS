@@ -67,13 +67,15 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func walletAction(_ action: WalletActionType) {
-        switch action {
-        case .send:
-            self.presentSendView = true
-        case .receive:
-            self.presentReceiveView = true
-        case .faucet:
-            self.receiveFaucet()
+        DispatchQueue.main.async {
+            switch action {
+            case .send:
+                self.presentSendView = true
+            case .receive:
+                self.presentReceiveView = true
+            case .faucet:
+                self.receiveFaucet()
+            }
         }
     }
     
@@ -97,6 +99,9 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func sendZCN() {
+        DispatchQueue.main.async {
+            self.presentSendView = false
+        }
         Task {
             do {
                 guard let amount = Double(self.amount) else {

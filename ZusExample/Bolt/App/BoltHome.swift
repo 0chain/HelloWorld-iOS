@@ -40,6 +40,10 @@ struct BoltHome: View {
                 if boltVM.presentPopup {
                     ZCNToast(type: boltVM.popup,presented: $boltVM.presentPopup)
                 }
+                
+                NavigationLink(destination: SendForm().environmentObject(boltVM), isActive: $boltVM.presentSendView) {
+                    EmptyView()
+                }
             }
         }
         .padding(20)
@@ -50,7 +54,7 @@ struct BoltHome: View {
         .alert("Recieve ZCN", isPresented: $boltVM.presentReceiveView,actions: {recievAlert}) {
             Text("Wallet address\n\(Utils.wallet?.client_id ?? "")")
         }
-        .alert("Send ZCN", isPresented: $boltVM.presentSendView,actions: {sendAlert})
+      //  .alert("Send ZCN", isPresented: $boltVM.presentSendView,actions: {sendAlert})
         .alert("Error", isPresented: $boltVM.presentErrorAlert) {
             Text(boltVM.alertMessage)
         }
@@ -77,6 +81,7 @@ struct BoltHome: View {
         Button("Send",action:boltVM.sendZCN)
         //.disabled(!boltVM.clientID.isValidAddress || !boltVM.amount.isValidNumber)
     }
+
     
     @ViewBuilder var recievAlert: some View {
         Button("Copy",action:boltVM.copyClientID)
@@ -91,8 +96,9 @@ struct BoltHome_Previews: PreviewProvider {
             boltVM.transactions = [Transaction(hash: "dhudhiduididg", creationDate: 93778937837837, status: 1),Transaction(hash: "dhudheijeioeiduididg", creationDate: 937789337837, status: 1),Transaction(hash: "dhudhidehieeuididg", creationDate: 9377893474837, status: 2)]
             return boltVM
         }()
-        
-        BoltHome()
-            .environmentObject(boltVM)
+        NavigationView {
+            BoltHome()
+                .environmentObject(boltVM)
+        }
     }
 }
