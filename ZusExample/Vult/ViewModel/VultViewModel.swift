@@ -122,11 +122,9 @@ class VultViewModel: NSObject, ObservableObject {
     }
     
     func uploadFiles(files: [File]) throws {
+        let options = files.map { MultiUpload(fileName: $0.name, filePath: $0.localUploadPath.path, thumbnailPath: $0.localThumbnailPath.path, remotePath: "/", encrypt: false) }
         try ZCNFileManager.multiUploadFiles(workdir: Utils.tempPath(),
-                                        localPaths: files.map(\.localUploadPath.path),
-                                        thumbnails: files.map(\.localThumbnailPath.path),
-                                        names: files.map(\.name),
-                                        remotePath: "/",
+                                        options: options,
                                         statusCb: callback)
     }
     
@@ -174,6 +172,7 @@ extension VultViewModel {
                 self.files[index].status = .completed
                 if op == .upload {
                     self.files[index].isUploaded = true
+                    self.files[index]._isDownloaded = true
                 }
             }
             self.allocation.addSize(size)

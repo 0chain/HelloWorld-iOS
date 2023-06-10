@@ -33,6 +33,7 @@
 		4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */; };
 		4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */; };
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
+		4B89366C2A3428AD00C97863 /* MultiUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B89366B2A3428AD00C97863 /* MultiUpload.swift */; };
 		4B9A3A4029D29FB5001369A4 /* CopyableTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */; };
 		4BA115D329645B3C00951E8B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA115D229645B3C00951E8B /* Image.swift */; };
 		4BA409E629FAA50200696845 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA409E529FAA50200696845 /* LinearGradient.swift */; };
@@ -120,6 +121,7 @@
 		4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsBlock.swift; sourceTree = "<group>"; };
 		4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNProgressStyle.swift; sourceTree = "<group>"; };
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
+		4B89366B2A3428AD00C97863 /* MultiUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiUpload.swift; sourceTree = "<group>"; };
 		4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableTextModifier.swift; sourceTree = "<group>"; };
 		4BA115D229645B3C00951E8B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4BA409E529FAA50200696845 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				4BA40A0D29FAADF600696845 /* Balance.swift */,
 				4BE0DFA32A29C37500507C89 /* FileOperation.swift */,
 				4BE0DFA52A29C40600507C89 /* Directory.swift */,
+				4B89366B2A3428AD00C97863 /* MultiUpload.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B89366C2A3428AD00C97863 /* MultiUpload.swift in Sources */,
 				4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */,
 				4BA409FD29FAAB0400696845 /* InfoManager.swift in Sources */,
 				4BE0DFA22A29C35200507C89 /* ZboxStatusCallbackMocked.swift in Sources */,

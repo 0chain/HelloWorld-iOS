@@ -17,6 +17,10 @@ extension File {
     }
     
     var isDownloaded: Bool {
+        return _isDownloaded || isAvailableOffline
+    }
+    
+    var isAvailableOffline: Bool {
         return FileManager.default.fileExists(atPath: localFilePath.path)
     }
     
