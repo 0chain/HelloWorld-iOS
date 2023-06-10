@@ -65,6 +65,7 @@
 		4BEEDB9A296324B800A154E0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9729631CE000A154E0 /* File.swift */; };
 		4BEEDB9C29632FE900A154E0 /* VultHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9B29632FE900A154E0 /* VultHome.swift */; };
 		63B0FC042A31B55C00939F5C /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0FC032A31B55C00939F5C /* PHAsset.swift */; };
+		63FA5A242A32E9770008A5AC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA5A232A32E9770008A5AC /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +155,7 @@
 		4BEEDB9729631CE000A154E0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		4BEEDB9B29632FE900A154E0 /* VultHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VultHome.swift; sourceTree = "<group>"; };
 		63B0FC032A31B55C00939F5C /* PHAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
+		63FA5A232A32E9770008A5AC /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 		4B5789B9296BC95B00E8FCFF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				63FA5A222A32E9670008A5AC /* ImagePicker */,
 				4B5789BA296BC95E00E8FCFF /* ZCNToast */,
 				4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */,
 			);
@@ -501,6 +504,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		63FA5A222A32E9670008A5AC /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				63FA5A232A32E9770008A5AC /* ImagePicker.swift */,
+			);
+			path = ImagePicker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -626,6 +637,7 @@
 				4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */,
 				4B5789BC296BC96E00E8FCFF /* ZCNToast.swift in Sources */,
 				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
+				63FA5A242A32E9770008A5AC /* ImagePicker.swift in Sources */,
 				4B5789BE296BE7BA00E8FCFF /* NetworkDetails.swift in Sources */,
 				4BA40A1129FAB45D00696845 /* UserdefaultManager.swift in Sources */,
 				4B5789B429692D9B00E8FCFF /* Codable.swift in Sources */,

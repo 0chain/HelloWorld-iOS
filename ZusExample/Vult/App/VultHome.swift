@@ -46,6 +46,7 @@ struct VultHome: View {
         .navigationBarTitleDisplayMode(.large)
         .background(Color.gray.opacity(0.1))
         .sheet(isPresented: $vultVM.presentAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
+        .sheet(isPresented: $vultVM.isShowingPicker) { ImagePicker(selectedImages: $vultVM.selectedPhotos)}
         .fileImporter(isPresented: $vultVM.presentDocumentPicker, allowedContentTypes: [.image,.pdf,.audio],onCompletion: vultVM.uploadDocument)
         .onChange(of: vultVM.selectedPhotos, perform: vultVM.uploadImage)
         .environmentObject(vultVM)

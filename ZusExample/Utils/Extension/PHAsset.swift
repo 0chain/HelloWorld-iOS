@@ -67,53 +67,6 @@ extension PHAsset {
     }
   }
   
-  func requestVideo(
-    targetSize: CGSize? = nil,
-    contentMode: PHImageContentMode = .aspectFit,
-    options: PHVideoRequestOptions? = nil
-  ) async throws -> AVURLAsset {
-    
-    var requestID: PHImageRequestID?
-    let manager = PHImageManager.default()
-    
-    return try await withTaskCancellationHandler(
-      handler: { [requestID] in
-        guard let requestID = requestID else {
-          return
-        }
-        
-        manager.accessibilityPath?.lineCapStyle
-      }
-    ) {
-      try await withCheckedThrowingContinuation { continuation in
-        requestID = manager.requestAVAsset(forVideo: self, options: options) {  asset, _, info in
-          
-          if let error = info?[PHImageErrorKey] as? Error {
-            continuation.resume(throwing: error)
-            return
-          }
-          
-          guard !(info?[PHImageCancelledKey] as? Bool ?? false) else {
-            continuation.resume(throwing: CancellationError())
-            return
-          }
-          
-          // When degraded image is provided, the completion handler will be called again.
-          guard !(info?[PHImageResultIsDegradedKey] as? Bool ?? false) else {
-            return
-          }
-          
-          guard let asset = asset as? AVURLAsset else {
-            continuation.resume(throwing: NSError(domain: "Asset not found", code: -1))
-            return
-          }
-          
-          continuation.resume(returning: asset)
-        }
-      }
-    }
-  }
-  
   class var options: PHFetchOptions {
     let options = PHFetchOptions()
     options.sortDescriptors = [NSSortDescriptor(
@@ -122,31 +75,12 @@ extension PHAsset {
     )]
     
     options.predicate = NSPredicate(
-      format: "mediaType = %d OR mediaType = %d",
-      PHAssetMediaType.video.rawValue,
+      format: "mediaType = %d",
       PHAssetMediaType.image.rawValue
     )
     return options
   }
   
-  class var recentOptions: PHFetchOptions {
-    let options = PHFetchOptions()
-    options.sortDescriptors = [NSSortDescriptor(
-      key: "creationDate",
-      ascending: false
-    )]
-    
-    let oneWeekAgo = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date()) ?? Date()
-    
-    options.predicate = NSPredicate(
-      format: "( mediaType = %d OR mediaType = %d ) AND ( creationDate > %@ )",
-      PHAssetMediaType.video.rawValue,
-      PHAssetMediaType.image.rawValue,
-      oneWeekAgo as NSDate
-    )
-    
-    return options
-  }
   
 }
 
