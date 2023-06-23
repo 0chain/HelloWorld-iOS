@@ -9,17 +9,10 @@ import SwiftUI
 import ZCNSwift
 
 struct NetworkDetails: View {
-    @State var config : NetworkConfig = Network.devZus.config
     @State var network: Network = Network.devZus
-    @State var changeNetwork: Network = Network.devZus
-    @State var presentAlert: Bool = false
 
     init() {
-        if let network = Utils.get(key: .network) as? String, let config = Network(rawValue: network) {
-            self.config = config.config
-            self.network = config
-            self.changeNetwork = config
-        }
+        self.network = ZCNUserDefaults.network
     }
     
     var body: some View {
@@ -28,31 +21,14 @@ struct NetworkDetails: View {
             List {
                 Section("Details") {
                     ListRow(title: "Name: ", value: String(describing: network) + " Network")
-                    ListRow(title: "Url: ",value: config.host)
+                    ListRow(title: "Url: ",value: network.config.host)
                 }
                 
                 Section {
-                    Link(destination: URL(string: config.blockWorker)!) {
-                        Text(config.blockWorker)
+                    Link(destination: URL(string: network.config.blockWorker)!) {
+                        Text(network.config.blockWorker)
                     }
                 }
-            }
-            .alert("Are you sure?", isPresented: $presentAlert) {
-                Button {
-                    
-                } label: {
-                    Text("No")
-                }
-                
-                Button {
-                    Utils.delete(key: .walletJSON)
-                    Utils.delete(key: .allocationID)
-                    Utils.set(changeNetwork.rawValue, for: .network)
-                } label: {
-                    Text("Yes, Change network")
-                }
-            } message: {
-                Text("You will be logged out and will have to create a new wallet")
             }
             .navigationTitle(Text("Network Details"))
         }

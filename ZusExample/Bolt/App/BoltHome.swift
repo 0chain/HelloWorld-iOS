@@ -52,7 +52,7 @@ struct BoltHome: View {
         .navigationBarTitleDisplayMode(.large)
         .onAppear(perform: boltVM.getTransactions)
         .alert("Recieve ZCN", isPresented: $boltVM.presentReceiveView,actions: {recievAlert}) {
-            Text("Wallet address\n\(Utils.wallet?.client_id ?? "")")
+            Text("Wallet address\n\(ZCNUserDefaults.wallet?.client_id ?? "")")
         }
       //  .alert("Send ZCN", isPresented: $boltVM.presentSendView,actions: {sendAlert})
         .alert("Error", isPresented: $boltVM.presentErrorAlert) {

@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct AvailableBalanceBlock: View {
     @EnvironmentObject var boltVM: BoltViewModel
-    @AppStorage(Utils.UserDefaultsKey.balance.rawValue) var balance: Int = 0
+    @AppStorage(ZCNUserDefaultsKey.balance.rawValue) var balance: Int = 0
 
     var body: some View {
         VStack(alignment:.leading,spacing: 5) {

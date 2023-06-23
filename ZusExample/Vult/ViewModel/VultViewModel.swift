@@ -38,14 +38,14 @@ class VultViewModel: NSObject, ObservableObject {
     
     override init() {
         super.init()
-        ZCNFileManager.setAllocationID(id: Utils.get(key: .allocationID) as? String ?? "")
+        ZboxManager.setAllocationID(id: ZCNUserDefaults.allocationID ?? "")
         self.getAllocation()
     }
     
     func getAllocation() {
         Task {
             do {
-                let allocation = try await ZCNFileManager.getAllocation()
+                let allocation = try await ZboxManager.getAllocation()
                 DispatchQueue.main.async {
                     self.allocation = allocation
                 }
@@ -110,14 +110,14 @@ class VultViewModel: NSObject, ObservableObject {
     
     func uploadFiles(files: [File]) throws {
         let options = files.map { MultiUpload(fileName: $0.name, filePath: $0.localUploadPath.path, thumbnailPath: $0.localThumbnailPath.path, remotePath: "/", encrypt: false) }
-        try ZCNFileManager.multiUploadFiles(workdir: Utils.tempPath(),
+        try ZboxManager.multiUploadFiles(workdir: Utils.tempPath(),
                                         options: options,
                                         statusCb: callback)
     }
     
     func downloadImage(file: File) {
         do {
-            try ZCNFileManager.downloadFile(remotePath: file.path, localPath: file.localFilePath.path, statusCb: self.callback)
+            try ZboxManager.downloadFile(remotePath: file.path, localPath: file.localFilePath.path, statusCb: self.callback)
             
             DispatchQueue.main.async {
                 self.popup = .progress("Downloading \(file.name)")
@@ -130,7 +130,7 @@ class VultViewModel: NSObject, ObservableObject {
     
     func listDir() async {
         do {
-            let files = try await ZCNFileManager.listDir(remotePath: "/")
+            let files = try await ZboxManager.listDir(remotePath: "/")
             DispatchQueue.main.async {
                 self.files = files.list
             }
@@ -141,7 +141,7 @@ class VultViewModel: NSObject, ObservableObject {
     
     func copyAuthToken(file: File) {
         do {
-            let token = try ZCNFileManager.getAuthTicket(file: file)
+            let token = try ZboxManager.getAuthTicket(file: file)
             UIPasteboard.general.string = token
         } catch {
             

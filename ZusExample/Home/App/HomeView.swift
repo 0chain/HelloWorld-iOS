@@ -87,9 +87,8 @@ struct AppSelectionView_Previews: PreviewProvider {
         let previewDefaults: UserDefaults = {
             let defaults = UserDefaults.standard
             let wallet = Wallet.init(client_id: "8378938937893893639", client_key: "397397639837", keys: [], mnemonics: "", version: "")
-            let data = try? JSONEncoder().encode(wallet)
-            defaults.set(data, forKey: Utils.UserDefaultsKey.wallet.rawValue)
-            defaults.set("", forKey: Utils.UserDefaultsKey.allocationID.rawValue)
+            ZCNUserDefaults.wallet = wallet
+            ZCNUserDefaults.allocationID = ""
             return defaults
         }()
         

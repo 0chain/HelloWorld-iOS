@@ -7,16 +7,14 @@
 
 import Zcncore
 
-public class ZCNFileManager {
-    
-    static let shared = ZCNFileManager()
+public class ZboxManager {
     
     private static var allocationID = ""
     
     private init() { }
     
     public static func setAllocationID(id: String) {
-        ZCNFileManager.allocationID = id
+        allocationID = id
     }
     
     public static func getAllocation() async throws -> Allocation {

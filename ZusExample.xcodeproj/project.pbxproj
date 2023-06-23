@@ -13,6 +13,10 @@
 		4B5789B82969AC3C00E8FCFF /* WalletDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789B72969AC3C00E8FCFF /* WalletDetailsView.swift */; };
 		4B5789BC296BC96E00E8FCFF /* ZCNToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789BB296BC96E00E8FCFF /* ZCNToast.swift */; };
 		4B5789BE296BE7BA00E8FCFF /* NetworkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5789BD296BE7BA00E8FCFF /* NetworkDetails.swift */; };
+		4B7474202A45DC3D00829960 /* ZcncoreGetBalanceCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B74741F2A45DC3D00829960 /* ZcncoreGetBalanceCallBack.swift */; };
+		4B7474222A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474212A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift */; };
+		4B7474242A45DC6700829960 /* ZcncoreTransactionCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474232A45DC6700829960 /* ZcncoreTransactionCallback.swift */; };
+		4B7474262A45DE6900829960 /* ZCNDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474252A45DE6900829960 /* ZCNDefaults.swift */; };
 		4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */; };
 		4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */; };
 		4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578C6295C7D0D00724F32 /* Assets.xcassets */; };
@@ -47,11 +51,9 @@
 		4BA409F129FAAADB00696845 /* ZCNSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BA409F029FAAADB00696845 /* ZCNSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BA409F429FAAADB00696845 /* ZCNSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409EE29FAAADB00696845 /* ZCNSwift.framework */; };
 		4BA409F529FAAADB00696845 /* ZCNSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409EE29FAAADB00696845 /* ZCNSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4BA409FD29FAAB0400696845 /* InfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA409FC29FAAB0400696845 /* InfoManager.swift */; };
 		4BA40A0129FAAB1C00696845 /* zcncore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409FF29FAAB1C00696845 /* zcncore.xcframework */; };
 		4BA40A0229FAAB1C00696845 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA40A0029FAAB1C00696845 /* libbls.xcframework */; };
 		4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0329FAAB4400696845 /* UploadManager.swift */; };
-		4BA40A0729FAAB6700696845 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0629FAAB6700696845 /* TransactionManager.swift */; };
 		4BA40A0929FAAB9000696845 /* ZCNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0829FAAB9000696845 /* ZCNError.swift */; };
 		4BA40A0C29FAAC9300696845 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0B29FAAC9300696845 /* Transaction.swift */; };
 		4BA40A0E29FAADF600696845 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0D29FAADF600696845 /* Balance.swift */; };
@@ -61,7 +63,7 @@
 		4BB813E62964755B00B00B5C /* AllocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813E52964755B00B00B5C /* AllocationDetailsView.swift */; };
 		4BB813F82965BA1200B00B5C /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB813F72965BA1200B00B5C /* Bundle.swift */; };
 		4BB813FA2966F7E300B00B5C /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BB813F92966F7E300B00B5C /* Launch.storyboard */; };
-		4BE0DFA22A29C35200507C89 /* ZboxStatusCallbackMocked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0DFA12A29C35200507C89 /* ZboxStatusCallbackMocked.swift */; };
+		4BE0DFA22A29C35200507C89 /* ZboxStatusCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0DFA12A29C35200507C89 /* ZboxStatusCallback.swift */; };
 		4BE0DFA42A29C37500507C89 /* FileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0DFA32A29C37500507C89 /* FileOperation.swift */; };
 		4BE0DFA62A29C40600507C89 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0DFA52A29C40600507C89 /* Directory.swift */; };
 		4BE0DFA92A29C41C00507C89 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0DFA82A29C41C00507C89 /* Int.swift */; };
@@ -104,6 +106,10 @@
 		4B5789B72969AC3C00E8FCFF /* WalletDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailsView.swift; sourceTree = "<group>"; };
 		4B5789BB296BC96E00E8FCFF /* ZCNToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNToast.swift; sourceTree = "<group>"; };
 		4B5789BD296BE7BA00E8FCFF /* NetworkDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDetails.swift; sourceTree = "<group>"; };
+		4B74741F2A45DC3D00829960 /* ZcncoreGetBalanceCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreGetBalanceCallBack.swift; sourceTree = "<group>"; };
+		4B7474212A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreGetInfoCallBack.swift; sourceTree = "<group>"; };
+		4B7474232A45DC6700829960 /* ZcncoreTransactionCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreTransactionCallback.swift; sourceTree = "<group>"; };
+		4B7474252A45DE6900829960 /* ZCNDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNDefaults.swift; sourceTree = "<group>"; };
 		4B7578BF295C7D0B00724F32 /* ZusExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZusExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZusExampleApp.swift; sourceTree = "<group>"; };
 		4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
@@ -141,11 +147,9 @@
 		4BA409E729FAA53F00696845 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4BA409EE29FAAADB00696845 /* ZCNSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZCNSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BA409F029FAAADB00696845 /* ZCNSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCNSwift.h; sourceTree = "<group>"; };
-		4BA409FC29FAAB0400696845 /* InfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoManager.swift; sourceTree = "<group>"; };
 		4BA409FF29FAAB1C00696845 /* zcncore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = zcncore.xcframework; sourceTree = "<group>"; };
 		4BA40A0029FAAB1C00696845 /* libbls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libbls.xcframework; sourceTree = "<group>"; };
 		4BA40A0329FAAB4400696845 /* UploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
-		4BA40A0629FAAB6700696845 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
 		4BA40A0829FAAB9000696845 /* ZCNError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNError.swift; sourceTree = "<group>"; };
 		4BA40A0B29FAAC9300696845 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		4BA40A0D29FAADF600696845 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -156,7 +160,7 @@
 		4BB813E9296576FF00B00B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4BB813F72965BA1200B00B5C /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		4BB813F92966F7E300B00B5C /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
-		4BE0DFA12A29C35200507C89 /* ZboxStatusCallbackMocked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZboxStatusCallbackMocked.swift; sourceTree = "<group>"; };
+		4BE0DFA12A29C35200507C89 /* ZboxStatusCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZboxStatusCallback.swift; sourceTree = "<group>"; };
 		4BE0DFA32A29C37500507C89 /* FileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileOperation.swift; sourceTree = "<group>"; };
 		4BE0DFA52A29C40600507C89 /* Directory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
 		4BE0DFA82A29C41C00507C89 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -205,6 +209,17 @@
 				4B5789BB296BC96E00E8FCFF /* ZCNToast.swift */,
 			);
 			path = ZCNToast;
+			sourceTree = "<group>";
+		};
+		4B74741E2A45DC3100829960 /* CallBack */ = {
+			isa = PBXGroup;
+			children = (
+				4B74741F2A45DC3D00829960 /* ZcncoreGetBalanceCallBack.swift */,
+				4B7474212A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift */,
+				4B7474232A45DC6700829960 /* ZcncoreTransactionCallback.swift */,
+				4BE0DFA12A29C35200507C89 /* ZboxStatusCallback.swift */,
+			);
+			path = CallBack;
 			sourceTree = "<group>";
 		};
 		4B7578B6295C7D0B00724F32 = {
@@ -339,14 +354,13 @@
 		4BA409FB29FAAAF200696845 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4B74741E2A45DC3100829960 /* CallBack */,
 				4BE0DFA72A29C41700507C89 /* Extension */,
 				4BA40A0A29FAAC8E00696845 /* Models */,
-				4BA409FC29FAAB0400696845 /* InfoManager.swift */,
 				4BA40A0329FAAB4400696845 /* UploadManager.swift */,
-				4BA40A0629FAAB6700696845 /* TransactionManager.swift */,
 				4BA40A0829FAAB9000696845 /* ZCNError.swift */,
-				4BE0DFA12A29C35200507C89 /* ZboxStatusCallbackMocked.swift */,
 				4B8B84602A2C4AF30010CDCB /* ZcncoreManager.swift */,
+				4B7474252A45DE6900829960 /* ZCNDefaults.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -420,7 +434,6 @@
 			isa = PBXGroup;
 			children = (
 				4B7578D2295C7D4300724F32 /* App */,
-				4BB813F32965AF1000B00B5C /* Model */,
 				4B7578D5295C7D4C00724F32 /* ViewModel */,
 			);
 			path = Home;
@@ -465,13 +478,6 @@
 			isa = PBXGroup;
 			children = (
 				4BEEDB9729631CE000A154E0 /* File.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		4BB813F32965AF1000B00B5C /* Model */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -651,7 +657,6 @@
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
 				4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */,
 				4B5789BC296BC96E00E8FCFF /* ZCNToast.swift in Sources */,
-				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
 				63FA5A242A32E9770008A5AC /* ImagePicker.swift in Sources */,
 				4B5789BE296BE7BA00E8FCFF /* NetworkDetails.swift in Sources */,
 				4BA40A1129FAB45D00696845 /* UserdefaultManager.swift in Sources */,
@@ -663,7 +668,6 @@
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
-				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
 				4B89366E2A3436DE00C97863 /* SendForm.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
 				4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */,
@@ -689,23 +693,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7474242A45DC6700829960 /* ZcncoreTransactionCallback.swift in Sources */,
 				4B89366C2A3428AD00C97863 /* MultiUpload.swift in Sources */,
 				4B8B845B2A2C4A4F0010CDCB /* Wallet.swift in Sources */,
 				4B8B84652A2C4D4F0010CDCB /* Codable.swift in Sources */,
 				4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */,
 				4B8B845A2A2C4A4F0010CDCB /* Balance.swift in Sources */,
-				4BA409FD29FAAB0400696845 /* InfoManager.swift in Sources */,
-				4BE0DFA22A29C35200507C89 /* ZboxStatusCallbackMocked.swift in Sources */,
+				4BE0DFA22A29C35200507C89 /* ZboxStatusCallback.swift in Sources */,
 				4BA40A0929FAAB9000696845 /* ZCNError.swift in Sources */,
-				4BA40A0729FAAB6700696845 /* TransactionManager.swift in Sources */,
 				4B8B84712A2DC9010010CDCB /* NetworkConfig.swift in Sources */,
 				4BA40A0E29FAADF600696845 /* Balance.swift in Sources */,
+				4B7474262A45DE6900829960 /* ZCNDefaults.swift in Sources */,
 				4B8B84502A2C49940010CDCB /* Wallet.swift in Sources */,
+				4B7474222A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift in Sources */,
 				4BE0DFAB2A2A296B00507C89 /* Allocation.swift in Sources */,
 				4BA40A0C29FAAC9300696845 /* Transaction.swift in Sources */,
 				4BE0DFA92A29C41C00507C89 /* Int.swift in Sources */,
 				4BE0DFA42A29C37500507C89 /* FileOperation.swift in Sources */,
 				4BE0DFA62A29C40600507C89 /* Directory.swift in Sources */,
+				4B7474202A45DC3D00829960 /* ZcncoreGetBalanceCallBack.swift in Sources */,
 				4B8B84632A2C4CB20010CDCB /* NetworkConfig.swift in Sources */,
 				4B8B84612A2C4AF30010CDCB /* ZcncoreManager.swift in Sources */,
 			);

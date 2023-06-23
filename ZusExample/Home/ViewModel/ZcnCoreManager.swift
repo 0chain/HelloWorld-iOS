@@ -10,7 +10,7 @@ import Zcncore
 import Photos
 import ZCNSwift
 
-class ZcncoreManager: ObservableObject {
+class ZusExampleViewModel: ObservableObject {
     
     private static var network: NetworkConfig = Network.devZus.config
     
@@ -23,11 +23,9 @@ class ZcncoreManager: ObservableObject {
     
     func initialize() {
         do {
-            if let networkScheme = Utils.get(key: .network) as? String, let network = Network(rawValue: networkScheme) {
-                ZcncoreManager.network = network.config
-            }
-            try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: Utils.wallet, network: .devZus)
-            try ZCNSwift.ZcncoreManager.setWalletInfo(wallet: Utils.wallet)
+            ZusExampleViewModel.network = ZCNUserDefaults.network.config
+            try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: ZCNUserDefaults.wallet, network: .devZus)
+            try ZCNSwift.ZcncoreManager.setWalletInfo(wallet: ZCNUserDefaults.wallet)
         } catch let error {
             print(error.localizedDescription)
         }
@@ -41,12 +39,11 @@ class ZcncoreManager: ObservableObject {
             
             let wallet = try ZCNSwift.ZcncoreManager.createWallet()
             
-            Utils.set(try wallet.jsonString(), for: .walletJSON)
-            Utils.wallet = wallet
+            ZCNUserDefaults.wallet = wallet
+            ZCNUserDefaults.walletJSON = try wallet.jsonString()
             
             let getPublicEncryptionKey = try ZCNSwift.ZcncoreManager.getPublicEncryptionKey(wallet: wallet)
-            Utils.set(getPublicEncryptionKey, for: Utils.UserDefaultsKey.publicEncKey)
-
+            ZCNUserDefaults.publicEncKey = getPublicEncryptionKey
             
             try ZCNSwift.ZcncoreManager.setWalletInfo(wallet: wallet)
             try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: wallet, network: ZCNSwift.Network.devZus)
@@ -71,7 +68,7 @@ class ZcncoreManager: ObservableObject {
                     self.toast = .success("Allocation Created Successfully")
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    Utils.set(allocationId, for: .allocationID)
+                    ZCNUserDefaults.allocationID = allocationId
                     self.requestPhotoAuth()
                     
                 }
