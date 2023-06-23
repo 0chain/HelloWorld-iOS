@@ -6,21 +6,19 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 struct AllocationActionStack: View {
     @EnvironmentObject var vultVM: VultViewModel
     @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         HStack(spacing:10) {
             
-            PhotosPicker(
-                selection: $vultVM.selectedPhotos,
-                matching: .images,
-                photoLibrary: .shared()) {
-                    WalletActionBlock(icon: "photo",title: "Upload Image")
+            WalletActionBlock(icon: "photo",title: "Upload Image")
+                .onTapGesture {
+                    vultVM.isShowingPicker = true
                 }
-            
+                
             WalletActionBlock(icon: "document",title: "Upload Document")
                 .onTapGesture {
                     vultVM.presentDocumentPicker = true

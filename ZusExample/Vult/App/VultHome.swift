@@ -22,9 +22,17 @@ struct VultHome: View {
                     
                     FilesTable()
                     
-                    NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
-                                   ,isActive: $vultVM.openFile) {
-                        EmptyView()
+                    if #available(iOS 16.0, *) {
+                        NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline)
+                            .navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
+                                       ,isActive: $vultVM.openFile) {
+                            EmptyView()
+                        }
+                    } else {
+                        NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline)
+                                       ,isActive: $vultVM.openFile) {
+                            EmptyView()
+                        }
                     }
                 }
                 if vultVM.presentPopup {
@@ -38,6 +46,7 @@ struct VultHome: View {
         .navigationBarTitleDisplayMode(.large)
         .background(Color.gray.opacity(0.1))
         .sheet(isPresented: $vultVM.presentAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
+        .sheet(isPresented: $vultVM.isShowingPicker) { ImagePicker(selectedImages: $vultVM.selectedPhotos)}
         .fileImporter(isPresented: $vultVM.presentDocumentPicker, allowedContentTypes: [.image,.pdf,.audio],onCompletion: vultVM.uploadDocument)
         .onChange(of: vultVM.selectedPhotos, perform: vultVM.uploadImage)
         .environmentObject(vultVM)

@@ -34,7 +34,7 @@ struct WalletDetailsView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 Section("details") {
                     ListRow(title: "Client ID", body: wallet?.client_id)

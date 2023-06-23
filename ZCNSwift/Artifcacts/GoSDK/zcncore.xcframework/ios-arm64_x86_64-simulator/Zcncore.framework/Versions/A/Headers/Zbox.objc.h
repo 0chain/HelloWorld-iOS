@@ -20,6 +20,7 @@
 @class ZboxMediaPlaylist;
 @class ZboxMinMaxCost;
 @class ZboxMultiOperationOption;
+@class ZboxMultiUploadOption;
 @class ZboxStatusBarMocked;
 @class ZboxStatusCallbackWrapped;
 @class ZboxStreamingService;
@@ -338,6 +339,19 @@
 @property (nonatomic) NSString* _Nonnull remotePath;
 @property (nonatomic) NSString* _Nonnull destName;
 @property (nonatomic) NSString* _Nonnull destPath;
+@end
+
+@interface ZboxMultiUploadOption : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull filePath;
+@property (nonatomic) NSString* _Nonnull fileName;
+@property (nonatomic) NSString* _Nonnull remotePath;
+@property (nonatomic) NSString* _Nonnull thumbnailPath;
+@property (nonatomic) BOOL encrypt;
 @end
 
 @interface ZboxStatusBarMocked : NSObject <goSeqRefInterface> {
@@ -706,48 +720,36 @@ FOUNDATION_EXPORT BOOL ZboxMoveObject(NSString* _Nullable allocationID, NSString
  * MultiOperation - do copy, move, delete and createdir operation together
 ## Inputs
   - allocationID
-  - jsonMultiUploadOpetions: Json Array of MultiOperationOption. eg: "[{"operationType":"move","remotePath":"/README.md","destPath":"/folder1/"},{"operationType":"delete","remotePath":"/t3.txt"}]"
+  - jsonMultiOperationOptions: Json Array of MultiOperationOption. eg: "[{"operationType":"move","remotePath":"/README.md","destPath":"/folder1/"},{"operationType":"delete","remotePath":"/t3.txt"}]"
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxMultiOperation(NSString* _Nullable allocationID, NSString* _Nullable jsonMultiUploadOptions, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxMultiOperation(NSString* _Nullable allocationID, NSString* _Nullable jsonMultiOperationOptions, NSError* _Nullable* _Nullable error);
 
 /**
  * MultiUpdateFile - update files from local path to remote path
 ## Inputs
   - allocationID
   - workdir: set a workdir as ~/.zcn on mobile apps
-  - filePathsString: space seperated local full path of files. eg "/usr/local/files/f1.txt /usr/local/files/f2.txt"
-  - fileNamesString: space seperated name of files. eg "f1.txt f2.jpeg"
-  - thumbnailPathsString: space seperated path for thumbnails. eg "full_path1  full_path3", here there are two spaces
-    between path1 and path3 because file2 doesn't have thumbnail.
-  - encrypt: string of 0s and 1s denoting whether to encrypt or not. eg "00110": encrypt third and fourth file. Length of string
-    should be equal to number of files.
-  - remotePath: directory path of updated file. It should end with "/"
+  - jsonMultiUploadOpetions: Json Array of MultiOperationOption. eg: "[{"remotePath":"/","filePath":"/t2.txt"},{"remotePath":"/","filePath":"/t3.txt"}]"
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxMultiUpdate(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable filePathsString, NSString* _Nullable fileNamesString, NSString* _Nullable encrypt, NSString* _Nullable thumbnailPathsString, NSString* _Nullable remotePath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxMultiUpdate(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable jsonMultiUploadOptions, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * MultiUploadFile - upload files from local path to remote path
 ## Inputs
   - allocationID
   - workdir: set a workdir as ~/.zcn on mobile apps
-  - filePathsString: space seperated local full path of files. eg "/usr/local/files/f1.txt /usr/local/files/f2.txt"
-  - fileNamesString: space seperated name of files. eg "f1.txt f2.jpeg"
-  - thumbnailPathsString: space seperated path for thumbnails. eg "full_path1  full_path3", here there are two spaces
-    between path1 and path3 because file2 doesn't have thumbnail.
-  - encrypt: string of 0s and 1s denoting whether to encrypt or not. eg "00110": encrypt third and fourth file. Length of string
-    should be equal to number of files.
-  - remotePath: Path of the remote directory where files will upload. It should end with "/"
+  - jsonMultiUploadOpetions: Json Array of MultiOperationOption. eg: "[{"remotePath":"/","filePath":"/t2.txt"},{"remotePath":"/","filePath":"/t3.txt"}]"
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxMultiUpload(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable filePathsString, NSString* _Nullable fileNamesString, NSString* _Nullable encrypt, NSString* _Nullable thumbnailPathsString, NSString* _Nullable remotePath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxMultiUpload(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable jsonMultiUploadOptions, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * NewMediaPlaylist create media playlist(.m3u8)

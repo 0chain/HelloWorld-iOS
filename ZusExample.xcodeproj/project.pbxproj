@@ -30,6 +30,8 @@
 		4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */; };
 		4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */; };
 		4B75CB082963E2C10046C0ED /* AllocationActionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */; };
+		4B89366C2A3428AD00C97863 /* MultiUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B89366B2A3428AD00C97863 /* MultiUpload.swift */; };
+		4B89366E2A3436DE00C97863 /* SendForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B89366D2A3436DE00C97863 /* SendForm.swift */; };
 		4B8B84502A2C49940010CDCB /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578EC295C896500724F32 /* Wallet.swift */; };
 		4B8B845A2A2C4A4F0010CDCB /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B84582A2C4A4E0010CDCB /* Balance.swift */; };
 		4B8B845B2A2C4A4F0010CDCB /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B84592A2C4A4F0010CDCB /* Wallet.swift */; };
@@ -67,6 +69,8 @@
 		4BEEDB942962D82D00A154E0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB932962D82D00A154E0 /* String.swift */; };
 		4BEEDB9A296324B800A154E0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9729631CE000A154E0 /* File.swift */; };
 		4BEEDB9C29632FE900A154E0 /* VultHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEEDB9B29632FE900A154E0 /* VultHome.swift */; };
+		63B0FC042A31B55C00939F5C /* PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0FC032A31B55C00939F5C /* PHAsset.swift */; };
+		63FA5A242A32E9770008A5AC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA5A232A32E9770008A5AC /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +127,8 @@
 		4B75CB032963D8FF0046C0ED /* AllocationDetailsBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationDetailsBlock.swift; sourceTree = "<group>"; };
 		4B75CB052963E2880046C0ED /* ZCNProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNProgressStyle.swift; sourceTree = "<group>"; };
 		4B75CB072963E2C10046C0ED /* AllocationActionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationActionStack.swift; sourceTree = "<group>"; };
+		4B89366B2A3428AD00C97863 /* MultiUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiUpload.swift; sourceTree = "<group>"; };
+		4B89366D2A3436DE00C97863 /* SendForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendForm.swift; sourceTree = "<group>"; };
 		4B8B84582A2C4A4E0010CDCB /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		4B8B84592A2C4A4F0010CDCB /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		4B8B845C2A2C4A5E0010CDCB /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -158,6 +164,8 @@
 		4BEEDB952963190E00A154E0 /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
 		4BEEDB9729631CE000A154E0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		4BEEDB9B29632FE900A154E0 /* VultHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VultHome.swift; sourceTree = "<group>"; };
+		63B0FC032A31B55C00939F5C /* PHAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAsset.swift; sourceTree = "<group>"; };
+		63FA5A232A32E9770008A5AC /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +192,7 @@
 		4B5789B9296BC95B00E8FCFF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				63FA5A222A32E9670008A5AC /* ImagePicker */,
 				4B5789BA296BC95E00E8FCFF /* ZCNToast */,
 				4B9A3A3F29D29FB5001369A4 /* CopyableTextModifier.swift */,
 			);
@@ -304,6 +313,7 @@
 				4BB813F72965BA1200B00B5C /* Bundle.swift */,
 				4B5789B329692D9B00E8FCFF /* Codable.swift */,
 				4BA409E529FAA50200696845 /* LinearGradient.swift */,
+				63B0FC032A31B55C00939F5C /* PHAsset.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -361,6 +371,7 @@
 				4BA40A0D29FAADF600696845 /* Balance.swift */,
 				4BE0DFA32A29C37500507C89 /* FileOperation.swift */,
 				4BE0DFA52A29C40600507C89 /* Directory.swift */,
+				4B89366B2A3428AD00C97863 /* MultiUpload.swift */,
 				4B7578DE295C7E5600724F32 /* NetworkConfig.swift */,
 				4B8B84622A2C4CB20010CDCB /* NetworkConfig.swift */,
 			);
@@ -429,6 +440,7 @@
 			children = (
 				4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */,
 				4B757908295D4AA100724F32 /* WalletActionStack.swift */,
+				4B89366D2A3436DE00C97863 /* SendForm.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -505,6 +517,14 @@
 				4B8B84642A2C4D4F0010CDCB /* Codable.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		63FA5A222A32E9670008A5AC /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				63FA5A232A32E9770008A5AC /* ImagePicker.swift */,
+			);
+			path = ImagePicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -631,15 +651,20 @@
 				4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */,
 				4B75CB042963D8FF0046C0ED /* AllocationDetailsBlock.swift in Sources */,
 				4B5789BC296BC96E00E8FCFF /* ZCNToast.swift in Sources */,
+				4B7578DF295C7E5600724F32 /* NetworkConfig.swift in Sources */,
+				63FA5A242A32E9770008A5AC /* ImagePicker.swift in Sources */,
 				4B5789BE296BE7BA00E8FCFF /* NetworkDetails.swift in Sources */,
 				4BA40A1129FAB45D00696845 /* UserdefaultManager.swift in Sources */,
 				4B5789B429692D9B00E8FCFF /* Codable.swift in Sources */,
 				4BEEDB9C29632FE900A154E0 /* VultHome.swift in Sources */,
+				63B0FC042A31B55C00939F5C /* PHAsset.swift in Sources */,
 				4B5789B229692C8A00E8FCFF /* TransactionDetails.swift in Sources */,
 				4B7578FE295D3E9000724F32 /* BoltHome.swift in Sources */,
 				4B7578E8295C82D900724F32 /* Utils.swift in Sources */,
 				4B757907295D46EF00724F32 /* SwiftUI.swift in Sources */,
 				4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */,
+				4B7578ED295C896500724F32 /* Wallet.swift in Sources */,
+				4B89366E2A3436DE00C97863 /* SendForm.swift in Sources */,
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
 				4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */,
 				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,
@@ -664,6 +689,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B89366C2A3428AD00C97863 /* MultiUpload.swift in Sources */,
 				4B8B845B2A2C4A4F0010CDCB /* Wallet.swift in Sources */,
 				4B8B84652A2C4D4F0010CDCB /* Codable.swift in Sources */,
 				4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */,
@@ -838,7 +864,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -887,7 +913,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -924,7 +950,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -961,7 +987,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

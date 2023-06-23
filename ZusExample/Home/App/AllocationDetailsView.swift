@@ -11,7 +11,7 @@ import ZCNSwift
 struct AllocationDetailsView: View {
     let allocation: Allocation
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 Section("details") {
                     ListRow(title: "Allocation ID:", body: allocation.id)

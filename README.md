@@ -4,15 +4,21 @@ SDK.
 
 The app covers demo for two product lines of Zus i.e. bolt and vult.
 
+<!-- https://github.com/0chain/HelloWorld-iOS/assets/53724307/3090ea44-e9b7-4bf4-9ff5-2f0f4f977ef7 -->
+
 ## Bolt
 
 It is a cryptocurrency wallet for exchange of zcn ERC 20 and ethereum tokens. Tokens can also be
 staked and users get rewards for staking.
 
+<!-- https://github.com/0chain/HelloWorld-iOS/assets/53724307/af80af11-a1b0-47ae-9e32-cd2314f9b236 -->
+
 ## Vult
 
 Vult is a dencentralised anonymous file sharing platform. Users can upload files and share them with
 other users.
+
+<!-- https://github.com/0chain/HelloWorld-iOS/assets/53724307/22447aec-0768-48d0-a4ea-a1fcbfaf6355 -->
 
 ## SDK
 
@@ -34,22 +40,17 @@ configJson is the json string which contains the configuration for the sdk.
 ```json
  {
   "config": {
-    "chain_id": "0afc093ffb509f059c55478bc1a60351cef7b4e9c008a53a6cc8241ca8617dfe",
     "signature_scheme": "bls0chain",
-    "block_worker": "https://beta.0chain.net/dns",
-    "min_submit": 50,
-    "min_confirmation": 50,
-    "confirmation_chain_length": 3,
-    "num_keys": 1,
-    "eth_node": "https://ropsten.infura.io/v3/f0a254d8d18b4749bd8540da63b3292b"
+    "block_worker": "https://demo.zus.network/dns",
+    "confirmation_chain_length": 3
   },
   "data_shards": 2,
   "parity_shards": 2,
-  "zbox_url": "https://0box.beta.0chain.net/",
-  "block_worker": "https://beta.0chain.net",
-  "domain_url": "beta.0chain.net",
-  "network_fee_url": "https://beta.0chain.net/miner01/v1/block/get/fee_stats",
-  "explorer_url": "https://beta.0chain.net/"
+  "zbox_url": "https://0box.demo.zus.network/",
+  "block_worker": "https://demo.zus.network",
+  "domain_url": "demo.zus.network",
+  "network_fee_url": "https://demo.zus.network/miner01/v1/block/get/fee_stats",
+  "explorer_url": "https://demo.zus.network/"
 }
 ```
 
@@ -84,3 +85,9 @@ To create a wallet you need to call the `ZcncoreCreateWallet` function.
   blobber, miner, sharder, or user.
 - `mnemonics` - Mnemonics are a set of words that are used to generate a wallet. Mnemonics are used
   to generate a wallet for a user.
+ 
+## Hackathon Discord Link
+
+https://discord.gg/7JSzwpcK55
+
+

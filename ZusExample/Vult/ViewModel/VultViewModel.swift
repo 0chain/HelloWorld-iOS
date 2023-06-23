@@ -10,6 +10,9 @@ import Zcncore
 import Combine
 import _PhotosUI_SwiftUI
 import ZCNSwift
+import Photos
+import AVKit
+import SwiftUI
 
 class VultViewModel: NSObject, ObservableObject {
     
@@ -19,13 +22,14 @@ class VultViewModel: NSObject, ObservableObject {
     @Published var presentDocumentPicker: Bool = false
 
     @Published var files: Files = []
-    @Published var selectedPhotos: [PhotosPickerItem] = []
+    @Published var selectedPhotos: [PHPickerResult] = [] //[PhotosPickerItem] = []
 
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
 
     @Published var presentPopup: Bool = false
     @Published var popup = ZCNToast.ZCNToastType.success("YES")
+    @Published var isShowingPicker = false
 
     lazy var callback: ZboxStatusCallback = {
         let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
@@ -51,26 +55,32 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func uploadImage(selectedPhotos: [PhotosPickerItem]) {
+    //func uploadImage(selectedPhotos: [PhotosPickerItem]) {
+    func uploadImage(selectedPhotos: [PHPickerResult]) {
         Task {
             var files: Files = []
-            
             do {
-                for newItem in selectedPhotos {
-                    let name = PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
-                    if let data = try await newItem.loadTransferable(type: Data.self) {
-                        //try uploadFile(data: data, name: name)
-                        var file = File()
-                        file.name = name
-                        file.path = "/\(name)"
-                        try file.saveFile(data: data)
-                        try await file.generateThumbnail()
-                        files.append(file)
+                let identifiers = selectedPhotos.compactMap(\.assetIdentifier)
+                let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
+                for index in 0..<fetchResult.count {
+                  let asset = fetchResult.object(at: index)
+                    do {
+                    let image = try await asset.requestImage()
+                      if let data = image.pngData() {
+                          let filename = asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description
+                          var file = File()
+                          file.name = filename
+                          file.path = "/\(filename)"
+                          try file.saveFile(data: data)
+                          try await file.generateThumbnail()
+                          files.append(file)
+                      }
+                    } catch let error {
+                      print(error)
                     }
-                }
-                
+                  }
+                  
                 try self.uploadFiles(files: files)
-                
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -99,11 +109,9 @@ class VultViewModel: NSObject, ObservableObject {
     }
     
     func uploadFiles(files: [File]) throws {
+        let options = files.map { MultiUpload(fileName: $0.name, filePath: $0.localUploadPath.path, thumbnailPath: $0.localThumbnailPath.path, remotePath: "/", encrypt: false) }
         try ZCNFileManager.multiUploadFiles(workdir: Utils.tempPath(),
-                                        localPaths: files.map(\.localUploadPath.path),
-                                        thumbnails: files.map(\.localThumbnailPath.path),
-                                        names: files.map(\.name),
-                                        remotePath: "/",
+                                        options: options,
                                         statusCb: callback)
     }
     
@@ -150,10 +158,12 @@ extension VultViewModel {
                 self.files[index].completedBytes = size
                 self.files[index].status = .completed
                 if op == .upload {
+                    self.allocation.addSize(size)
                     self.files[index].isUploaded = true
+                } else if op == .download {
+                    self.files[index]._isDownloaded = true
                 }
             }
-            self.allocation.addSize(size)
             let action = op == .upload ? "Uploaded" : "Downloaded"
             self.popup = .success("\(action) \(filename ?? "")")
             self.presentPopup = true

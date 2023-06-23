@@ -64,19 +64,17 @@ public class ZCNFileManager {
       }
     }
     
-    public static func multiUploadFiles(workdir: String, localPaths: [String],thumbnails: [String], names: [String], remotePath: String,statusCb: ZboxStatusCallbackMockedProtocol? = nil) throws {
-      var error: NSError?
-      DispatchQueue.global(qos: .userInitiated).async {
-        let path = localPaths.joined(separator: " ")
-        let thumbnail = thumbnails.joined(separator: " ")
-        let remote = remotePath.appending("/").replacingOccurrences(of: "//", with: "/")
-        let name = names.joined(separator: " ")
-        let encrypt = Array(repeating: "0", count: names.count).joined()
-        ZboxMultiUpload(allocationID, workdir, path, name, encrypt, thumbnail, remote, statusCb, &error)
-      }
-      if let error = error {
-        throw error
-      }
+    public static func multiUploadFiles(workdir: String, options: [MultiUpload],statusCb: ZboxStatusCallbackMockedProtocol? = nil) throws {
+        var error: NSError?
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.withoutEscapingSlashes]
+        let data = try encoder.encode(options)
+        let string = String(data: data, encoding: .utf8)
+        
+        ZboxMultiUpload(allocationID, workdir, string, statusCb, &error)
+        if let error = error {
+            throw error
+        }
     }
     
     public static func downloadFile(remotePath: String, localPath: String, statusCb: ZboxStatusCallbackMockedProtocol? = nil) throws {
