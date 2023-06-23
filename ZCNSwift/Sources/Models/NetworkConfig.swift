@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct NetworkConfig: Codable {
+public struct NetworkConfig: Codable {
     
-    let signatureScheme: String
-    let confirmationChainLength: Int
-    let blockWorker, zboxURL: String
+    public let signatureScheme: String
+    public let confirmationChainLength: Int
+    public let blockWorker, zboxURL: String
     
     enum CodingKeys: String, CodingKey {
         case signatureScheme = "signature_scheme"
@@ -35,13 +35,13 @@ struct NetworkConfig: Codable {
         self.init(blockWorker: blockWorker, zboxURL: zboxURL)
     }
     
-    var host: String {
+    public var host: String {
         return URLComponents(string: blockWorker)?.host ?? ""
     }
     
 }
 
-enum Network: String,CaseIterable {
+public enum Network: String,CaseIterable {
     case demoZus = "demo.zus.network"
     case devZus = "dev.zus.network"
     case bcv1 = "bcv1.devnet-0chain.net"
@@ -49,7 +49,7 @@ enum Network: String,CaseIterable {
     case potato = "potato.devnet-0chain.net"
     case test = "test.0chain.net"
     
-    var config: NetworkConfig {
+    public var config: NetworkConfig {
         return NetworkConfig(scheme: self.rawValue)
     }
 }

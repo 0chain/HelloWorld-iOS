@@ -1,17 +1,18 @@
 //
 //  Balance.swift
-//  ZCNSwift
+//  ZusExample
 //
-//  Created by Aaryan Kothari on 27/04/23.
+//  Created by Aaryan Kothari on 29/12/22.
 //
 
 import Foundation
+import Zcncore
 
-struct Balance: Codable, Equatable {
+public struct Balance: Codable, Equatable {
     
     private var txn: String?
     private var round: Int?
-    private var _balance: Int?
+    public var _balance: Int?
     private var error: String?
     
     internal init(txn: String? = nil, round: Int? = nil,balance _balance: Int? = nil, error: String? = nil) {
@@ -28,7 +29,7 @@ struct Balance: Codable, Equatable {
         case error
     }
     
-    var balance: Int {
+    public var balance: Int {
         return _balance ?? 0
     }
     

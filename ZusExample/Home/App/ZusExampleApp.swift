@@ -11,12 +11,7 @@ import SwiftUI
 struct ZusExampleApp: App {
     @AppStorage(Utils.UserDefaultsKey.walletJSON.rawValue) var wallet: String = ""
     @AppStorage(Utils.UserDefaultsKey.allocationID.rawValue) var allocation: String = ""
-
-    @StateObject var zcncoreVM: ZcncoreManager = ZcncoreManager.shared
-    
-    init() {
-        zcncoreVM.initialize()
-    }
+    @StateObject var zcncoreVM: ZcncoreManager = .init()
     
     var body: some Scene {
         WindowGroup {

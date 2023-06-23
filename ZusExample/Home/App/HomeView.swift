@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct HomeView: View {
     @State var presentWalletDetails : Bool = false
