@@ -19,7 +19,9 @@ class VultViewModel: NSObject, ObservableObject {
     @Published var allocation: Allocation = Allocation.default    
 
     @Published var files: Files = []
-
+    
+    @Published var selectedFiles: [File] = []
+    
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
 
@@ -36,7 +38,7 @@ class VultViewModel: NSObject, ObservableObject {
             self.openFile = true
             self.selectedFile = file
         } else if file.isUploaded {
-            downloadImage(file: file)
+            downloadImage(file: [file])
         }
     }
     
@@ -112,10 +114,11 @@ class VultViewModel: NSObject, ObservableObject {
                                         statusCb: callback)
     }
     
-    func downloadImage(file: File) {
+    func downloadImage(file: [File]) {
         do {
-            try ZboxManager.downloadFile(remotePath: file.path, localPath: file.localFilePath.path, statusCb: self.callback)
-            self.presentPopup(.progress("Downloading \(file.name)"))
+            try ZboxManager.multiDownloadFiles(options: file.map(\.multiDownload), statusCb: self.callback)
+            let message = file.count == 1 ? "\(file[0].name)" : "\(file.count) files"
+            self.presentPopup(.progress("Downloading \(message)"))
         } catch let error {
             print(error.localizedDescription)
         }

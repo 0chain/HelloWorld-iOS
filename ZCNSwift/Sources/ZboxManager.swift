@@ -74,6 +74,18 @@ public class ZboxManager {
         }
     }
     
+    public static func multiDownloadFiles(options: [MultiDownload],statusCb: ZboxStatusCallbackMockedProtocol? = nil) throws {
+        var error: NSError?
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.withoutEscapingSlashes]
+        let data = try encoder.encode(options)
+        let string = String(data: data, encoding: .utf8)
+        ZboxMultiDownload(allocationID, string, statusCb, &error)
+        if let error = error {
+            throw error
+        }
+    }
+    
     public static func downloadFile(remotePath: String, localPath: String, statusCb: ZboxStatusCallbackMockedProtocol? = nil) throws {
       var error: NSError?
       ZboxDownloadFile(allocationID, remotePath, localPath, statusCb,true, &error)

@@ -22,6 +22,7 @@ struct VultHome: View {
             
             FilesTable(didTapRow: vultVM.didTapRow(file:),
                        didCopy: vultVM.copyAuthToken(file:),
+                       downloadFiles: vultVM.downloadImage(file:),
                        files: vultVM.files)
             
             FilePreviewViewNavigation()
@@ -49,6 +50,8 @@ struct VultHome_Previews: PreviewProvider {
             return vm
         }()
         
-        VultHome(vultVM: vm)
+        NavigationView {
+            VultHome(vultVM: vm)
+        }
     }
 }

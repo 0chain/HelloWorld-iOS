@@ -47,6 +47,10 @@ extension File {
                            encrypt: false)
     }
     
+    var multiDownload: MultiDownload {
+        return MultiDownload(localPath: localFilePath.path, remotePath: path, downloadOp: 1)
+    }
+    
     func saveFile(data: Data?) throws {
         try data?.write(to: localUploadPath, options: .atomic)
     }

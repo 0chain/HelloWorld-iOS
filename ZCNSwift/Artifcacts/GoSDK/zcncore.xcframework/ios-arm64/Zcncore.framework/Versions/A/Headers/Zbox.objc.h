@@ -19,6 +19,7 @@
 @class ZboxMediaItem;
 @class ZboxMediaPlaylist;
 @class ZboxMinMaxCost;
+@class ZboxMultiDownloadOption;
 @class ZboxMultiOperationOption;
 @class ZboxMultiUploadOption;
 @class ZboxStatusBarMocked;
@@ -333,6 +334,19 @@ when set to true it will start the download for all files in the queue
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
+@end
+
+@interface ZboxMultiDownloadOption : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull remotePath;
+@property (nonatomic) NSString* _Nonnull localPath;
+@property (nonatomic) long downloadOp;
+@property (nonatomic) NSString* _Nonnull remoteFileName;
+@property (nonatomic) NSString* _Nonnull remoteLookupHash;
 @end
 
 @interface ZboxMultiOperationOption : NSObject <goSeqRefInterface> {
@@ -728,6 +742,10 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxListDirFromAuthTicket(NSString* _Nullab
   - destPath
  */
 FOUNDATION_EXPORT BOOL ZboxMoveObject(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable destPath, NSError* _Nullable* _Nullable error);
+
+FOUNDATION_EXPORT BOOL ZboxMultiDownload(NSString* _Nullable allocationID, NSString* _Nullable jsonMultiDownloadOptions, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+FOUNDATION_EXPORT BOOL ZboxMultiDownloadFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable authTicket, NSString* _Nullable jsonMultiDownloadOptions, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
 
 /**
  * MultiOperation - do copy, move, delete and createdir operation together

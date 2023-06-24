@@ -22,3 +22,16 @@ public struct MultiUpload: Codable {
     self.encrypt = encrypt
   }
 }
+
+public struct MultiDownload: Codable {
+  public var localPath: String
+  public var remotePath: String
+  public var downloadOp: Int
+  
+  public init(localPath: String, remotePath: String,downloadOp: Int = 1) {
+    self.localPath = localPath
+    self.remotePath = remotePath
+    self.downloadOp = downloadOp
+  }
+  
+}
