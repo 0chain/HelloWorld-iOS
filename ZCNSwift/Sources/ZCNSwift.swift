@@ -21,11 +21,14 @@ public func initialize() -> ZCNSwiftState {
         guard let wallet = ZCNUserDefaults.wallet else {
             return .walletNotFound
         }
+        
         try ZcncoreManager.setWalletInfo(wallet: wallet)
         
         guard let allocationId = ZCNUserDefaults.allocationID else {
             return .allocationNotFound
         }
+        
+        ZboxManager.setAllocationID(id: allocationId)
         
         return .walletAndAllocationExists
     } catch let error {

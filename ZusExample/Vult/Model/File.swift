@@ -39,6 +39,14 @@ extension File {
         return "\(completedBytes/size) %"
     }
     
+    var multiUpload: MultiUpload {
+        return MultiUpload(fileName: name,
+                           filePath: localUploadPath.path,
+                           thumbnailPath: localThumbnailPath.path,
+                           remotePath: "/",
+                           encrypt: false)
+    }
+    
     func saveFile(data: Data?) throws {
         try data?.write(to: localUploadPath, options: .atomic)
     }

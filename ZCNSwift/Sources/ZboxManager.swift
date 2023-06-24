@@ -35,7 +35,7 @@ public class ZboxManager {
         }
     }
     
-    public static func listDir(remotePath: String) async throws -> Directory {
+    public static func listDir(remotePath: String = "/") async throws -> Directory {
       return try await withUnsafeThrowingContinuation { continuation in
         DispatchQueue.global(qos: .userInitiated).async {
           var error: NSError?

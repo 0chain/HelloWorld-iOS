@@ -17,7 +17,6 @@ import SwiftUI
 class VultViewModel: NSObject, ObservableObject {
     
     @Published var allocation: Allocation = Allocation.default    
-    @Published var presentDocumentPicker: Bool = false
 
     @Published var files: Files = []
 
@@ -26,18 +25,11 @@ class VultViewModel: NSObject, ObservableObject {
 
     @Published var presentPopup: Bool = false
     @Published var popup = ZCNToast.ZCNToastType.success("YES")
-    @Published var isShowingPicker = false
 
     lazy var callback: ZboxStatusCallback = {
         let callback = ZboxStatusCallback(completedHandler: self.completed(filePath:filename:mimetype:size:op:), errorHandler: self.error(filePath:op:err:), inProgressHandler: self.inProgress(file:op:), startedHandler: self.started(file:op:))
         return callback
     }()
-    
-    override init() {
-        super.init()
-        ZboxManager.setAllocationID(id: ZCNUserDefaults.allocationID ?? "")
-        self.getAllocation()
-    }
     
     func didTapRow(file: File) {
         if file.isDownloaded {
@@ -115,20 +107,15 @@ class VultViewModel: NSObject, ObservableObject {
     }
     
     func uploadFiles(files: [File]) throws {
-        let options = files.map { MultiUpload(fileName: $0.name, filePath: $0.localUploadPath.path, thumbnailPath: $0.localThumbnailPath.path, remotePath: "/", encrypt: false) }
         try ZboxManager.multiUploadFiles(workdir: Utils.tempPath(),
-                                        options: options,
+                                        options: files.map(\.multiUpload),
                                         statusCb: callback)
     }
     
     func downloadImage(file: File) {
         do {
             try ZboxManager.downloadFile(remotePath: file.path, localPath: file.localFilePath.path, statusCb: self.callback)
-            
-            DispatchQueue.main.async {
-                self.popup = .progress("Downloading \(file.name)")
-                self.presentPopup = true
-            }
+            self.presentPopup(.progress("Downloading \(file.name)"))
         } catch let error {
             print(error.localizedDescription)
         }
@@ -136,7 +123,7 @@ class VultViewModel: NSObject, ObservableObject {
     
     func listDir() async {
         do {
-            let files = try await ZboxManager.listDir(remotePath: "/")
+            let files = try await ZboxManager.listDir()
             DispatchQueue.main.async {
                 self.files = files.list
             }
@@ -150,7 +137,14 @@ class VultViewModel: NSObject, ObservableObject {
             let token = try ZboxManager.getAuthTicket(file: file)
             UIPasteboard.general.string = token
         } catch {
-            
+            self.presentPopup(.error("Failed to generate auth Token"))
+        }
+    }
+    
+    private func presentPopup(_ type: ZCNToast.ZCNToastType) {
+        DispatchQueue.main.async {
+            self.popup = type
+            self.presentPopup = true
         }
     }
     
