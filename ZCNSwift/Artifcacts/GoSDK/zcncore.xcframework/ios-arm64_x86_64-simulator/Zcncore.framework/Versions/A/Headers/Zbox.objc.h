@@ -90,28 +90,34 @@
 - (BOOL)deleteFile:(NSString* _Nullable)remotePath error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFile - start download file from remote path to localpath
+isFinal- set true if this is the last file to download otherwise false
+when set to true it will start the download for all files in the queue
  */
-- (BOOL)downloadFile:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFile:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFileByBlock - start download file from remote path to localpath by blocks number
+isFinal- set true if this is the last file to download otherwise false
+when set to true it will start the download for all files in the queue
  */
-- (BOOL)downloadFileByBlock:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFileByBlock:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFromAuthTicket - download file from Auth ticket
  */
-- (BOOL)downloadFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFromAuthTicketByBlocks - download file from Auth ticket by blocks number
  */
-- (BOOL)downloadFromAuthTicketByBlocks:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFromAuthTicketByBlocks:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadThumbnail - start download file thumbnail from remote path to localpath
+isFinal- set true if this is the last file to download otherwise false
+when set to true it will start the download for all files in the queue
  */
-- (BOOL)downloadThumbnail:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadThumbnail:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadThumbnailFromAuthTicket - downloadThumbnail from Auth ticket
  */
-- (BOOL)downloadThumbnailFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadThumbnailFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * GetStatistics - get allocation stats
  */
@@ -352,6 +358,7 @@
 @property (nonatomic) NSString* _Nonnull remotePath;
 @property (nonatomic) NSString* _Nonnull thumbnailPath;
 @property (nonatomic) BOOL encrypt;
+@property (nonatomic) long chunkNumber;
 @end
 
 @interface ZboxStatusBarMocked : NSObject <goSeqRefInterface> {
@@ -491,11 +498,13 @@ FOUNDATION_EXPORT BOOL ZboxDeleteFile(NSString* _Nullable allocationID, NSString
   - remotePath
   - localPath: the full local path of file
   - statusCb: callback of status
+  - isFinal: is final download request(for example if u want to download 10 files in
+    parallel, the last one should be true)
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFile(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFile(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadFileByBlock - start download file from remote path to localpath by blocks number
@@ -508,12 +517,14 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFile(NSString* _Nullable allocationID, NSStri
   - endBlock
   - numBlocks
   - statusCb: callback of status
+  - isFinal: is final download request(for example if u want to download 10 files in
+    parallel, the last one should be true)
 
 ## Outputs
 
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFileByBlock(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, int64_t startBlock, int64_t endBlock, long numBlocks, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFileByBlock(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, int64_t startBlock, int64_t endBlock, long numBlocks, id<ZboxStatusCallbackMocked> _Nullable statusCb, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadFromAuthTicket - download file from Auth ticket
@@ -526,7 +537,7 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFileByBlock(NSString* _Nullable allocationID,
 	- remoteFilename
 	- status: callback of status
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadFromAuthTicketByBlocks - download file from Auth ticket by blocks number
@@ -541,7 +552,7 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicket(NSString* _Nullable allocation
   - remoteFilename
   - status: callback of status
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicketByBlocks(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, int64_t startBlock, int64_t endBlock, long numBlocks, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicketByBlocks(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, int64_t startBlock, int64_t endBlock, long numBlocks, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadThumbnail - start download file thumbnail from remote path to localpath
@@ -550,11 +561,13 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicketByBlocks(NSString* _Nullable al
   - remotePath
   - localPath
   - statusCb: callback of status
+  - isFinal: is final download request(for example if u want to download 10 files in
+    parallel, the last one should be true)
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadThumbnail(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadThumbnail(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadThumbnailFromAuthTicket - downloadThumbnail from Auth ticket
@@ -566,7 +579,7 @@ FOUNDATION_EXPORT BOOL ZboxDownloadThumbnail(NSString* _Nullable allocationID, N
   - remoteFilename
   - status: callback of status
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadThumbnailFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadThumbnailFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * Encrypt - encrypting text with key

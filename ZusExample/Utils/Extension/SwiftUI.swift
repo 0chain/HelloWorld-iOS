@@ -39,6 +39,36 @@ struct SheetPopup<Destination: View>: ViewModifier {
     }
 }
 
+struct TapToggle: ViewModifier {
+    @Binding var isPresented: Bool
+    
+    init(isPresented: Binding<Bool>) {
+        self._isPresented = isPresented
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .onTapGesture {
+                self.isPresented = true
+            }
+    }
+}
+
+struct ZCNToastModifier: ViewModifier {
+    var type: ZCNToast.ZCNToastType = .success("Successfully recieved token")
+    @Binding var presented: Bool
+    @State var autoDismiss = true
+    
+    func body(content: Content) -> some View {
+        ZStack(alignment: .bottom) {
+            content
+            if presented {
+                ZCNToast(type: type, presented: $presented, autoDismiss: autoDismiss)
+            }
+        }
+    }
+}
+
 extension View {
     @ViewBuilder func destination<Destination: View>(destination: Destination) -> some View {
        modifier(Navigation(destination: destination))
@@ -46,6 +76,14 @@ extension View {
     
     @ViewBuilder func sheet<Destination: View>(destination: Destination) -> some View {
        modifier(SheetPopup(destination: destination))
+    }
+    
+    @ViewBuilder func tapToggle(_ isPresented: Binding<Bool>) -> some View {
+       modifier(TapToggle(isPresented: isPresented))
+    }
+    
+    @ViewBuilder func toast(presented: Binding<Bool>,type: ZCNToast.ZCNToastType,autoDismiss: Bool = true) -> some View {
+       modifier(ZCNToastModifier(type: type, presented: presented, autoDismiss: autoDismiss))
     }
 }
 

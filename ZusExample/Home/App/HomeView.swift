@@ -9,9 +9,6 @@ import SwiftUI
 import ZCNSwift
 
 struct HomeView: View {
-    @State var presentWalletDetails : Bool = false
-    @State var presentVultHome: Bool = false
-    
     @Environment(\.colorScheme) var colorScheme
     @StateObject var boltVM: BoltViewModel = BoltViewModel()
     @StateObject var vultVM: VultViewModel = VultViewModel()
@@ -37,7 +34,7 @@ struct HomeView: View {
                             .destination(destination: BoltHome().environmentObject(boltVM))
                         
                         AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
-                            .destination(destination: VultHome().environmentObject(vultVM))
+                            .destination(destination: VultHome(vultVM: vultVM))
                     }
                     
                     Spacer()
@@ -63,12 +60,6 @@ struct HomeView: View {
             .clipShape(RoundedRectangle(cornerRadius: 16)).shadow(color:Color(white: 0.9),radius: colorScheme == .light ? 25 : 0)
     }
     
-    @ViewBuilder func row(title:String,text:String) -> some View {
-        HStack {
-            Text(title)
-            Text(text)
-        }
-    }
 }
 
 struct AppSelectionView_Previews: PreviewProvider {

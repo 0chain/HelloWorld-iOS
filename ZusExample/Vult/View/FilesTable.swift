@@ -9,28 +9,25 @@ import SwiftUI
 import ZCNSwift
 
 struct FilesTable: View {
-    @EnvironmentObject var vultVM: VultViewModel
-    @State var previewFile:Bool = false
+    var didTapRow: (File) -> ()
+    var didCopy: (File) -> ()
+    var files: Files
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("All Files").bold()
             
            ScrollView(showsIndicators: false) {
-                ForEach(vultVM.files,id:\.id) { file in
+                ForEach(files,id:\.id) { file in
                    FileRow(file: file)
                         .contextMenu(menuItems: {
                             Button("Copy Auth Ticket") {
-                                vultVM.copyAuthToken(file: file)
+                                didCopy(file)
                             }
                         })
                     .id(file.id)
                     .onTapGesture {
-                        if file.isDownloaded {
-                            self.vultVM.openFile = true
-                            self.vultVM.selectedFile = file
-                        } else if file.isUploaded {
-                            vultVM.downloadImage(file: file)
-                        }
+                        self.didTapRow(file)
                     }
                 }
             }
@@ -40,14 +37,7 @@ struct FilesTable: View {
 
 struct FilesTable_Previews: PreviewProvider {
     static var previews: some View {
-        let vm : VultViewModel = {
-            let vm = VultViewModel()
-            vm.files = [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)]
-            return vm
-        }()
-        
-        FilesTable()
-            .environmentObject(vm)
+        FilesTable(didTapRow: { _ in}, didCopy: {_ in}, files: [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)])
     }
 }
 

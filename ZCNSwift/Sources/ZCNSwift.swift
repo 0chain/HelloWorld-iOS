@@ -16,10 +16,11 @@ public enum ZCNSwiftState {
 
 public func initialize() -> ZCNSwiftState {
     do {
+        try ZcncoreManager.initialiseSDK(wallet: ZCNUserDefaults.wallet, network: ZCNUserDefaults.network)
+
         guard let wallet = ZCNUserDefaults.wallet else {
             return .walletNotFound
         }
-        try ZcncoreManager.initialiseSDK(wallet: wallet, network: ZCNUserDefaults.network)
         try ZcncoreManager.setWalletInfo(wallet: wallet)
         
         guard let allocationId = ZCNUserDefaults.allocationID else {

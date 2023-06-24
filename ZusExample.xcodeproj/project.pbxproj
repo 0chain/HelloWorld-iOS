@@ -24,7 +24,7 @@
 		4B7578CB295C7D0D00724F32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578CA295C7D0D00724F32 /* Preview Assets.xcassets */; };
 		4B7578D9295C7DA900724F32 /* BoltViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578D8295C7DA900724F32 /* BoltViewModel.swift */; };
 		4B7578DB295C7DDE00724F32 /* VultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578DA295C7DDE00724F32 /* VultViewModel.swift */; };
-		4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */; };
+		4B7578E6295C82A300724F32 /* ZusExampleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E5295C82A300724F32 /* ZusExampleViewModel.swift */; };
 		4B7578E8295C82D900724F32 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578E7295C82D900724F32 /* Utils.swift */; };
 		4B7578F2295CAD9100724F32 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F1295CAD9100724F32 /* Number.swift */; };
 		4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578F5295CB9B100724F32 /* HomeView.swift */; };
@@ -54,7 +54,7 @@
 		4BA409F529FAAADB00696845 /* ZCNSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409EE29FAAADB00696845 /* ZCNSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BA40A0129FAAB1C00696845 /* zcncore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA409FF29FAAB1C00696845 /* zcncore.xcframework */; };
 		4BA40A0229FAAB1C00696845 /* libbls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA40A0029FAAB1C00696845 /* libbls.xcframework */; };
-		4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0329FAAB4400696845 /* UploadManager.swift */; };
+		4BA40A0429FAAB4400696845 /* ZboxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0329FAAB4400696845 /* ZboxManager.swift */; };
 		4BA40A0929FAAB9000696845 /* ZCNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0829FAAB9000696845 /* ZCNError.swift */; };
 		4BA40A0C29FAAC9300696845 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0B29FAAC9300696845 /* Transaction.swift */; };
 		4BA40A0E29FAADF600696845 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA40A0D29FAADF600696845 /* Balance.swift */; };
@@ -122,7 +122,7 @@
 		4B7578DA295C7DDE00724F32 /* VultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VultViewModel.swift; sourceTree = "<group>"; };
 		4B7578DE295C7E5600724F32 /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 		4B7578E1295C7F5A00724F32 /* zcncore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = zcncore.xcframework; sourceTree = "<group>"; };
-		4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcnCoreManager.swift; sourceTree = "<group>"; };
+		4B7578E5295C82A300724F32 /* ZusExampleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZusExampleViewModel.swift; sourceTree = "<group>"; };
 		4B7578E7295C82D900724F32 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		4B7578EC295C896500724F32 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		4B7578F1295CAD9100724F32 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		4BA409F029FAAADB00696845 /* ZCNSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCNSwift.h; sourceTree = "<group>"; };
 		4BA409FF29FAAB1C00696845 /* zcncore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = zcncore.xcframework; sourceTree = "<group>"; };
 		4BA40A0029FAAB1C00696845 /* libbls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libbls.xcframework; sourceTree = "<group>"; };
-		4BA40A0329FAAB4400696845 /* UploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
+		4BA40A0329FAAB4400696845 /* ZboxManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZboxManager.swift; sourceTree = "<group>"; };
 		4BA40A0829FAAB9000696845 /* ZCNError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNError.swift; sourceTree = "<group>"; };
 		4BA40A0B29FAAC9300696845 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		4BA40A0D29FAADF600696845 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		4B7578D5295C7D4C00724F32 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4B7578E5295C82A300724F32 /* ZcnCoreManager.swift */,
+				4B7578E5295C82A300724F32 /* ZusExampleViewModel.swift */,
 				4B5789B52969AA7800E8FCFF /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
@@ -359,7 +359,7 @@
 				4B74741E2A45DC3100829960 /* CallBack */,
 				4BE0DFA72A29C41700507C89 /* Extension */,
 				4BA40A0A29FAAC8E00696845 /* Models */,
-				4BA40A0329FAAB4400696845 /* UploadManager.swift */,
+				4BA40A0329FAAB4400696845 /* ZboxManager.swift */,
 				4BA40A0829FAAB9000696845 /* ZCNError.swift */,
 				4B8B84602A2C4AF30010CDCB /* ZcncoreManager.swift */,
 				4B7474252A45DE6900829960 /* ZCNDefaults.swift */,
@@ -675,7 +675,7 @@
 				4B7578F2295CAD9100724F32 /* Number.swift in Sources */,
 				4BB2AB2F296BFC0C009B065C /* FilesTable.swift in Sources */,
 				4BEEDB942962D82D00A154E0 /* String.swift in Sources */,
-				4B7578E6295C82A300724F32 /* ZcnCoreManager.swift in Sources */,
+				4B7578E6295C82A300724F32 /* ZusExampleViewModel.swift in Sources */,
 				4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */,
 				4B9A3A4029D29FB5001369A4 /* CopyableTextModifier.swift in Sources */,
 				4B75CB062963E2880046C0ED /* ZCNProgressStyle.swift in Sources */,
@@ -700,7 +700,7 @@
 				4B89366C2A3428AD00C97863 /* MultiUpload.swift in Sources */,
 				4B8B845B2A2C4A4F0010CDCB /* Wallet.swift in Sources */,
 				4B8B84652A2C4D4F0010CDCB /* Codable.swift in Sources */,
-				4BA40A0429FAAB4400696845 /* UploadManager.swift in Sources */,
+				4BA40A0429FAAB4400696845 /* ZboxManager.swift in Sources */,
 				4B8B845A2A2C4A4F0010CDCB /* Balance.swift in Sources */,
 				4BE0DFA22A29C35200507C89 /* ZboxStatusCallback.swift in Sources */,
 				4BA40A0929FAAB9000696845 /* ZCNError.swift in Sources */,

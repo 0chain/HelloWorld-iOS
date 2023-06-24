@@ -9,7 +9,7 @@ import SwiftUI
 import ZCNSwift
 
 struct NetworkDetails: View {
-    @State var network: Network = Network.devZus
+    @State private var network: Network
 
     init() {
         self.network = ZCNUserDefaults.network

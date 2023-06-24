@@ -16,13 +16,10 @@ import SwiftUI
 
 class VultViewModel: NSObject, ObservableObject {
     
-    @Published var allocation: Allocation = Allocation.default
-    
-    @Published var presentAllocationDetails: Bool = false
+    @Published var allocation: Allocation = Allocation.default    
     @Published var presentDocumentPicker: Bool = false
 
     @Published var files: Files = []
-    @Published var selectedPhotos: [PHPickerResult] = [] //[PhotosPickerItem] = []
 
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
@@ -40,6 +37,15 @@ class VultViewModel: NSObject, ObservableObject {
         super.init()
         ZboxManager.setAllocationID(id: ZCNUserDefaults.allocationID ?? "")
         self.getAllocation()
+    }
+    
+    func didTapRow(file: File) {
+        if file.isDownloaded {
+            self.openFile = true
+            self.selectedFile = file
+        } else if file.isUploaded {
+            downloadImage(file: file)
+        }
     }
     
     func getAllocation() {

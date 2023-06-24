@@ -1,5 +1,5 @@
 //
-//  UploadManager.swift
+//  ZboxManager.swift
 //  ZCNSwift
 //
 //  Created by Aaryan Kothari on 27/04/23.
@@ -68,7 +68,6 @@ public class ZboxManager {
         encoder.outputFormatting = [.withoutEscapingSlashes]
         let data = try encoder.encode(options)
         let string = String(data: data, encoding: .utf8)
-        
         ZboxMultiUpload(allocationID, workdir, string, statusCb, &error)
         if let error = error {
             throw error
@@ -77,7 +76,7 @@ public class ZboxManager {
     
     public static func downloadFile(remotePath: String, localPath: String, statusCb: ZboxStatusCallbackMockedProtocol? = nil) throws {
       var error: NSError?
-      ZboxDownloadFile(allocationID, remotePath, localPath, statusCb, &error)
+      ZboxDownloadFile(allocationID, remotePath, localPath, statusCb,true, &error)
       
       if let error = error {
         throw error
