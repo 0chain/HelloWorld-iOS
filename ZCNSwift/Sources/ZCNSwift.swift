@@ -1,0 +1,34 @@
+//
+//  ZCNSwift.swift
+//  ZCNSwift
+//
+//  Created by Aaryan Kothari on 23/06/23.
+//
+
+import Foundation
+
+public enum ZCNSwiftState {
+    case walletNotFound
+    case allocationNotFound
+    case walletAndAllocationExists
+    case error(String)
+}
+
+public func initialize() -> ZCNSwiftState {
+    do {
+        guard let wallet = ZCNUserDefaults.wallet else {
+            return .walletNotFound
+        }
+        try ZcncoreManager.initialiseSDK(wallet: wallet, network: ZCNUserDefaults.network)
+        try ZcncoreManager.setWalletInfo(wallet: wallet)
+        
+        guard let allocationId = ZCNUserDefaults.allocationID else {
+            return .allocationNotFound
+        }
+        
+        return .walletAndAllocationExists
+    } catch let error {
+        print(error.localizedDescription)
+        return .error(error.localizedDescription)
+    }
+}

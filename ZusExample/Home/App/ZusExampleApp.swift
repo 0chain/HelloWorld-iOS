@@ -14,6 +14,10 @@ struct ZusExampleApp: App {
     @AppStorage(ZCNUserDefaultsKey.allocationID.rawValue) var allocation: String = ""
     @StateObject var zcncoreVM: ZusExampleViewModel = .init()
     
+    init() {
+        ZCNSwift.initialize()
+    }
+    
     var body: some Scene {
         WindowGroup {
             Group {

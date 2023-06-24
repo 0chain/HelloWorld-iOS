@@ -22,9 +22,30 @@ struct Navigation<Destination: View>: ViewModifier {
     }
 }
 
+struct SheetPopup<Destination: View>: ViewModifier {
+    var destination: Destination
+    @State var isPresented: Bool = false
+    
+    init(destination: Destination) {
+        self.destination = destination
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .sheet(isPresented: $isPresented, content: { destination })
+            .onTapGesture {
+                self.isPresented = true
+            }
+    }
+}
+
 extension View {
     @ViewBuilder func destination<Destination: View>(destination: Destination) -> some View {
        modifier(Navigation(destination: destination))
+    }
+    
+    @ViewBuilder func sheet<Destination: View>(destination: Destination) -> some View {
+       modifier(SheetPopup(destination: destination))
     }
 }
 

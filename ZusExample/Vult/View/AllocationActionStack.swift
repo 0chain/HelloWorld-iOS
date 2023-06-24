@@ -15,9 +15,7 @@ struct AllocationActionStack: View {
         HStack(spacing:10) {
             
             WalletActionBlock(icon: "photo",title: "Upload Image")
-                .onTapGesture {
-                    vultVM.isShowingPicker = true
-                }
+                .destination(destination: ImagePicker(selectedImages: $vultVM.selectedPhotos))
                 
             WalletActionBlock(icon: "document",title: "Upload Document")
                 .onTapGesture {

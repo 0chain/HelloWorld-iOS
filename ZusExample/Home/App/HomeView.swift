@@ -23,23 +23,15 @@ struct HomeView: View {
                 VStack(alignment: .center,spacing: 50) {
                     HStack(spacing: 15) {
                         WalletActionBlock(icon: "wallet", title: "Wallet Details")
-                            .onTapGesture {
-                                homeVM.presentWalletDetails()
-                            }
+                            .sheet(destination: WalletDetailsView())
                         WalletActionBlock(icon: "allocation", title: "Allocation Details")
-                            .onTapGesture {
-                                homeVM.presentAllocationDetails()
-                            }
-                        
+                            .sheet(destination: AllocationDetailsView(allocation: vultVM.allocation))
                         WalletActionBlock(icon: "network", title: "Network Details")
-                            .onTapGesture {
-                                homeVM.presentNetworkDetails()
-                            }
+                            .sheet(destination: NetworkDetails())
                     }
                     .aspectRatio(2.5, contentMode: .fit)
                     .shadow(color: Color(white: 0.9),radius: colorScheme == .light ? 25 : 0)
-                
-
+                    
                     HStack {
                         AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
                             .destination(destination: BoltHome().environmentObject(boltVM))
@@ -54,9 +46,6 @@ struct HomeView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(gr.size.width/15)
-                .sheet(isPresented: $homeVM.pushAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
-                .sheet(isPresented: $homeVM.pushWalletDetails) { WalletDetailsView() }
-                .sheet(isPresented: $homeVM.pushNetworkDetails) { NetworkDetails() }
                 .onAppear(perform: vultVM.getAllocation)
             }
             .background(Color.background)

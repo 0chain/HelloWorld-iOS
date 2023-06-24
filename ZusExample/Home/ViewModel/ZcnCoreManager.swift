@@ -16,20 +16,6 @@ class ZusExampleViewModel: ObservableObject {
     
     @Published var processing: Bool = false
     @Published var toast: ZCNToast.ZCNToastType = .progress("Creating Wallet...")
-
-    init() {
-        self.initialize()
-    }
-    
-    func initialize() {
-        do {
-            ZusExampleViewModel.network = ZCNUserDefaults.network.config
-            try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: ZCNUserDefaults.wallet, network: .devZus)
-            try ZCNSwift.ZcncoreManager.setWalletInfo(wallet: ZCNUserDefaults.wallet)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
     
     func createWallet() {
         

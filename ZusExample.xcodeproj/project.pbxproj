@@ -17,6 +17,7 @@
 		4B7474222A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474212A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift */; };
 		4B7474242A45DC6700829960 /* ZcncoreTransactionCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474232A45DC6700829960 /* ZcncoreTransactionCallback.swift */; };
 		4B7474262A45DE6900829960 /* ZCNDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474252A45DE6900829960 /* ZCNDefaults.swift */; };
+		4B7474292A45E68900829960 /* ZCNSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474282A45E68900829960 /* ZCNSwift.swift */; };
 		4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */; };
 		4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */; };
 		4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578C6295C7D0D00724F32 /* Assets.xcassets */; };
@@ -110,6 +111,7 @@
 		4B7474212A45DC4D00829960 /* ZcncoreGetInfoCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreGetInfoCallBack.swift; sourceTree = "<group>"; };
 		4B7474232A45DC6700829960 /* ZcncoreTransactionCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreTransactionCallback.swift; sourceTree = "<group>"; };
 		4B7474252A45DE6900829960 /* ZCNDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNDefaults.swift; sourceTree = "<group>"; };
+		4B7474282A45E68900829960 /* ZCNSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNSwift.swift; sourceTree = "<group>"; };
 		4B7578BF295C7D0B00724F32 /* ZusExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZusExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZusExampleApp.swift; sourceTree = "<group>"; };
 		4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				4BA40A0829FAAB9000696845 /* ZCNError.swift */,
 				4B8B84602A2C4AF30010CDCB /* ZcncoreManager.swift */,
 				4B7474252A45DE6900829960 /* ZCNDefaults.swift */,
+				4B7474282A45E68900829960 /* ZCNSwift.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -712,6 +715,7 @@
 				4BE0DFA42A29C37500507C89 /* FileOperation.swift in Sources */,
 				4BE0DFA62A29C40600507C89 /* Directory.swift in Sources */,
 				4B7474202A45DC3D00829960 /* ZcncoreGetBalanceCallBack.swift in Sources */,
+				4B7474292A45E68900829960 /* ZCNSwift.swift in Sources */,
 				4B8B84632A2C4CB20010CDCB /* NetworkConfig.swift in Sources */,
 				4B8B84612A2C4AF30010CDCB /* ZcncoreManager.swift in Sources */,
 			);
