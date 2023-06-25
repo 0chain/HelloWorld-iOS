@@ -16,9 +16,7 @@ class BoltViewModel:NSObject, ObservableObject {
     
     @Published var presentReceiveView: Bool = false
     @Published var presentSendView: Bool = false
-
-    @Published var alertMessage: String = ""
-
+    
     @Published var transactions: ZCNSwift.Transactions = []
     
     @Published var presentPopup: Bool = false
@@ -28,11 +26,11 @@ class BoltViewModel:NSObject, ObservableObject {
     
     override init() {
         super.init()
-        Timer.publish(every: 30, on: RunLoop.main, in: .default)
-            .autoconnect()
-            .map { _ in }
-            .sink(receiveValue: getBalance)
-            .store(in: &cancellable)
+//        Timer.publish(every: 30, on: RunLoop.main, in: .default)
+//            .autoconnect()
+//            .map { _ in }
+//            .sink(receiveValue: getBalance)
+//            .store(in: &cancellable)
         
         balance = ZCNUserDefaults.balance
     }
@@ -70,18 +68,17 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func receiveFaucet() {
-        self.presentSendView = false
+        self.popup = .progress("Recieving ZCN from faucet")
+        self.presentPopup = true
         Task {
             do {
-                DispatchQueue.main.async {
-                    self.popup = .progress("Recieving ZCN from faucet")
-                    self.presentPopup = true
-                }
                 let txn = try await ZcncoreManager.faucet()
-                self.transactions.append(txn)
                 
-                self.onTransactionComplete(t: txn)
-
+                DispatchQueue.main.async {
+                    self.transactions.append(txn)
+                    self.onTransactionComplete(t: txn)
+                }
+                
             } catch let error {
                 self.onTransactionFailed(error: error.localizedDescription)
             }
@@ -125,9 +122,11 @@ class BoltViewModel:NSObject, ObservableObject {
                 }
                 
                 let txn = try await ZcncoreManager.send(toClientID: clientID, value: amount.value, desc: "")
-                self.transactions.append(txn)
-
-                self.onTransactionComplete(t: txn)
+                
+                DispatchQueue.main.async {
+                    self.transactions.append(txn)
+                    self.onTransactionComplete(t: txn)
+                }
                 
             } catch let error {
                 self.onTransactionFailed(error: error.localizedDescription)
@@ -139,20 +138,13 @@ class BoltViewModel:NSObject, ObservableObject {
         PasteBoard.general.setString(ZCNUserDefaults.wallet?.client_key)
     }
     
-    func getTransactions() {
-        Task {
-            do {
-                let clientId = ZCNUserDefaults.wallet?.client_id
-                let txns1 = (try? await ZcncoreManager.getTransactions(toClient: clientId, fromClient: nil)) ?? []
-                let txns2 = (try? await ZcncoreManager.getTransactions(toClient: nil, fromClient: clientId)) ?? []
-
-                DispatchQueue.main.async {
-                    self.transactions = txns1 + txns2
-                }
-                
-            } catch {
-                print("ERROR")
-            }
+    func getTransactions() async {
+        let clientId = ZCNUserDefaults.wallet?.client_id
+        let txns1 = (try? await ZcncoreManager.getTransactions(toClient: clientId, fromClient: nil)) ?? []
+        let txns2 = (try? await ZcncoreManager.getTransactions(toClient: nil, fromClient: clientId)) ?? []
+        
+        DispatchQueue.main.async {
+            self.transactions = txns1 + txns2
         }
     }
     

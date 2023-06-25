@@ -30,6 +30,9 @@ public func initialize() -> ZCNSwiftState {
         
         ZboxManager.setAllocationID(id: allocationId)
         
+        let usd = ZcncoreManager.getZcnUSDInfo()
+        ZCNUserDefaults.usd = usd
+        
         return .walletAndAllocationExists
     } catch let error {
         print(error.localizedDescription)

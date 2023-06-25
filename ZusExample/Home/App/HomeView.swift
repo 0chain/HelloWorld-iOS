@@ -31,7 +31,7 @@ struct HomeView: View {
                     
                     HStack {
                         AppSelectionBox(icon: "bolt",width: gr.size.width * 0.7)
-                            .destination(destination: BoltHome().environmentObject(boltVM))
+                            .destination(destination: BoltHome(boltVM: boltVM))
                         
                         AppSelectionBox(icon: "vult",width: gr.size.width * 0.7)
                             .destination(destination: VultHome(vultVM: vultVM))

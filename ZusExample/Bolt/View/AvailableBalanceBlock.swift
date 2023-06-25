@@ -10,6 +10,7 @@ import ZCNSwift
 
 struct AvailableBalanceBlock: View {
     @AppStorage(ZCNUserDefaultsKey.balance.rawValue) var balance: Int = 0
+    @AppStorage(ZCNUserDefaultsKey.usd.rawValue) var usd: Double = 0.0
 
     var body: some View {
         VStack(alignment:.leading,spacing: 5) {
@@ -29,12 +30,12 @@ struct AvailableBalanceBlock: View {
             HStack {
                 Text("Total Balance")
                     .font(.system(size: 16, weight: .regular))
-                Text("$ \(balance.usd)")
+                Text("$ \(balance.tokens * usd)")
                     .font(.system(size: 16, weight: .bold))
                 
             }
             
-            Text("1 ZCN ≈ $\(Utils.zcnUsdRate)")
+            Text("1 ZCN ≈ $\(usd)")
                 .foregroundColor(.secondary)
         }
     }

@@ -9,7 +9,7 @@ import SwiftUI
 import ZCNSwift
 
 struct BoltHome: View {
-    @EnvironmentObject var boltVM: BoltViewModel
+    @ObservedObject var boltVM: BoltViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,7 +28,7 @@ struct BoltHome: View {
         .padding(20)
         .navigationTitle(Text("Bolt"))
         .navigationBarTitleDisplayMode(.large)
-        .onAppear(perform: boltVM.getTransactions)
+        .task{ await boltVM.getTransactions() }
         .alert("Recieve ZCN", isPresented: $boltVM.presentReceiveView,actions: {recievAlert}) {
             Text("Wallet address\n\(ZCNUserDefaults.wallet?.client_id ?? "")")
         }
@@ -41,15 +41,14 @@ struct BoltHome: View {
 }
 
 struct BoltHome_Previews: PreviewProvider {
+    static var boltVM: BoltViewModel = {
+        let boltVM = BoltViewModel()
+        boltVM.transactions = [Transaction(hash: "dhudhiduididg", creationDate: 93778937837837, status: 1),Transaction(hash: "dhudheijeioeiduididg", creationDate: 937789337837, status: 1),Transaction(hash: "dhudhidehieeuididg", creationDate: 9377893474837, status: 2)]
+        return boltVM
+    }()
     static var previews: some View {
-        var boltVM: BoltViewModel = {
-            let boltVM = BoltViewModel()
-            boltVM.transactions = [Transaction(hash: "dhudhiduididg", creationDate: 93778937837837, status: 1),Transaction(hash: "dhudheijeioeiduididg", creationDate: 937789337837, status: 1),Transaction(hash: "dhudhidehieeuididg", creationDate: 9377893474837, status: 2)]
-            return boltVM
-        }()
         NavigationView {
-            BoltHome()
-                .environmentObject(boltVM)
+            BoltHome(boltVM: boltVM)
         }
     }
 }

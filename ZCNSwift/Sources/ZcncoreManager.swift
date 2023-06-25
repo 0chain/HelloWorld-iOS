@@ -31,6 +31,13 @@ public class ZcncoreManager {
         }
     }
     
+    public static func getZcnUSDInfo() -> Double {
+        var error: NSError? = nil
+        var usd: Double = 0.0
+        ZcncoreGetZcnUSDInfo(&usd, &error)
+        return usd
+    }
+    
     public static func createWallet() throws -> Wallet {
         
         var error: NSError?
@@ -108,12 +115,13 @@ public class ZcncoreManager {
                 continuation.resume(throwing: error!)
                 return
             }
-            
-            do {
-                try transaction.executeSmartContract("6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3", methodName: "pour", input: "{}", val: "10000000000")
-            } catch {
-                print("🧯 executeSmartContract error \(error.localizedDescription)")
-                continuation.resume(throwing: error)
+            DispatchQueue.global().async {
+                do {
+                    try transaction.executeSmartContract("6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3", methodName: "pour", input: "{}", val: "10000000000")
+                } catch {
+                    print("🧯 executeSmartContract error \(error.localizedDescription)")
+                    continuation.resume(throwing: error)
+                }
             }
         }
     }

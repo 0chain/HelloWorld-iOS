@@ -13,9 +13,9 @@ struct WalletActionStack: View {
     var body: some View {
         GeometryReader { gr in
             HStack(spacing:0) {
-                ForEach(WalletActionType.allCases,id:\.self) { action in
-                    WalletActionButton(width: gr.size.width, action: walletAction, button: action)
-                }
+                WalletActionButton(width: gr.size.width, action: walletAction, button: .send)
+                WalletActionButton(width: gr.size.width, action: walletAction, button: .receive)
+                WalletActionButton(width: gr.size.width, action: walletAction, button: .faucet)
             }
             .frame(height:gr.size.width/4)
             .background(Color.tertiarySystemBackground)

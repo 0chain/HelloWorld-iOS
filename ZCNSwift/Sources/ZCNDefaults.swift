@@ -60,8 +60,8 @@ public struct ZCNUserDefaults {
         set { defaults.set(newValue, forKey: ZCNUserDefaultsKey.publicEncKey.rawValue) }
     }
 
-    public static var usd: String? {
-        get { return defaults.string(forKey: ZCNUserDefaultsKey.usd.rawValue) }
+    public static var usd: Double {
+        get { return defaults.double(forKey: ZCNUserDefaultsKey.usd.rawValue) ?? 0.0 }
         set { defaults.set(newValue, forKey: ZCNUserDefaultsKey.usd.rawValue) }
     }
 
