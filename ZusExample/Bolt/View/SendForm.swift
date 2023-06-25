@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct SendForm: View {
-    @EnvironmentObject var boltVM: BoltViewModel
+    var sendZCN: (String, String) -> ()
+    @State private var clientID: String = ""
+    @State private var amount: String = ""
+    
     @Environment(\.dismiss) var dismiss
     var body: some View {
         Form {
             Section {
-                TextField("client ID", text: $boltVM.clientID)
-                TextField("amount", text: $boltVM.amount)
+                TextField("client ID", text: $clientID)
+                TextField("amount", text: $amount)
                     .keyboardType(.decimalPad)
             }
             Section {
@@ -26,13 +29,12 @@ struct SendForm: View {
     
     func send() {
         dismiss.callAsFunction()
-        boltVM.sendZCN()
+        self.sendZCN(clientID,amount)
     }
 }
 
 struct SendForm_Previews: PreviewProvider {
     static var previews: some View {
-        SendForm()
-            .environmentObject(BoltViewModel())
+        SendForm(sendZCN: { _,_  in })
     }
 }

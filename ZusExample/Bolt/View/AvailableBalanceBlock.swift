@@ -9,7 +9,6 @@ import SwiftUI
 import ZCNSwift
 
 struct AvailableBalanceBlock: View {
-    @EnvironmentObject var boltVM: BoltViewModel
     @AppStorage(ZCNUserDefaultsKey.balance.rawValue) var balance: Int = 0
 
     var body: some View {
@@ -44,7 +43,6 @@ struct AvailableBalanceBlock: View {
 struct AvailableBalanceBlock_Previews: PreviewProvider {
     static var previews: some View {
         AvailableBalanceBlock()
-            .environmentObject(BoltViewModel())
             .padding(20)
             .previewLayout(.sizeThatFits)
     }

@@ -18,6 +18,7 @@
 		4B7474242A45DC6700829960 /* ZcncoreTransactionCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474232A45DC6700829960 /* ZcncoreTransactionCallback.swift */; };
 		4B7474262A45DE6900829960 /* ZCNDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474252A45DE6900829960 /* ZCNDefaults.swift */; };
 		4B7474292A45E68900829960 /* ZCNSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7474282A45E68900829960 /* ZCNSwift.swift */; };
+		4B74742B2A48860900829960 /* TransactionsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B74742A2A48860900829960 /* TransactionsTable.swift */; };
 		4B7578C3295C7D0B00724F32 /* ZusExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */; };
 		4B7578C5295C7D0B00724F32 /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */; };
 		4B7578C7295C7D0D00724F32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7578C6295C7D0D00724F32 /* Assets.xcassets */; };
@@ -112,6 +113,7 @@
 		4B7474232A45DC6700829960 /* ZcncoreTransactionCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcncoreTransactionCallback.swift; sourceTree = "<group>"; };
 		4B7474252A45DE6900829960 /* ZCNDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNDefaults.swift; sourceTree = "<group>"; };
 		4B7474282A45E68900829960 /* ZCNSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCNSwift.swift; sourceTree = "<group>"; };
+		4B74742A2A48860900829960 /* TransactionsTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTable.swift; sourceTree = "<group>"; };
 		4B7578BF295C7D0B00724F32 /* ZusExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZusExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7578C2295C7D0B00724F32 /* ZusExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZusExampleApp.swift; sourceTree = "<group>"; };
 		4B7578C4295C7D0B00724F32 /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				4B757902295D3F0300724F32 /* AvailableBalanceBlock.swift */,
 				4B757908295D4AA100724F32 /* WalletActionStack.swift */,
 				4B89366D2A3436DE00C97863 /* SendForm.swift */,
+				4B74742A2A48860900829960 /* TransactionsTable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -682,6 +685,7 @@
 				4B7578F6295CB9B100724F32 /* HomeView.swift in Sources */,
 				4B8B845E2A2C4A5F0010CDCB /* Balance.swift in Sources */,
 				4BA409E629FAA50200696845 /* LinearGradient.swift in Sources */,
+				4B74742B2A48860900829960 /* TransactionsTable.swift in Sources */,
 				4BB813E429646F3000B00B5C /* PreviewController.swift in Sources */,
 				4BEEDB9A296324B800A154E0 /* File.swift in Sources */,
 				4B757909295D4AA100724F32 /* WalletActionStack.swift in Sources */,

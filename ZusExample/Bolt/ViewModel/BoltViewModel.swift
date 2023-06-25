@@ -15,12 +15,9 @@ class BoltViewModel:NSObject, ObservableObject {
     @Published var balance: Int = 0
     
     @Published var presentReceiveView: Bool = false
-    @Published var presentErrorAlert: Bool = false
     @Published var presentSendView: Bool = false
 
     @Published var alertMessage: String = ""
-    @Published var clientID: String = ""
-    @Published var amount: String = ""
 
     @Published var transactions: ZCNSwift.Transactions = []
     
@@ -91,18 +88,18 @@ class BoltViewModel:NSObject, ObservableObject {
         }
     }
     
-    func sendZCN() {
+    func sendZCN(clientID: String, amount: String) {
         DispatchQueue.main.async {
             self.presentSendView = false
         }
         Task {
             do {
-                guard let amount = Double(self.amount) else {
+                guard let amount = Double(amount) else {
                     self.onTransactionFailed(error: "invalid amount")
                     return
                 }
                 
-                guard self.clientID.isValidAddress else {
+                guard clientID.isValidAddress else {
                     self.onTransactionFailed(error: "invalid address")
                     return
                 }
@@ -117,7 +114,7 @@ class BoltViewModel:NSObject, ObservableObject {
                     return
                 }
                 
-                guard ZCNUserDefaults.wallet?.client_id != self.clientID else {
+                guard ZCNUserDefaults.wallet?.client_id != clientID else {
                     self.onTransactionFailed(error: "cannot send to own wallet")
                     return
                 }
@@ -127,15 +124,11 @@ class BoltViewModel:NSObject, ObservableObject {
                     self.presentPopup = true
                 }
                 
-                let txn = try await ZcncoreManager.send(toClientID: self.clientID, value: amount.value, desc: "")
+                let txn = try await ZcncoreManager.send(toClientID: clientID, value: amount.value, desc: "")
                 self.transactions.append(txn)
 
                 self.onTransactionComplete(t: txn)
-
-                DispatchQueue.main.async {
-                    self.clientID = ""
-                    self.amount = ""
-                }
+                
             } catch let error {
                 self.onTransactionFailed(error: error.localizedDescription)
             }
