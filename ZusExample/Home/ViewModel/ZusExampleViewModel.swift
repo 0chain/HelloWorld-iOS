@@ -55,6 +55,7 @@ class ZusExampleViewModel: ObservableObject {
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     ZCNUserDefaults.allocationID = allocationId
+                    ZboxManager.setAllocationID(id: allocationId)
                     self.requestPhotoAuth()
                     
                 }

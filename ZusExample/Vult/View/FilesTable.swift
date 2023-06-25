@@ -18,29 +18,33 @@ struct FilesTable: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            HStack {
+            HStack(spacing: 30) {
                 Text("All Files").bold()
-                Spacer()
+                    .frame(maxWidth: .infinity,alignment: .leading)
+               // Spacer(minLength: 5)
                 
-                if selecting {
-                    Button(action: {
-                        self.downloadFiles(selectedFiles)
-                        self.selecting = false
-                        self.selectedFiles.removeAll()
-                    }) {
-                        Label("Confirm \(selectedFiles.count) download", systemImage: "arrow.down.circle.fill")
-                    }
-                    
-                    Button(action: {
-                        self.selecting = false
-                        self.selectedFiles.removeAll()
-                    }) {
-                        Label("Cancel", systemImage: "arrow.down.circle.fill")
-                    }
-                    
-                } else {
-                    Button(action: {  self.selecting = true }) {
-                        Label("Download", systemImage: "arrow.down.circle.fill")
+                if !files.isEmpty {
+                    if selecting {
+                        Button(action: {
+                            self.downloadFiles(selectedFiles)
+                            self.selecting = false
+                            self.selectedFiles.removeAll()
+                        }) {
+                            Label("Confirm", systemImage: "arrow.down.circle.fill")
+                        }
+                        .disabled(selectedFiles.isEmpty)
+                        
+                        Button(action: {
+                            self.selecting = false
+                            self.selectedFiles.removeAll()
+                        }) {
+                            Label("Cancel", systemImage: "x.circle.fill")
+                        }
+                        
+                    } else {
+                        Button(action: {  self.selecting = true }) {
+                            Label("Download", systemImage: "arrow.down.circle.fill")
+                        }
                     }
                 }
             }
@@ -84,11 +88,12 @@ struct FileRow: View {
         HStack(spacing: 20) {
             if selecting {
                 if selectedFiles.contains(file) {
-                    Image(systemName: "checkmark.circle.fill")
+                    Image(systemName: "checkmark.circle.fill").foregroundColor(.cyan)
                 } else {
-                    Image(systemName: "circle")
+                    Image(systemName: "circle").foregroundColor(.cyan)
                 }
             }
+            
             if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {
                 Image(image)
                     .resizable()
