@@ -10,37 +10,35 @@ import PhotosUI
 import ZCNSwift
 
 struct VultHome: View {
-    @EnvironmentObject var vultVM: VultViewModel
+    @ObservedObject var vultVM: VultViewModel
     
     var body: some View {
-        GeometryReader { gr in
-            ZStack(alignment: .bottom) {
-                VStack(alignment: .leading) {
-                    AllocationDetailsBlock()
-                    
-                    AllocationActionStack()
-                    
-                    FilesTable()
-                    
-                    NavigationLink(destination: PreviewController(files: vultVM.files,file: vultVM.selectedFile).navigationTitle(Text(vultVM.selectedFile?.name ?? "")) .navigationBarTitleDisplayMode(.inline).navigationDocument(vultVM.selectedFile?.localThumbnailPath ?? URL(fileURLWithPath: ""))
-                                   ,isActive: $vultVM.openFile) {
-                        EmptyView()
-                    }
-                }
-                if vultVM.presentPopup {
-                    ZCNToast(type: vultVM.popup,presented: $vultVM.presentPopup)
-                }
-            }
-            .padding(22)
+        VStack {
+            
+            AllocationDetailsBlock(allocation: vultVM.allocation)
+            
+            AllocationActionStack(didSelectPhotos: vultVM.uploadImage(selectedPhotos:),
+                                  didSelectDocuments: vultVM.uploadDocument(result:))
+            
+            FilesTable(didTapRow: vultVM.didTapRow(file:),
+                       didCopy: vultVM.copyAuthToken(file:),
+                       downloadFiles: vultVM.downloadImage(file:),
+                       files: vultVM.files)
+            
+            FilePreviewViewNavigation()
         }
+        .toast(presented: $vultVM.presentPopup, type: vultVM.popup)
+        .padding(22)
         .task{ await vultVM.listDir() }
         .navigationTitle(Text("Vult"))
         .navigationBarTitleDisplayMode(.large)
         .background(Color.gray.opacity(0.1))
-        .sheet(isPresented: $vultVM.presentAllocationDetails) { AllocationDetailsView(allocation: vultVM.allocation) }
-        .fileImporter(isPresented: $vultVM.presentDocumentPicker, allowedContentTypes: [.image,.pdf,.audio],onCompletion: vultVM.uploadDocument)
-        .onChange(of: vultVM.selectedPhotos, perform: vultVM.uploadImage)
-        .environmentObject(vultVM)
+    }
+    
+    @ViewBuilder func FilePreviewViewNavigation() -> some View {
+        NavigationLink(destination: FilePreviewView(files: vultVM.files, file: vultVM.selectedFile), isActive: $vultVM.openFile) {
+            EmptyView()
+        }
     }
 }
 
@@ -52,7 +50,8 @@ struct VultHome_Previews: PreviewProvider {
             return vm
         }()
         
-        VultHome()
-            .environmentObject(vm)
+        NavigationView {
+            VultHome(vultVM: vm)
+        }
     }
 }

@@ -9,6 +9,17 @@ import SwiftUI
 import QuickLook
 import ZCNSwift
 
+struct FilePreviewView: View {
+    var files: Files
+    var file: File?
+    
+    var body: some View {
+        PreviewController(files: files, file: file)
+            .navigationTitle(Text(file?.name ?? ""))
+            .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
 struct PreviewController: UIViewControllerRepresentable {
     var files: Files
     var file: File?

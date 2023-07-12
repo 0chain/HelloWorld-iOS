@@ -9,27 +9,63 @@ import SwiftUI
 import ZCNSwift
 
 struct FilesTable: View {
-    @EnvironmentObject var vultVM: VultViewModel
-    @State var previewFile:Bool = false
+    var didTapRow: (File) -> ()
+    var didCopy: (File) -> ()
+    var downloadFiles: ([File]) -> ()
+    var files: Files
+    @State var selectedFiles: [File] = []
+    @State private var selecting = false
     var body: some View {
         VStack(alignment: .leading) {
-            Text("All Files").bold()
             
+            HStack(spacing: 30) {
+                Text("All Files").bold()
+                    .frame(maxWidth: .infinity,alignment: .leading)
+               // Spacer(minLength: 5)
+                
+                if !files.isEmpty {
+                    if selecting {
+                        Button(action: {
+                            self.downloadFiles(selectedFiles)
+                            self.selecting = false
+                            self.selectedFiles.removeAll()
+                        }) {
+                            Label("Confirm", systemImage: "arrow.down.circle.fill")
+                        }
+                        .disabled(selectedFiles.isEmpty)
+                        
+                        Button(action: {
+                            self.selecting = false
+                            self.selectedFiles.removeAll()
+                        }) {
+                            Label("Cancel", systemImage: "x.circle.fill")
+                        }
+                        
+                    } else {
+                        Button(action: {  self.selecting = true }) {
+                            Label("Download", systemImage: "arrow.down.circle.fill")
+                        }
+                    }
+                }
+            }
            ScrollView(showsIndicators: false) {
-                ForEach(vultVM.files,id:\.id) { file in
-                   FileRow(file: file)
+                ForEach(files,id:\.id) { file in
+                   FileRow(file: file, selecting: selecting, selectedFiles: $selectedFiles)
                         .contextMenu(menuItems: {
                             Button("Copy Auth Ticket") {
-                                vultVM.copyAuthToken(file: file)
+                                didCopy(file)
                             }
                         })
                     .id(file.id)
                     .onTapGesture {
-                        if file.isDownloaded {
-                            self.vultVM.openFile = true
-                            self.vultVM.selectedFile = file
-                        } else if file.isUploaded {
-                            vultVM.downloadImage(file: file)
+                        if selecting {
+                            if let index = selectedFiles.firstIndex(of: file) {
+                                selectedFiles.remove(at: index)
+                            } else {
+                                selectedFiles.append(file)
+                            }
+                        } else {
+                            self.didTapRow(file)
                         }
                     }
                 }
@@ -40,21 +76,24 @@ struct FilesTable: View {
 
 struct FilesTable_Previews: PreviewProvider {
     static var previews: some View {
-        let vm : VultViewModel = {
-            let vm = VultViewModel()
-            vm.files = [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)]
-            return vm
-        }()
-        
-        FilesTable()
-            .environmentObject(vm)
+        FilesTable(didTapRow: { _ in}, didCopy: {_ in}, downloadFiles: { _ in }, files: [File(name: "IMG_001.PNG", mimetype: "", path: "", lookupHash: "", type: "", size: 8378378399, numBlocks: 0, actualSize: 0, actualNumBlocks: 0, encryptionKey: "", createdAt: 0.0, updatedAt: 0.0, completedBytes: 0)])
     }
 }
 
 struct FileRow: View {
     var file: File
+    var selecting: Bool
+    @Binding var selectedFiles: [File]
     var body: some View {
         HStack(spacing: 20) {
+            if selecting {
+                if selectedFiles.contains(file) {
+                    Image(systemName: "checkmark.circle.fill").foregroundColor(.cyan)
+                } else {
+                    Image(systemName: "circle").foregroundColor(.cyan)
+                }
+            }
+            
             if let image = ZCNImage(contentsOfFile: file.localThumbnailPath.path) {
                 Image(image)
                     .resizable()

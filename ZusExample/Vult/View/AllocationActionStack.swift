@@ -9,31 +9,33 @@ import SwiftUI
 import PhotosUI
 
 struct AllocationActionStack: View {
-    @EnvironmentObject var vultVM: VultViewModel
     @Environment(\.colorScheme) var colorScheme
+    
+    @State var presentDocumentPicker: Bool = false
+    @State private var selectedPhotos: [PHPickerResult] = []
+    var didSelectPhotos: ([PHPickerResult]) -> ()
+    var didSelectDocuments: (Result<URL, Error>) -> ()
+    
     var body: some View {
         HStack(spacing:10) {
             
-            PhotosPicker(
-                selection: $vultVM.selectedPhotos,
-                matching: .images,
-                photoLibrary: .shared()) {
-                    WalletActionBlock(icon: "photo",title: "Upload Image")
-                }
-            
+            WalletActionBlock(icon: "photo",title: "Upload Image")
+                .sheet(destination: ImagePicker(selectedImages: $selectedPhotos))
+                
             WalletActionBlock(icon: "document",title: "Upload Document")
-                .onTapGesture {
-                    vultVM.presentDocumentPicker = true
-                }
+                .tapToggle($presentDocumentPicker)
+            
         }
         .aspectRatio(3.2, contentMode: .fit)
         .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.95), radius: 100, x: 0, y: 0)
+        .onChange(of: selectedPhotos, perform: didSelectPhotos)
+        .fileImporter(isPresented: $presentDocumentPicker, allowedContentTypes: [.image,.pdf,.audio],onCompletion: didSelectDocuments)
     }
 }
 
 struct AllocationActionStack_Previews: PreviewProvider {
     static var previews: some View {
-        AllocationActionStack()
+        AllocationActionStack(didSelectPhotos: {_ in }, didSelectDocuments: { _ in })
             .environmentObject(VultViewModel())
             .background(Color.gray.opacity(0.1))
             .previewLayout(.sizeThatFits)
