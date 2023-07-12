@@ -51,7 +51,7 @@ public struct ZCNUserDefaults {
     }
 
     public static var network: Network {
-        get { return Network(rawValue: defaults.string(forKey: ZCNUserDefaultsKey.network.rawValue) ?? "") ?? .devZus }
+        get { return Network(rawValue: defaults.string(forKey: ZCNUserDefaultsKey.network.rawValue) ?? "") ?? .demoZus }
         set { defaults.set(newValue.rawValue, forKey: ZCNUserDefaultsKey.network.rawValue) }
     }
 

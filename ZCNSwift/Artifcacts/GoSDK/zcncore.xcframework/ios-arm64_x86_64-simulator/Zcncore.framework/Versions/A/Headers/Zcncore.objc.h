@@ -545,7 +545,6 @@ used to call after the transaction or verification is completed
 - (nonnull instancetype)init;
 @property (nonatomic) int64_t readPrice;
 @property (nonatomic) int64_t writePrice;
-@property (nonatomic) double minLockDemand;
 @property (nonatomic) int64_t maxOfferDuration;
 @end
 

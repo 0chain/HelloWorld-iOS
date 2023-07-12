@@ -12,7 +12,7 @@ import ZCNSwift
 
 class ZusExampleViewModel: ObservableObject {
     
-    private static var network: NetworkConfig = Network.devZus.config
+    private static var network: NetworkConfig = Network.demoZus.config
     
     @Published var processing: Bool = false
     @Published var toast: ZCNToast.ZCNToastType = .progress("Creating Wallet...")
@@ -32,7 +32,7 @@ class ZusExampleViewModel: ObservableObject {
             ZCNUserDefaults.publicEncKey = getPublicEncryptionKey
             
             try ZCNSwift.ZcncoreManager.setWalletInfo(wallet: wallet)
-            try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: wallet, network: ZCNSwift.Network.devZus)
+            try ZCNSwift.ZcncoreManager.initialiseSDK(wallet: wallet, network: ZCNSwift.Network.demoZus)
             
             DispatchQueue.main.async {
                 self.toast = .progress("Creating Allocation ...")

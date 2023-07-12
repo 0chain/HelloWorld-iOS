@@ -72,6 +72,7 @@
 @property (nonatomic) int64_t expiration;
 @property (nonatomic) NSString* _Nonnull name;
 @property (nonatomic) NSString* _Nonnull stats;
+@property (nonatomic) double minLockDemand;
 /**
  * CancelDownload - cancel file download
  */
