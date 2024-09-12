@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct WalletActionStack: View {
-    @EnvironmentObject var boltVM: BoltViewModel
     @Environment(\.colorScheme) var colorScheme
-    var width: CGFloat
-    
+    var walletAction: (WalletActionType) -> ()
     var body: some View {
-        HStack(spacing:0) {
-            ForEach(WalletActionType.allCases,id:\.self) { action in
-                WalletActionButton(width: width, action: boltVM.walletAction, button: action)
-
+        GeometryReader { gr in
+            HStack(spacing:0) {
+                WalletActionButton(width: gr.size.width, action: walletAction, button: .send)
+                WalletActionButton(width: gr.size.width, action: walletAction, button: .receive)
+                WalletActionButton(width: gr.size.width, action: walletAction, button: .faucet)
             }
+            .frame(height:gr.size.width/4)
+            .background(Color.tertiarySystemBackground)
+            .cornerRadius(12)
+            .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.75), radius: 75, x: 0, y: 0)
+            .padding(.bottom,10)
         }
-        .frame(height:width/4)
-        .background(Color.tertiarySystemBackground)
-        .cornerRadius(12)
-        .shadow(color: .init(white: colorScheme == .dark ? 0.05 : 0.75), radius: 75, x: 0, y: 0)
-        .padding(.bottom,10)
+        .aspectRatio(4, contentMode: .fit)
     }
 }
 
@@ -77,10 +77,9 @@ enum WalletActionType: CaseIterable {
 
 struct WalletActionStack_Previews: PreviewProvider {
     static var previews: some View {
-        WalletActionStack(width: 345)
+        WalletActionStack(walletAction: { _ in })
             .padding(50)
             .background()
-            .environmentObject(BoltViewModel())
             .previewLayout(.sizeThatFits)
     }
 }

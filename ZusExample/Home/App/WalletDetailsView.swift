@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct WalletDetailsView: View {
     let wallet: Wallet?
-    @AppStorage(Utils.UserDefaultsKey.publicEncKey.rawValue) var publicEncKey: String = ""
-    @AppStorage(Utils.UserDefaultsKey.walletJSON.rawValue) var walletJSON: String = ""
+    @AppStorage(ZCNUserDefaultsKey.publicEncKey.rawValue) var publicEncKey: String = ""
+    @AppStorage(ZCNUserDefaultsKey.walletJSON.rawValue) var walletJSON: String = ""
     
     var prettyJSON: String? {
         if let jsonData = walletJSON.data(using: .utf8) {
@@ -29,11 +30,11 @@ struct WalletDetailsView: View {
     }
     
     init() {
-        self.wallet = Utils.wallet
+        self.wallet = ZCNUserDefaults.wallet
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 Section("details") {
                     ListRow(title: "Client ID", body: wallet?.client_id)

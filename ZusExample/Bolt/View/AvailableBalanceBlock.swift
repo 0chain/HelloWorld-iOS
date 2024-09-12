@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 struct AvailableBalanceBlock: View {
-    @EnvironmentObject var boltVM: BoltViewModel
-    @AppStorage(Utils.UserDefaultsKey.balance.rawValue) var balance: Int = 0
+    @AppStorage(ZCNUserDefaultsKey.balance.rawValue) var balance: Int = 0
+    @AppStorage(ZCNUserDefaultsKey.usd.rawValue) var usd: Double = 0.0
 
     var body: some View {
         VStack(alignment:.leading,spacing: 5) {
@@ -29,12 +30,12 @@ struct AvailableBalanceBlock: View {
             HStack {
                 Text("Total Balance")
                     .font(.system(size: 16, weight: .regular))
-                Text("$ \(balance.usd)")
+                Text("$ \(balance.tokens * usd)")
                     .font(.system(size: 16, weight: .bold))
                 
             }
             
-            Text("1 ZCN ≈ $\(Utils.zcnUsdRate)")
+            Text("1 ZCN ≈ $\(usd)")
                 .foregroundColor(.secondary)
         }
     }
@@ -43,7 +44,6 @@ struct AvailableBalanceBlock: View {
 struct AvailableBalanceBlock_Previews: PreviewProvider {
     static var previews: some View {
         AvailableBalanceBlock()
-            .environmentObject(BoltViewModel())
             .padding(20)
             .previewLayout(.sizeThatFits)
     }
