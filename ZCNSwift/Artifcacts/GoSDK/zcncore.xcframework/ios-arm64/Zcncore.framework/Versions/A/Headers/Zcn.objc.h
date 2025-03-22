@@ -35,6 +35,13 @@ FOUNDATION_EXPORT BOOL ZcnGetUserLockedTotal(NSString* _Nullable clientID, int64
 FOUNDATION_EXPORT NSString* _Nonnull ZcnReadPoolLock(NSString* _Nullable tokens, NSString* _Nullable fee, NSError* _Nullable* _Nullable error);
 
 /**
+ * ReadPoolUnLock unlocks all the tokens in the readpool associated with the current wallet.
+## Inputs
+  - fee: sas tokens
+ */
+FOUNDATION_EXPORT NSString* _Nonnull ZcnReadPoolUnLock(NSString* _Nullable fee, NSError* _Nullable* _Nullable error);
+
+/**
  * WritePoolLock locks given number of tokes for given duration in read pool.
 ## Inputs
   - allocID: allocation id

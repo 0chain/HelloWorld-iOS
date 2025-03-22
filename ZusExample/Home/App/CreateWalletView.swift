@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CreateWalletView: View {
-    @ObservedObject var zcncoreVM: ZcncoreManager
+    @ObservedObject var zcncoreVM: ZusExampleViewModel
     
     var body: some View {
         GeometryReader { gr in
@@ -51,6 +51,6 @@ struct CreateWalletView: View {
 
 struct CreateWalletView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateWalletView(zcncoreVM: .shared)
+        CreateWalletView(zcncoreVM: .init())
     }
 }

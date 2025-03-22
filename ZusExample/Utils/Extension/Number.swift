@@ -17,16 +17,6 @@ extension Int {
         return ZcncoreConvertToToken(Int64(self))
     }
     
-    var usd: Double {
-        let usd: Double = Utils.zcnUsdRate
-        let amount: Double = tokens * usd
-        return amount
-    }
-    
-    var usdString: String {
-        return "$ \(usd)"
-    }
-    
     var formattedByteCount: String {
         let formatter = ByteCountFormatter()
         formatter.countStyle = .file

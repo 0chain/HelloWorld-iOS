@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
+import ZCNSwift
 
 @main
 struct ZusExampleApp: App {
-    @AppStorage(Utils.UserDefaultsKey.walletJSON.rawValue) var wallet: String = ""
-    @AppStorage(Utils.UserDefaultsKey.allocationID.rawValue) var allocation: String = ""
-
-    @StateObject var zcncoreVM: ZcncoreManager = ZcncoreManager.shared
+    @AppStorage(ZCNUserDefaultsKey.walletJSON.rawValue) var wallet: String = ""
+    @AppStorage(ZCNUserDefaultsKey.allocationID.rawValue) var allocation: String = ""
+    @StateObject var zcncoreVM: ZusExampleViewModel = .init()
     
     init() {
-        zcncoreVM.initialize()
+        ZCNSwift.initialize()
     }
     
     var body: some Scene {

@@ -15,4 +15,9 @@ extension Encodable {
         encoder.dateEncodingStrategy = .iso8601
         return try encoder.encode(self)
     }
+    
+    func jsonString() throws -> String {
+        let data = try jsonData()
+        return String(data: data, encoding: .utf8) ?? ""
+    }
 }

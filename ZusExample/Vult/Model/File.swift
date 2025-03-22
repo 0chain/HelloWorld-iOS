@@ -17,6 +17,10 @@ extension File {
     }
     
     var isDownloaded: Bool {
+        return _isDownloaded || isAvailableOffline
+    }
+    
+    var isAvailableOffline: Bool {
         return FileManager.default.fileExists(atPath: localFilePath.path)
     }
     
@@ -33,6 +37,18 @@ extension File {
     
     var fileDownloadPercent: String {
         return "\(completedBytes/size) %"
+    }
+    
+    var multiUpload: MultiUpload {
+        return MultiUpload(fileName: name,
+                           filePath: localUploadPath.path,
+                           thumbnailPath: localThumbnailPath.path,
+                           remotePath: "/",
+                           encrypt: false)
+    }
+    
+    var multiDownload: MultiDownload {
+        return MultiDownload(localPath: localFilePath.path, remotePath: path, downloadOp: 1)
     }
     
     func saveFile(data: Data?) throws {

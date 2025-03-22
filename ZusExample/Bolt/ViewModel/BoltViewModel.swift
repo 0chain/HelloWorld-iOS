@@ -15,37 +15,24 @@ class BoltViewModel:NSObject, ObservableObject {
     @Published var balance: Int = 0
     
     @Published var presentReceiveView: Bool = false
-    @Published var presentErrorAlert: Bool = false
     @Published var presentSendView: Bool = false
-
-    @Published var alertMessage: String = ""
-    @Published var clientID: String = ""
-    @Published var amount: String = ""
-
+    
     @Published var transactions: ZCNSwift.Transactions = []
     
     @Published var presentPopup: Bool = false
     @Published var popup = ZCNToast.ZCNToastType.success("YES")
-    
-    let manager: TransactionManager = .init()
-    @Published var userDefaultManager: UserdefaultManager = .init()
-    
+        
     var cancellable = Set<AnyCancellable>()
     
     override init() {
         super.init()
-        Timer.publish(every: 30, on: RunLoop.main, in: .default)
-            .autoconnect()
-            .map { _ in }
-            .sink(receiveValue: getBalance)
-            .store(in: &cancellable)
+//        Timer.publish(every: 30, on: RunLoop.main, in: .default)
+//            .autoconnect()
+//            .map { _ in }
+//            .sink(receiveValue: getBalance)
+//            .store(in: &cancellable)
         
-        
-        userDefaultManager.$balance
-            .receive(on: RunLoop.main)
-            .removeDuplicates()
-            .assign(to: &$balance)
-        
+        balance = ZCNUserDefaults.balance
     }
     
     deinit {
@@ -56,9 +43,10 @@ class BoltViewModel:NSObject, ObservableObject {
     func getBalance() {
         Task {
             do {
-                let balance = try await self.manager.getBalance()
+                let balance = try await ZcncoreManager.getBalance()
                 DispatchQueue.main.async {
-                    self.userDefaultManager.balance = balance
+                    ZCNUserDefaults.balance = balance
+                    self.balance = balance
                 }
             } catch {
                 print("ERROR")
@@ -67,44 +55,48 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func walletAction(_ action: WalletActionType) {
-        switch action {
-        case .send:
-            self.presentSendView = true
-        case .receive:
-            self.presentReceiveView = true
-        case .faucet:
-            self.receiveFaucet()
+        DispatchQueue.main.async {
+            switch action {
+            case .send:
+                self.presentSendView = true
+            case .receive:
+                self.presentReceiveView = true
+            case .faucet:
+                self.receiveFaucet()
+            }
         }
     }
     
     func receiveFaucet() {
-        self.presentSendView = false
+        self.popup = .progress("Recieving ZCN from faucet")
+        self.presentPopup = true
         Task {
             do {
-                DispatchQueue.main.async {
-                    self.popup = .progress("Recieving ZCN from faucet")
-                    self.presentPopup = true
-                }
-                let txn = try await self.manager.faucet()
-                self.transactions.append(txn)
+                let txn = try await ZcncoreManager.faucet()
                 
-                self.onTransactionComplete(t: txn)
-
+                DispatchQueue.main.async {
+                    self.transactions.append(txn)
+                    self.onTransactionComplete(t: txn)
+                }
+                
             } catch let error {
                 self.onTransactionFailed(error: error.localizedDescription)
             }
         }
     }
     
-    func sendZCN() {
+    func sendZCN(clientID: String, amount: String) {
+        DispatchQueue.main.async {
+            self.presentSendView = false
+        }
         Task {
             do {
-                guard let amount = Double(self.amount) else {
+                guard let amount = Double(amount) else {
                     self.onTransactionFailed(error: "invalid amount")
                     return
                 }
                 
-                guard self.clientID.isValidAddress else {
+                guard clientID.isValidAddress else {
                     self.onTransactionFailed(error: "invalid address")
                     return
                 }
@@ -119,7 +111,7 @@ class BoltViewModel:NSObject, ObservableObject {
                     return
                 }
                 
-                guard Utils.wallet?.client_id != self.clientID else {
+                guard ZCNUserDefaults.wallet?.client_id != clientID else {
                     self.onTransactionFailed(error: "cannot send to own wallet")
                     return
                 }
@@ -129,15 +121,13 @@ class BoltViewModel:NSObject, ObservableObject {
                     self.presentPopup = true
                 }
                 
-                let txn = try await self.manager.send(toClientID: self.clientID, value: amount.value, desc: "")
-                self.transactions.append(txn)
-
-                self.onTransactionComplete(t: txn)
-
+                let txn = try await ZcncoreManager.send(toClientID: clientID, value: amount.value, desc: "")
+                
                 DispatchQueue.main.async {
-                    self.clientID = ""
-                    self.amount = ""
+                    self.transactions.append(txn)
+                    self.onTransactionComplete(t: txn)
                 }
+                
             } catch let error {
                 self.onTransactionFailed(error: error.localizedDescription)
             }
@@ -145,23 +135,16 @@ class BoltViewModel:NSObject, ObservableObject {
     }
     
     func copyClientID() {
-        PasteBoard.general.setString(Utils.wallet?.client_key)
+        PasteBoard.general.setString(ZCNUserDefaults.wallet?.client_key)
     }
     
-    func getTransactions() {
-        Task {
-            do {
-                let clientId = Utils.wallet?.client_id
-                let txns1 = (try? await manager.getTransactions(toClient: clientId, fromClient: nil)) ?? []
-                let txns2 = (try? await manager.getTransactions(toClient: nil, fromClient: clientId)) ?? []
-
-                DispatchQueue.main.async {
-                    self.transactions = txns1 + txns2
-                }
-                
-            } catch {
-                print("ERROR")
-            }
+    func getTransactions() async {
+        let clientId = ZCNUserDefaults.wallet?.client_id
+        let txns1 = (try? await ZcncoreManager.getTransactions(toClient: clientId, fromClient: nil)) ?? []
+        let txns2 = (try? await ZcncoreManager.getTransactions(toClient: nil, fromClient: clientId)) ?? []
+        
+        DispatchQueue.main.async {
+            self.transactions = txns1 + txns2
         }
     }
     

@@ -182,10 +182,6 @@ is status != StatusSuccess then err will give the reason
  * Send implements sending token to a given clientid
  */
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
-/**
- * SetTransactionFee implements method to set the transaction fee
- */
-- (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
@@ -264,7 +260,6 @@ is status != StatusSuccess then err will give the reason
 used to call after the transaction or verification is completed
  */
 - (BOOL)setTransactionCallback:(id<ZcncoreTransactionCallback> _Nullable)cb error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
 /**
  * SetTransactionHash implements verify a previous transaction status
  */
@@ -550,7 +545,6 @@ used to call after the transaction or verification is completed
 - (nonnull instancetype)init;
 @property (nonatomic) int64_t readPrice;
 @property (nonatomic) int64_t writePrice;
-@property (nonatomic) double minLockDemand;
 @property (nonatomic) int64_t maxOfferDuration;
 @end
 
@@ -619,7 +613,6 @@ allocation->blobber only.
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)sendWithSignatureHash:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc sig:(NSString* _Nullable)sig CreationDate:(int64_t)CreationDate hash:(NSString* _Nullable)hash error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionCallback:(id<ZcncoreTransactionCallback> _Nullable)cb error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionHash:(NSString* _Nullable)hash error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionNonce:(int64_t)txnNonce error:(NSError* _Nullable* _Nullable)error;
 /**
@@ -696,7 +689,6 @@ allocation->blobber only.
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-@property (nonatomic) ZcncoreTransaction* _Nullable transaction;
 /**
  * CancelAllocation transaction.
  */
@@ -709,7 +701,6 @@ allocation->blobber only.
  * CreateReadPool for current user.
  */
 - (BOOL)createReadPool:(NSError* _Nullable* _Nullable)error;
-- (BOOL)estimateFee:(float)reqPercent ret0_:(int64_t* _Nullable)ret0_ error:(NSError* _Nullable* _Nullable)error;
 /**
  * ExecuteFaucetSCWallet impements the Faucet Smart contract for a given wallet
  */
@@ -755,9 +746,7 @@ allocation->blobber only.
  */
 - (BOOL)registerMultiSig:(NSString* _Nullable)walletstr mswallet:(NSString* _Nullable)mswallet error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)sendWithSignatureHash:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc sig:(NSString* _Nullable)sig CreationDate:(int64_t)CreationDate hash:(NSString* _Nullable)hash error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionCallback:(id<ZcncoreTransactionCallback> _Nullable)cb error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionHash:(NSString* _Nullable)hash error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)setTransactionNonce:(int64_t)txnNonce error:(NSError* _Nullable* _Nullable)error;
 /**
@@ -1241,6 +1230,9 @@ FOUNDATION_EXPORT void ZcncoreGetSharders(id<ZcncoreGetInfoCallback> _Nullable c
  */
 FOUNDATION_EXPORT BOOL ZcncoreGetSnapshots(int64_t round, int64_t limit, id<ZcncoreGetInfoCallback> _Nullable cb, NSError* _Nullable* _Nullable error);
 
+// skipped function GetStableMiners with unsupported parameter or return types
+
+
 /**
  * GetStakePoolInfo obtains information about stake pool of a blobber and
 related validator.
@@ -1407,6 +1399,8 @@ FOUNDATION_EXPORT NSString* _Nonnull ZcncoreRecoverOfflineWallet(NSString* _Null
 It also registers the wallet again to block chain.
  */
 FOUNDATION_EXPORT BOOL ZcncoreRecoverWallet(NSString* _Nullable mnemonic, id<ZcncoreWalletCallback> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+FOUNDATION_EXPORT void ZcncoreResetStableMiners(void);
 
 /**
  * SetAuthUrl will be called by app to set zauth URL to SDK.
@@ -1717,10 +1711,6 @@ is status != StatusSuccess then err will give the reason
  * Send implements sending token to a given clientid
  */
 - (BOOL)send:(NSString* _Nullable)toClientID val:(NSString* _Nullable)val desc:(NSString* _Nullable)desc error:(NSError* _Nullable* _Nullable)error;
-/**
- * SetTransactionFee implements method to set the transaction fee
- */
-- (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)stakePoolLock:(NSString* _Nullable)providerId providerType:(long)providerType lock:(NSString* _Nullable)lock error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)stakePoolUnlock:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
 - (BOOL)storageSCCollectReward:(NSString* _Nullable)providerId providerType:(long)providerType error:(NSError* _Nullable* _Nullable)error;
@@ -1808,7 +1798,6 @@ Note: to be buildable on MacOSX all arguments should have names.
 used to call after the transaction or verification is completed
  */
 - (BOOL)setTransactionCallback:(id<ZcncoreTransactionCallback> _Nullable)cb error:(NSError* _Nullable* _Nullable)error;
-- (BOOL)setTransactionFee:(NSString* _Nullable)txnFee error:(NSError* _Nullable* _Nullable)error;
 /**
  * SetTransactionHash implements verify a previous transaction status
  */

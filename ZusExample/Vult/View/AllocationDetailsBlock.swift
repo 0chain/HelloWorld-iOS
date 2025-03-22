@@ -9,25 +9,25 @@ import SwiftUI
 import ZCNSwift
 
 struct AllocationDetailsBlock: View {
-    @EnvironmentObject var vultVM: VultViewModel
+    var allocation: Allocation
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
             HStack(spacing:20) {
                 VStack(alignment: .leading) {
-                    Text(vultVM.allocation.defaultName)
+                    Text(allocation.defaultName)
                         .font(.system(size: 14, weight: .semibold))
-                    Text(vultVM.allocation.expirationDate.formattedUNIX)
+                    Text(allocation.expirationDate.formattedUNIX)
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.gray)
                 }
                 
                 VStack(alignment: .leading) {
-                    ProgressView(value: vultVM.allocation.allocationFraction)
+                    ProgressView(value: allocation.allocationFraction)
                         .progressViewStyle(ZCNProgressStyle())
                         .frame(height: 10)
                     
-                    Text("\(vultVM.allocation.stats.usedSize.formattedByteCount) used of \(vultVM.allocation.size.formattedByteCount) (\(vultVM.allocation.allocationPercentage)%)")
+                    Text("\(allocation.stats.usedSize.formattedByteCount) used of \(allocation.size.formattedByteCount) (\(allocation.allocationPercentage)%)")
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.gray)
                         .lineLimit(1)
@@ -44,7 +44,7 @@ struct AllocationDetailsBlock: View {
 
 struct AllocationDetailsBlock_Previews: PreviewProvider {
     static var previews: some View {
-        AllocationDetailsBlock()
+        AllocationDetailsBlock(allocation: .default)
             .environmentObject(VultViewModel())
             .previewLayout(.sizeThatFits)
     }

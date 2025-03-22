@@ -28,14 +28,12 @@ staked and users get rewards for staking.
 
 https://github.com/0chain/HelloWorld-iOS/assets/53724307/e9279577-4a23-4539-bc16-a8531e1c51a0
 
-
 ## Vult
 
 Vult is a dencentralised anonymous file sharing platform. Users can upload files and share them with
 other users.
 
 https://github.com/0chain/HelloWorld-iOS/assets/53724307/2d98a32d-87f1-4b0d-9d13-ff4f4136d32d
-
 
 ## SDK
 

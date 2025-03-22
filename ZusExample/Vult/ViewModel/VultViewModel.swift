@@ -10,17 +10,18 @@ import Zcncore
 import Combine
 import _PhotosUI_SwiftUI
 import ZCNSwift
+import Photos
+import AVKit
+import SwiftUI
 
 class VultViewModel: NSObject, ObservableObject {
     
-    @Published var allocation: Allocation = Allocation.default
-    
-    @Published var presentAllocationDetails: Bool = false
-    @Published var presentDocumentPicker: Bool = false
+    @Published var allocation: Allocation = Allocation.default    
 
     @Published var files: Files = []
-    @Published var selectedPhotos: [PhotosPickerItem] = []
-
+    
+    @Published var selectedFiles: [File] = []
+    
     @Published var selectedFile: File? = nil
     @Published var openFile: Bool = false
 
@@ -32,16 +33,19 @@ class VultViewModel: NSObject, ObservableObject {
         return callback
     }()
     
-    override init() {
-        super.init()
-        ZCNFileManager.setAllocationID(id: Utils.get(key: .allocationID) as? String ?? "")
-        self.getAllocation()
+    func didTapRow(file: File) {
+        if file.isDownloaded {
+            self.openFile = true
+            self.selectedFile = file
+        } else if file.isUploaded {
+            downloadImage(file: [file])
+        }
     }
     
     func getAllocation() {
         Task {
             do {
-                let allocation = try await ZCNFileManager.getAllocation()
+                let allocation = try await ZboxManager.getAllocation()
                 DispatchQueue.main.async {
                     self.allocation = allocation
                 }
@@ -51,26 +55,32 @@ class VultViewModel: NSObject, ObservableObject {
         }
     }
     
-    func uploadImage(selectedPhotos: [PhotosPickerItem]) {
+    //func uploadImage(selectedPhotos: [PhotosPickerItem]) {
+    func uploadImage(selectedPhotos: [PHPickerResult]) {
         Task {
             var files: Files = []
-            
             do {
-                for newItem in selectedPhotos {
-                    let name = PHAsset.fetchAssets(withLocalIdentifiers: [newItem.itemIdentifier!], options: nil).firstObject?.value(forKey: "filename") as? String ?? ""
-                    if let data = try await newItem.loadTransferable(type: Data.self) {
-                        //try uploadFile(data: data, name: name)
-                        var file = File()
-                        file.name = name
-                        file.path = "/\(name)"
-                        try file.saveFile(data: data)
-                        try await file.generateThumbnail()
-                        files.append(file)
+                let identifiers = selectedPhotos.compactMap(\.assetIdentifier)
+                let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
+                for index in 0..<fetchResult.count {
+                  let asset = fetchResult.object(at: index)
+                    do {
+                    let image = try await asset.requestImage()
+                      if let data = image.pngData() {
+                          let filename = asset.value(forKey: "filename") as? String ?? Date().timeIntervalSince1970.description
+                          var file = File()
+                          file.name = filename
+                          file.path = "/\(filename)"
+                          try file.saveFile(data: data)
+                          try await file.generateThumbnail()
+                          files.append(file)
+                      }
+                    } catch let error {
+                      print(error)
                     }
-                }
-                
+                  }
+                  
                 try self.uploadFiles(files: files)
-                
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -99,22 +109,16 @@ class VultViewModel: NSObject, ObservableObject {
     }
     
     func uploadFiles(files: [File]) throws {
-        try ZCNFileManager.multiUploadFiles(workdir: Utils.tempPath(),
-                                        localPaths: files.map(\.localUploadPath.path),
-                                        thumbnails: files.map(\.localThumbnailPath.path),
-                                        names: files.map(\.name),
-                                        remotePath: "/",
+        try ZboxManager.multiUploadFiles(workdir: Utils.tempPath(),
+                                        options: files.map(\.multiUpload),
                                         statusCb: callback)
     }
     
-    func downloadImage(file: File) {
+    func downloadImage(file: [File]) {
         do {
-            try ZCNFileManager.downloadFile(remotePath: file.path, localPath: file.localFilePath.path, statusCb: self.callback)
-            
-            DispatchQueue.main.async {
-                self.popup = .progress("Downloading \(file.name)")
-                self.presentPopup = true
-            }
+            try ZboxManager.multiDownloadFiles(options: file.map(\.multiDownload), statusCb: self.callback)
+            let message = file.count == 1 ? "\(file[0].name)" : "\(file.count) files"
+            self.presentPopup(.progress("Downloading \(message)"))
         } catch let error {
             print(error.localizedDescription)
         }
@@ -122,7 +126,7 @@ class VultViewModel: NSObject, ObservableObject {
     
     func listDir() async {
         do {
-            let files = try await ZCNFileManager.listDir(remotePath: "/")
+            let files = try await ZboxManager.listDir()
             DispatchQueue.main.async {
                 self.files = files.list
             }
@@ -133,10 +137,17 @@ class VultViewModel: NSObject, ObservableObject {
     
     func copyAuthToken(file: File) {
         do {
-            let token = try ZCNFileManager.getAuthTicket(file: file)
+            let token = try ZboxManager.getAuthTicket(file: file)
             UIPasteboard.general.string = token
         } catch {
-            
+            self.presentPopup(.error("Failed to generate auth Token"))
+        }
+    }
+    
+    private func presentPopup(_ type: ZCNToast.ZCNToastType) {
+        DispatchQueue.main.async {
+            self.popup = type
+            self.presentPopup = true
         }
     }
     
@@ -150,10 +161,12 @@ extension VultViewModel {
                 self.files[index].completedBytes = size
                 self.files[index].status = .completed
                 if op == .upload {
+                    self.allocation.addSize(size)
                     self.files[index].isUploaded = true
+                } else if op == .download {
+                    self.files[index]._isDownloaded = true
                 }
             }
-            self.allocation.addSize(size)
             let action = op == .upload ? "Uploaded" : "Downloaded"
             self.popup = .success("\(action) \(filename ?? "")")
             self.presentPopup = true

@@ -19,7 +19,9 @@
 @class ZboxMediaItem;
 @class ZboxMediaPlaylist;
 @class ZboxMinMaxCost;
+@class ZboxMultiDownloadOption;
 @class ZboxMultiOperationOption;
+@class ZboxMultiUploadOption;
 @class ZboxStatusBarMocked;
 @class ZboxStatusCallbackWrapped;
 @class ZboxStreamingService;
@@ -70,6 +72,7 @@
 @property (nonatomic) int64_t expiration;
 @property (nonatomic) NSString* _Nonnull name;
 @property (nonatomic) NSString* _Nonnull stats;
+@property (nonatomic) double minLockDemand;
 /**
  * CancelDownload - cancel file download
  */
@@ -89,28 +92,34 @@
 - (BOOL)deleteFile:(NSString* _Nullable)remotePath error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFile - start download file from remote path to localpath
+isFinal- set true if this is the last file to download otherwise false
+when set to true it will start the download for all files in the queue
  */
-- (BOOL)downloadFile:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFile:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFileByBlock - start download file from remote path to localpath by blocks number
+isFinal- set true if this is the last file to download otherwise false
+when set to true it will start the download for all files in the queue
  */
-- (BOOL)downloadFileByBlock:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFileByBlock:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFromAuthTicket - download file from Auth ticket
  */
-- (BOOL)downloadFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadFromAuthTicketByBlocks - download file from Auth ticket by blocks number
  */
-- (BOOL)downloadFromAuthTicketByBlocks:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadFromAuthTicketByBlocks:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket startBlock:(int64_t)startBlock endBlock:(int64_t)endBlock numBlocks:(long)numBlocks remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadThumbnail - start download file thumbnail from remote path to localpath
+isFinal- set true if this is the last file to download otherwise false
+when set to true it will start the download for all files in the queue
  */
-- (BOOL)downloadThumbnail:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadThumbnail:(NSString* _Nullable)remotePath localPath:(NSString* _Nullable)localPath statusCb:(id<ZboxStatusCallbackMocked> _Nullable)statusCb isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * DownloadThumbnailFromAuthTicket - downloadThumbnail from Auth ticket
  */
-- (BOOL)downloadThumbnailFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status error:(NSError* _Nullable* _Nullable)error;
+- (BOOL)downloadThumbnailFromAuthTicket:(NSString* _Nullable)localPath authTicket:(NSString* _Nullable)authTicket remoteLookupHash:(NSString* _Nullable)remoteLookupHash remoteFilename:(NSString* _Nullable)remoteFilename status:(id<ZboxStatusCallbackMocked> _Nullable)status isFinal:(BOOL)isFinal error:(NSError* _Nullable* _Nullable)error;
 /**
  * GetStatistics - get allocation stats
  */
@@ -328,6 +337,19 @@
 - (nonnull instancetype)init;
 @end
 
+@interface ZboxMultiDownloadOption : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull remotePath;
+@property (nonatomic) NSString* _Nonnull localPath;
+@property (nonatomic) long downloadOp;
+@property (nonatomic) NSString* _Nonnull remoteFileName;
+@property (nonatomic) NSString* _Nonnull remoteLookupHash;
+@end
+
 @interface ZboxMultiOperationOption : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -338,6 +360,20 @@
 @property (nonatomic) NSString* _Nonnull remotePath;
 @property (nonatomic) NSString* _Nonnull destName;
 @property (nonatomic) NSString* _Nonnull destPath;
+@end
+
+@interface ZboxMultiUploadOption : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull filePath;
+@property (nonatomic) NSString* _Nonnull fileName;
+@property (nonatomic) NSString* _Nonnull remotePath;
+@property (nonatomic) NSString* _Nonnull thumbnailPath;
+@property (nonatomic) BOOL encrypt;
+@property (nonatomic) long chunkNumber;
 @end
 
 @interface ZboxStatusBarMocked : NSObject <goSeqRefInterface> {
@@ -477,11 +513,13 @@ FOUNDATION_EXPORT BOOL ZboxDeleteFile(NSString* _Nullable allocationID, NSString
   - remotePath
   - localPath: the full local path of file
   - statusCb: callback of status
+  - isFinal: is final download request(for example if u want to download 10 files in
+    parallel, the last one should be true)
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFile(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFile(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadFileByBlock - start download file from remote path to localpath by blocks number
@@ -494,12 +532,14 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFile(NSString* _Nullable allocationID, NSStri
   - endBlock
   - numBlocks
   - statusCb: callback of status
+  - isFinal: is final download request(for example if u want to download 10 files in
+    parallel, the last one should be true)
 
 ## Outputs
 
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFileByBlock(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, int64_t startBlock, int64_t endBlock, long numBlocks, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFileByBlock(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, int64_t startBlock, int64_t endBlock, long numBlocks, id<ZboxStatusCallbackMocked> _Nullable statusCb, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadFromAuthTicket - download file from Auth ticket
@@ -512,7 +552,7 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFileByBlock(NSString* _Nullable allocationID,
 	- remoteFilename
 	- status: callback of status
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadFromAuthTicketByBlocks - download file from Auth ticket by blocks number
@@ -527,7 +567,7 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicket(NSString* _Nullable allocation
   - remoteFilename
   - status: callback of status
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicketByBlocks(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, int64_t startBlock, int64_t endBlock, long numBlocks, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicketByBlocks(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, int64_t startBlock, int64_t endBlock, long numBlocks, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadThumbnail - start download file thumbnail from remote path to localpath
@@ -536,11 +576,13 @@ FOUNDATION_EXPORT BOOL ZboxDownloadFromAuthTicketByBlocks(NSString* _Nullable al
   - remotePath
   - localPath
   - statusCb: callback of status
+  - isFinal: is final download request(for example if u want to download 10 files in
+    parallel, the last one should be true)
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadThumbnail(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadThumbnail(NSString* _Nullable allocationID, NSString* _Nullable remotePath, NSString* _Nullable localPath, id<ZboxStatusCallbackMocked> _Nullable statusCb, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * DownloadThumbnailFromAuthTicket - downloadThumbnail from Auth ticket
@@ -552,7 +594,7 @@ FOUNDATION_EXPORT BOOL ZboxDownloadThumbnail(NSString* _Nullable allocationID, N
   - remoteFilename
   - status: callback of status
  */
-FOUNDATION_EXPORT BOOL ZboxDownloadThumbnailFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxDownloadThumbnailFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable localPath, NSString* _Nullable authTicket, NSString* _Nullable remoteLookupHash, NSString* _Nullable remoteFilename, id<ZboxStatusCallbackMocked> _Nullable status, BOOL isFinal, NSError* _Nullable* _Nullable error);
 
 /**
  * Encrypt - encrypting text with key
@@ -702,52 +744,44 @@ FOUNDATION_EXPORT NSString* _Nonnull ZboxListDirFromAuthTicket(NSString* _Nullab
  */
 FOUNDATION_EXPORT BOOL ZboxMoveObject(NSString* _Nullable allocationID, NSString* _Nullable path, NSString* _Nullable destPath, NSError* _Nullable* _Nullable error);
 
+FOUNDATION_EXPORT BOOL ZboxMultiDownload(NSString* _Nullable allocationID, NSString* _Nullable jsonMultiDownloadOptions, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+
+FOUNDATION_EXPORT BOOL ZboxMultiDownloadFromAuthTicket(NSString* _Nullable allocationID, NSString* _Nullable authTicket, NSString* _Nullable jsonMultiDownloadOptions, id<ZboxStatusCallbackMocked> _Nullable status, NSError* _Nullable* _Nullable error);
+
 /**
  * MultiOperation - do copy, move, delete and createdir operation together
 ## Inputs
   - allocationID
-  - jsonMultiUploadOpetions: Json Array of MultiOperationOption. eg: "[{"operationType":"move","remotePath":"/README.md","destPath":"/folder1/"},{"operationType":"delete","remotePath":"/t3.txt"}]"
+  - jsonMultiOperationOptions: Json Array of MultiOperationOption. eg: "[{"operationType":"move","remotePath":"/README.md","destPath":"/folder1/"},{"operationType":"delete","remotePath":"/t3.txt"}]"
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxMultiOperation(NSString* _Nullable allocationID, NSString* _Nullable jsonMultiUploadOptions, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxMultiOperation(NSString* _Nullable allocationID, NSString* _Nullable jsonMultiOperationOptions, NSError* _Nullable* _Nullable error);
 
 /**
  * MultiUpdateFile - update files from local path to remote path
 ## Inputs
   - allocationID
   - workdir: set a workdir as ~/.zcn on mobile apps
-  - filePathsString: space seperated local full path of files. eg "/usr/local/files/f1.txt /usr/local/files/f2.txt"
-  - fileNamesString: space seperated name of files. eg "f1.txt f2.jpeg"
-  - thumbnailPathsString: space seperated path for thumbnails. eg "full_path1  full_path3", here there are two spaces
-    between path1 and path3 because file2 doesn't have thumbnail.
-  - encrypt: string of 0s and 1s denoting whether to encrypt or not. eg "00110": encrypt third and fourth file. Length of string
-    should be equal to number of files.
-  - remotePath: directory path of updated file. It should end with "/"
+  - jsonMultiUploadOpetions: Json Array of MultiOperationOption. eg: "[{"remotePath":"/","filePath":"/t2.txt"},{"remotePath":"/","filePath":"/t3.txt"}]"
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxMultiUpdate(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable filePathsString, NSString* _Nullable fileNamesString, NSString* _Nullable encrypt, NSString* _Nullable thumbnailPathsString, NSString* _Nullable remotePath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxMultiUpdate(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable jsonMultiUploadOptions, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * MultiUploadFile - upload files from local path to remote path
 ## Inputs
   - allocationID
   - workdir: set a workdir as ~/.zcn on mobile apps
-  - filePathsString: space seperated local full path of files. eg "/usr/local/files/f1.txt /usr/local/files/f2.txt"
-  - fileNamesString: space seperated name of files. eg "f1.txt f2.jpeg"
-  - thumbnailPathsString: space seperated path for thumbnails. eg "full_path1  full_path3", here there are two spaces
-    between path1 and path3 because file2 doesn't have thumbnail.
-  - encrypt: string of 0s and 1s denoting whether to encrypt or not. eg "00110": encrypt third and fourth file. Length of string
-    should be equal to number of files.
-  - remotePath: Path of the remote directory where files will upload. It should end with "/"
+  - jsonMultiUploadOpetions: Json Array of MultiOperationOption. eg: "[{"remotePath":"/","filePath":"/t2.txt"},{"remotePath":"/","filePath":"/t3.txt"}]"
 
 ## Outputs
   - error
  */
-FOUNDATION_EXPORT BOOL ZboxMultiUpload(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable filePathsString, NSString* _Nullable fileNamesString, NSString* _Nullable encrypt, NSString* _Nullable thumbnailPathsString, NSString* _Nullable remotePath, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
+FOUNDATION_EXPORT BOOL ZboxMultiUpload(NSString* _Nullable allocationID, NSString* _Nullable workdir, NSString* _Nullable jsonMultiUploadOptions, id<ZboxStatusCallbackMocked> _Nullable statusCb, NSError* _Nullable* _Nullable error);
 
 /**
  * NewMediaPlaylist create media playlist(.m3u8)
